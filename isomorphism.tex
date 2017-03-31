@@ -1,0 +1,322 @@
+%!TEX root = main.tex
+%
+% isomorphism.tex
+%
+
+\chapter{The Equivalence}
+
+In this section, we assume that $\mathbf{C}$ is an Alexandroff category (viz. \cref{def:alexandroff cat}). Recall (viz. \cref{def:star sieve}) that we constructed a flat (viz. \cref{lem:well-fibered implies flat}, \cref{lem:alexandroff implies well-fibered}) functor
+\[ \ST : \mathbf{C} \to \mathbf{LH}/X_{\mathbf{C}}. \]
+We shall make some preparations first by proving some useful propositions, and then finish by proving that we can restrict to an equivalence of categories on the level of locally constant finite objects.
+\section{Preparation}
+
+\begin{proposition}
+\label{prop:the geometric morphism induced by ST}
+There exists a geometric morphism
+\[ \tau(\ST) : \mathbf{LH}/X_{\mathbf{C}} \to \mathbf{Set}^{\mathbf{C}^{op}} \]
+for which the left-exact left adjoint $\tau(\ST)^*$ is given by sending a presheaf $P$ on $\mathbf{C}$ to the tensor product $P \otimes_{\mathbf{C}} \ST$, and for which the right adjoint $\tau(\ST)_*$ sends an etale space $e : E \to X_{\mathbf{C}}$ to the presheaf $\underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right)$ defined for every object $A \in \mathbf{C}$ by
+\[ \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E \right)(A) = \Hom_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST(A), E \right). \]
+\end{proposition}
+\begin{proof}
+Follows directly from the theory in \cite[Chapter VII, Paragraph 7]{MacLaneMoerdijk91}. In particular, in \cite[Theorem VII.7.2]{MacLaneMoerdijk91}, take $\mathscr{E} = \mathbf{LH}/X_{\mathbf{C}}$. Alternatively, we spoke of the bijection between flat functors and geometric morphisms in \cref{thm:geometric morphisms correpsond to flat functors to E}.
+\end{proof}
+% Let $\mathbf{C} \in \mathbf{Cat}$ be a small category. Assume that $X_{\mathbf{C}}$ is connected. If $\mu : \mathbf{C} \to \mathbf{LH}/X_{\mathbf{C}}$ denotes the etale functor, recall that we get a sheaf by applying the sheaf of sections functor $\Gamma : \mathbf{LH}/X_{\mathbf{C}} \to \Sh(X_{\mathbf{C}})$.
+% Explicitly, this means that $(\Gamma \mu)(A)$ is the sheaf defined by sending an open $U \subset X_{\mathbf{C}}$ to the set of sections
+% \[ (\Gamma \mu)(A)(U) = \{s : U \to \ST(A) \mid e_A \circ s = \id_U \} \]
+% From \ref{lem:well-fibered implies flat} we obtain the following.
+% \begin{corollary}
+% Let $\mathbf{C} \in \mathbf{Cat}$ be an Alexandroff category. Then there is a flat functor $\mathbf{C} \to \Sh(X_\mathbf{C})$ given by sending an object $A \in \mathbf{C}$ to the sheaf $(\Gamma \mu)(A)$.
+% \end{corollary}
+% \begin{proof}
+% \cite[Theorem II.3]{MacLaneMoerdijk91} gives an equivalence of categories $\Sh(X_\mathbf{C}) \cong \mathbf{LH}/X_{\mathbf{C}}$ via $ \Gamma \dashv \Lambda$.
+% \end{proof}
+
+ 
+
+% \begin{proposition}
+% \label{prop:the geometric morphism induced by ST}
+% Let $\mathbf{C} \in \mathbf{Cat}$ be an Alexandroff category. Then there exists a geometric morphism $\tau(\Gamma \ST) : \mathbf{LH}/X_{\mathbf{C}} \to \mathbf{Set}^{\mathbf{C}^{op}}$ for which the left-exact left adjoint is given by
+% \[ \tau(\Gamma \ST)^* = -\otimes_{\mathbf{C}} \Gamma \ST \]
+% and the right adjoint is given by
+% \[ \tau(\Gamma \ST)_* = \underline{\Hom}_{\Sh(X_{\mathbf{C}})} \left(\Gamma \ST, - \right). \]
+% \end{proposition}
+% \begin{proof}
+% Follows directly from \cite[Chapter VII, Paragraph 7]{MacLaneMoerdijk91}. Indeed, $\tau(\Gamma \mu)^*$ is left-exact because $\mu$ (and so also $\Gamma \mu$) is flat by \cref{lem:well-fibered implies flat} and \cref{lem:alexandroff implies well-fibered}. They are adjoint by the generalized ``$\Hom\text{-}\otimes$'' adjunction, see \cite[Theorem VII.2.1]{MacLaneMoerdijk91}.
+% \end{proof}
+
+% From this point on, we assume that $\mathbf{C}$ is an Alexandroff category. 
+
+We shall be needing the following proposition.
+
+\begin{proposition}
+\label{prop:if two maps agree on a point then they are equal from szamuely}
+Let $p : Y \to X$ be a (not necessarily finite) covering map, where $Y$ is a topological space and $X$ is a locally connected space. Let $f,g : Z \to Y$ be two continuous maps satisfying $p \circ f= p \circ g$, where $Z$ is a connected topological space. If there is a point $z \in Z$ with $f(z) = g(z)$, then $f=g$.
+\end{proposition}
+\begin{proof}
+This is \cite[Proposition 2.2.2]{szamuely}. We'll give a sketch of the proof here. Let $U = \{w \in Z : f(w) = g(w)\}$. Then prove that $U$ is both open and closed in $Z$. Conclude that $U$ must be all of $Z$ by connectedness.
+\end{proof}
+
+The following proposition is central to this section.
+
+\begin{proposition}
+\label{coro:number of LHs is d if the degree is d}
+Let $\pi_E : E \to X_\mathbf{C}$ be a finite covering map of degree $d>0$ and let $A$ be an object of $\mathbf{C}$. Then we have a natural bijection of sets
+\[ \alpha_{A,E} : \left(\mathbf{LH}/X_\mathbf{C} \right)\left(\mu A, E \right) \to \pi_E^{-1}(|A|), \qquad \varphi \mapsto \varphi[\id_A, |A|]. \]
+\end{proposition}
+\begin{proof}
+By \cref{lem:alexandroff implies trivial endomorphisms},
+\[ e_A^{-1}(|A|) = \left\{ \left[ \id_A, |A| \right] \right\} \subset \ST(A). \]
+Write
+\[ \pi_E^{-1}(|A|) = \{x_1,\ldots,x_d\} \subset E. \]
+Now take a morphism $\varphi \in (\mathbf{LH}/X_{\mathbf{C}})(\ST(A), E)$. Then
+\[ \varphi[\id_A, |A|] \in \{x_1,\ldots,x_d\}. \]
+I claim that these $d$ choices for $\varphi[\id_A,|A|]$ completely determine $\varphi$. 
+So let $\psi \in (\mathbf{LH}/X_{\mathbf{C}})(\ST(A),E)$ be another morphism and suppose that
+\[ \varphi[\id_A,|A|] = x_1 = \psi[\id_A,|A|]. \]
+We will apply \cref{prop:if two maps agree on a point then they are equal from szamuely}. 
+Take $Y = E$, $X = X_{\mathbf{C}}$, $Z = \ST(A)$, $p = \pi_E$, $f = \varphi$, $g = \psi$ and $z = [\id_A,|A|]$ in \cref{prop:if two maps agree on a point then they are equal from szamuely}. 
+Then $X_{\mathbf{C}}$ is a locally connected space, because it is a CW-complex by \cite[Proposition I.2.3]{goersjardinne09}. Moreover, $\ST(A)$ is connected by \cref{lem:ST is connected for every object A}. Finally,
+\[ p \circ f = \pi_E \circ \varphi = e_A = \pi_E \circ \varphi = p \circ g. \]
+This proves that
+\[ \# \left(\mathbf{LH}/X_\mathbf{C} \right)\left(\mu A, E \right) \leq d. \]
+Let us now prove that the map $\alpha_{A,E}$ is surjective. 
+Thus, given $x \in \pi_E^{-1}(|A|)$ we want to show that there exists some $\varphi \in (\mathbf{LH}/X_{\mathbf{C}})(\ST A, E)$ such that $\varphi[\id_A,|A|] = x$. We shall actually construct such a $\varphi$. First, observe that $\pi_E$ is a Serre fibration. Then apply \cref{prop:if two maps agree on a point then they are equal from szamuely} to see that any two lifts of some $|\sigma| : \Delta^n \to X_{\mathbf{C}}$ are unique. For each $f \in \mathbf{C}/A$ (and so in particular for $\id_A$) we have a commutative diagram
+\[ \begin{tikzcd}
+\Delta^0 \arrow[hook]{r}{x} \arrow[hook, swap]{d}{|d_0|} & E \arrow{d}{\pi_E} \\
+\Delta^1 \arrow[swap]{r}{|f|} \arrow[dashed]{ur}{\exists ! \widetilde{f}} & X_{\mathbf{C}} \end{tikzcd} \]
+and a unique diagonal filler $\widetilde{f} : \Delta^1 \to E$ as indicated by the dotted arrow in the diagram. Thus we have a collection of lifted paths $\widetilde{f} : \Delta^n \to E$ all ending up at the point $x \in E$ and starting at some arbitrary point in $E$. Let us call the starting point $\widetilde{f}(0)$. 
+
+% Then for each pair $f,g \in \mathbf{C}/A$ and for each morphism $h : f \to g$ in $\mathbf{C}/A$ we have two commutative diagrams
+% \[ \begin{tikzcd}
+% \Delta^0 \arrow[hook, swap]{d}{|d^0|} \arrow[hook]{r}{\widetilde{g}(0)} & E \arrow{d}{\pi_E} & \Delta^0 \arrow[hook, swap]{d}{|d^1|} \arrow[hook]{r}{\widetilde{f}(0)} & E \arrow{d}{\pi_E} \\
+% \Delta^1 \arrow[swap]{r}{|h|} \arrow[dotted]{ur}{\exists ! \widetilde{h}_1} & X_{\mathbf{C}} & \Delta^1 \arrow[swap]{r}{|h|} \arrow[dotted]{ur}{\exists ! \widetilde{h}_2} & X_{\mathbf{C}}
+% \end{tikzcd} \]
+% and diagonal fillers $\widetilde{h}_1, \widetilde{h}_2 : \Delta^1 \to E$. By continuity and commutativity of the diagrams, $\widetilde{h}_1(0) = \widetilde{h}_2(0)$, $\widetilde{h}_1(1) = \widetilde{h}_2(1)$, so that $\widetilde{h}_1 = \widetilde{h}_2$ by uniqueness.
+
+Now let $[f,p] \in \ST(A)$ be an arbitrary point. We are going to define what $\varphi[f,p]$ is. We have $f : D_f \to A$ and $p \in D_f^*$, so $p \in \Int(\sigma)$ for some $n$-simplex $\sigma \in \st(D_f)$. We may assume that $\sigma$ is non-degenerate by \cref{lem:eilenberg-zilber}.
+If $n=0$, then $p=|D_f|$. In that case, we define
+\[ \varphi[f,p] := \widetilde{f}(0). \]
+Suppose now that $n>0$. Let $\theta : \mathbf{0} \to \mathbf{n}$ be an injective order-preserving map as in \cref{eq:sigma is eventual face of tau diagram} such that $D_f = \sigma \circ \mathbf{\Delta}(-,\theta)$. Then we have a commutative diagram
+\[ \begin{tikzcd}
+\Delta^0 \arrow[hook]{r}{\widetilde{f}(0)} \arrow[hook, swap]{d}{|\mathbf{\Delta}(-,\theta)|} & E \arrow{d}{\pi_E} \\
+\Delta^n \arrow[swap]{r}{|\sigma|} \arrow[dashed]{ur}{\exists ! \widetilde{\sigma}} & X_{\mathbf{C}} \end{tikzcd} \]
+and a unique diagonal filler $\widetilde{\sigma} : \Delta^n \to E$.  
+Let $t \in \Delta^n$ be the unique coordinates such that $p = |\sigma|(t)$. We define
+\[ \varphi[f,p] := \widetilde{\sigma}(t). \]
+We must prove that this definition is independent of the chosen representative of the equivalence relation in $\ST(A)$. 
+So suppose that $(f,p) \rhd (g,p)$. Then $p \in \Int(\sigma_f)$ and $p \in \Int(\sigma_g)$ for some $\sigma_f$ having $D_f$ as a vertex and some $\sigma_g$ having $D_g$ as a vertex. Suppose that we have uniquely lifted $\sigma_f$ and $\sigma_g$ to maps
+\[ \Delta^n \xrightarrow{\widetilde{\sigma_f}} E, \qquad \Delta^m \xrightarrow{\widetilde{\sigma_g}} E. \]
+Let $t_f \in \Delta^n$ and $t_g \in \Delta^m$ be the unique coordinates such that
+\[ |\sigma_f|(t_f) = p = |\sigma_g|(t_g). \]
+By the definition of $\rhd$, There exists a morphism $h : f \to g$ in $\mathbf{C}/A$ and a $k$-simplex $\tau \in \st(h)$ such that $p \in \Int(\tau)$. Consider first the $2$-simplex $\beta$ given by
+\[ \beta = (h,g) : \mathbf{\Delta}(-, \mathbf{2}) \to N\mathbf{C}. \]
+Let $\widetilde{\beta} : \Delta^2 \to E$ be the unique lift of $|\beta| : \Delta^2 \to X_{\mathbf{C}}$. By \cite[Exercise A.1]{AlgebraicTopologyBible}, the face of a lift is the lift of a face, so we see that two of the faces of $\widetilde{\beta}$ upstairs in $E$ are the lifts $\widetilde{f}$ and $\widetilde{g}$. Denote by $\widetilde{h}$ the third lift of $|h| : \Delta^1 \to X_{\mathbf{C}}$.
+
+We may assume by \cref{lem:eilenberg-zilber} that $\tau$, $\sigma_f$ and $\sigma_g$ are non-degenerate.
+This implies that $\tau = \sigma_f = \sigma_g$, and $n=m=k$, and $t_f = t_g$. Let $\theta' : \mathbf{1} \to \mathbf{m}$ be an injective order-preserving map as in \cref{eq:sigma is eventual face of tau diagram} such that $h = \tau \circ \mathbf{\Delta}(-,\theta')$. Then we have a commutative diagram
+\[ \begin{tikzcd}
+\Delta^1 \arrow{r}{\widetilde{h}} \arrow[hook, swap]{d}{|\mathbf{\Delta}(-,\theta')|} & E \arrow{d}{\pi_E} \\
+\Delta^m \arrow[swap]{r}{|\tau|} \arrow[dashed]{ur}{\exists ! \widetilde{\tau}} & X_{\mathbf{C}} \end{tikzcd} \]
+By uniqueness of the lifts, $\widetilde{\sigma_f} = \widetilde{\sigma_g} = \widetilde{\tau}$.
+% and suppose that for each of the $n+1$ faces $d_0 \sigma, \ldots, d_n \sigma$ of $\sigma$ a lift
+% \[ \widetilde{d_i \sigma} : \Delta^{n-1} \to E \]
+% has been chosen (if $\sigma$ is a $2$-simplex, the $3$ lifts are unique). We have $n+1$ commutative diagrams
+% \[ \begin{tikzcd}
+% \Delta^{n-1} \arrow[hook, swap]{d}{|d^i|} \arrow{r}{\widetilde{d_i \sigma}} & E \arrow{d}{\pi_E} \\
+% \Delta^n \arrow[swap]{r}{|\sigma|} \arrow[dotted]{ur}{\exists \widetilde{\sigma}_i} & X_{\mathbf{C}}
+% \end{tikzcd} \qquad i=0,\ldots,n. \]
+% Since $\pi_E : E \to X_{\mathbf{C}}$ is a Serre fibration, there exist $n+1$ diagonal fillers $\widetilde{\sigma}_i : \Delta^n \to E$ making the two triangles commute in each of the $n+1$ corresponding diagrams. These diagonal fillers are still unique by connectedness of $\Delta^n$, and the fact that $\pi_E$ is a covering map, so the image of a lift cannot cross between disjoint open sheets in $E$ upstairs.
+% Now commutativity and continuity imply that each of the $n+1$ lifts $\widetilde{\sigma}_i$ for $|\sigma|$ are the same, so we will denote this single lift by $\widetilde{\sigma} : \Delta^n \to E$. Since $p \in \Int(\sigma)$, there are (unique) barycentric coordinates $(t_0,\ldots,t_n) \in \Delta^n$ with $t_i > 0$ for all $i$ such that
+% \[ |\sigma|(t_0,\ldots,t_n) = p.\]
+% We define
+% \[ \varphi[f,p] := \widetilde{\sigma}\left(t_0,\ldots,t_n\right). \]
+% By construction, $\varphi$ is a map with the property that $e_A = \pi_E \circ \varphi$, so what's left to do is to check that it is independent of the equivalence relation, and that it is continuous.
+
+% So suppose that $(f,p) \rhd (g,p)$ (see \cref{def:star sieve}). Then there exists a morphism $h : f \to g$ in $\mathbf{C}/A$ and an $m$-simplex $\tau \in \st(h)$ such that $p \in \Int(\tau)$. We have $p \in D_f^*$, so there is some $\sigma_f \in \st(D_f)$ with $p \in \Int(\sigma_f)$ and we have $p \in D_g^*$, so there is some $\sigma_g \in \st(D_g)$ with $p \in \Int(\sigma_g)$. By \cref{lem:eilenberg-zilber} we may assume that $\sigma_f$, $\sigma_g$ and $\tau$ are non-degenerate. But then they must all three be the same simplex. So $\varphi$ is well-defined.
+
+Continuity of $\varphi$ follows from the fact that all the liftings $\widetilde{\sigma} : \Delta^n \to E$ from the continuous maps $|\sigma| : \Delta^n \to X_{\mathbf{C}}$ are continuous. Moreover, the realization $X_{\mathbf{C}}$ is defined as the colimit
+\[ X_{\mathbf{C}} = \colim_{\stackrel{\mathbf{\Delta}(-,\mathbf{n}) \to N\mathbf{C}}{\text{in } \mathbf{\Delta} \downarrow N\mathbf{C}}}\Delta^n \]
+So the gluing data comes from $X_{\mathbf{C}}$.
+
+\end{proof}
+
+From \cref{def:tensor product} and \cref{eq:tensor product rule}, we see that $P \otimes_{\mathbf{C}} \ST$ can be described as the space
+\[ \left( \bigsqcup_{A \in \mathbf{C}} P(A) \times \ST(A) \right) / \sim, \]
+where elements of this space (wherein $P(A)$ carries the discrete topology for each $A \in \mathbf{C}$) are denoted by
+\[ x \otimes [f,p] \in P \otimes_{\mathbf{C}} \ST, \qquad A \in \mathbf{C},\, x \in P(A), \, [f,p] \in \ST(A) \]
+under the rule
+\[ x \cdot g \otimes [f,p] = x \otimes [g \circ f, p], \qquad x \in P(A), g : A \to B, [f,p] \in \ST(A) \]
+defined by the equivalence relation $\sim$. In particular, we note that if $P$ is representable, say $P = \Hom_{\mathbf{C}}(-,A)$ with $A \in \mathbf{C}$, then
+\[ \Hom_{\mathbf{C}}(-,A) \otimes_{\mathbf{C}} \ST \cong \ST(A). \]
+
+\begin{theorem}
+\label{thm:equivalence of categories}
+If $\pi : E \to X_{\mathbf{C}}$ is a finite covering map, then $\underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E \right)$ is a locally constant finite presheaf on $\mathbf{C}$. Conversely, if $P$ is a locally constant finite presheaf on $\mathbf{C}$, then $P \otimes_{\mathbf{C}} \ST$ has the structure of a finite covering space over $X_{\mathbf{C}}$.
+\end{theorem}
+\begin{proof}
+The claim that $P \otimes_{\mathbf{C}} \ST$ is a finite covering map whenever $P \in \left(\mathbf{Set}^{\mathbf{C}^{op}}\right)_{\lcf}$ is covered in \cref{prop:standard LCF properties for the LCF topos}. (Use \cref{thm:equivalence of categories between etale spaces and sheaves} there for the translation between sheaves and etale spaces). Explicitly, the finite covering map is given by
+\[ \pi : P \otimes_{\mathbf{C}} \ST \to X_{\mathbf{C}}, \qquad x \otimes [f,p] \mapsto p. \]
+The degree of $\pi$ is the number of elements in $P(A)$, for any $A \in \mathbf{C}$. This is well-defined by \cref{prop:locally constant iff every restriction map is a bijection} and the assumption that $X_{\mathbf{C}}$ is connected.
+
+We shall prove the other direction, which is the remarkable one. So we want to show that given a finite covering map $\pi_E : E \to X_\mathbf{C}$ and given a morphism $f : A \to B$ in $\mathbf{C}$, the map
+\begin{equation}
+\label{eq:ST hom map between locally const finites}
+(\mathbf{LH}/X_\mathbf{C})(\ST B, E) \to (\mathbf{LH}/X_\mathbf{C})(\ST A, E), \qquad \varphi \mapsto \varphi \circ \ST(f)
+\end{equation}
+is a bijection. By \cref{coro:number of LHs is d if the degree is d}, it suffices to prove that the map in \cref{eq:ST hom map between locally const finites} is injective. So take two morphisms $\varphi, \psi \in (\mathbf{LH}/X_\mathbf{C})(\ST B, E)$ and suppose that $ \varphi \circ \ST(f) = \psi \circ \ST(f)$. We want to prove that $\varphi = \psi$. In \cref{prop:if two maps agree on a point then they are equal from szamuely}, take $Y = E$, $X = X_{\mathbf{C}}$, $Z = \ST(B)$, $p = \pi_E$, $f = \varphi$, $g = \psi$. As in the proof of \cref{coro:number of LHs is d if the degree is d}, all conditions of \cref{prop:if two maps agree on a point then they are equal from szamuely} are satisfied, except that we need to supply a point $[h,p] \in \ST(B)$ such that $\varphi[h,p] = \psi[h,p]$. But we know that
+\[ \forall \; [g,p] \in \ST(A) : \varphi[f \circ g,p] = \psi[f \circ g, p]. \]
+Now $\ST(A)$ is non-empty, because $[\id_A, |A|] \in \ST(A)$. Therefore
+\[ \varphi[f, |A|] = \psi[f, |A|] \]
+and we are done.
+\end{proof}
+
+% \begin{theorem}
+% \label{thm:equivalence of categories}
+% If $E \in \Sh(X_{\mathbf{C}})_{\lcf}$ is a locally constant finite sheaf, then $\underline{\Hom}_{\Sh(X_{\mathbf{C}})}\left(\Gamma \ST, E \right)$ is a locally constant finite presheaf. 
+% Conversely, if $P \in \left(\mathbf{Set}^{\mathbf{C}^{op}}\right)_{\lcf}$ is a locally constant finite presheaf, then $P \otimes_{\mathbf{C}} \Gamma \ST$ is a locally constant finite sheaf.
+% \end{theorem}
+% \begin{proof}
+% The claim that $P \otimes_{\mathbf{C}} \Gamma \ST$ is a locally constant finite sheaf whenever $P \in \left(\mathbf{Set}^{\mathbf{C}^{op}}\right)_{\lcf}$ is covered in \cite[Proposition 8.42]{johnstone77}. We shall prove the other direction, which is the remarkable one.
+
+% Because $\Gamma$ is left adjoint to $\Lambda$, we have, for all objects $A \in \mathbf{C}$ and for all sheaves $F$ on $X_\mathbf{C}$, a bijection of sets
+% \[ \Sh(X_\mathbf{C})\left( \Gamma \ST A, F \right) \cong (\mathbf{LH}/X_\mathbf{C})\left( \ST A, \Lambda F \right). \]
+% If $F$ is a locally constant finite sheaf on $X_\mathbf{C}$, then $\Lambda F$ is a finite covering map on $X_\mathbf{C}$. Also, by \cref{prop:locally constant iff every restriction map is a bijection}, showing that $\Sh(X_\mathbf{C} )\left(\Gamma \ST(-), F \right)$ is a locally constant finite presheaf is equivalent to showing that all of its restriction maps are bijections. Putting these observations together, we want to show that given a finite covering map $\pi_E : E \to X_\mathbf{C}$ and given a morphism $f : A \to B$ in $\mathbf{C}$, the map
+% \begin{equation}
+% \label{eq:ST hom map between locally const finites}
+% (\mathbf{LH}/X_\mathbf{C})(\ST B, E) \to (\mathbf{LH}/X_\mathbf{C})(\ST A, E), \qquad \varphi \mapsto \varphi \circ \ST(f)
+% \end{equation}
+% is a bijection. By \cref{coro:number of LHs is d if the degree is d}, it suffices to prove that the map in \cref{eq:ST hom map between locally const finites} is injective. So take two morphisms $\varphi, \psi \in (\mathbf{LH}/X_\mathbf{C})(\ST B, E)$ and suppose that $ \varphi \circ \ST(f) = \psi \circ \ST(f)$. We want to prove that $\varphi = \psi$. In \cref{prop:if two maps agree on a point then they are equal from szamuely}, take $Y = E$, $X = X_{\mathbf{C}}$, $Z = \ST(B)$, $p = \pi_E$, $f = \varphi$, $g = \psi$. As in the proof of \cref{coro:number of LHs is d if the degree is d}, all conditions of \cref{prop:if two maps agree on a point then they are equal from szamuely} are satisfied, except that we need to supply a point $[h,p] \in \ST(B)$ such that $\varphi[h,p] = \psi[h,p]$. But we know that
+% \[ \forall \; [g,p] \in \ST(A) : \varphi[f \circ g,p] = \psi[f \circ g, p]. \]
+% Now $\ST(A)$ is non-empty, because $[\id_A, |A|] \in \ST(A)$. Therefore
+% \[ \varphi[f, |A|] = \psi[f, |A|] \]
+% and we are done.
+% \end{proof}
+
+\begin{lemma}
+\label{lem:fiber of the tensor product P otimes ST is PA}
+Let $P$ be a locally constant finite presheaf on $\mathbf{C}$ and take an object $A \in \mathbf{C}$. Then the fiber of the finite covering map $\pi : P \otimes_\mathbf{C} \ST \to X_{\mathbf{C}}$ above $|A| \in X_{\mathbf{C}}$ is given by
+\[ \pi^{-1} \left( |A| \right) = \left\{ x \otimes [\id_A,|A|] : x \in P(A) \right\} \]
+and thus there is an isomorphism of presheaves $\pi^{-1}(|-|) \cong P$ on $\mathbf{C}$.
+\end{lemma}
+\begin{proof}
+We have
+\begin{align*}
+\pi^{-1}(|A|) &= \left\{ x \otimes [f,p]               : x \in P(B),\, f : D_f \to B,\, p = |A| \in D_f^*,\, B \in \mathbf{C} \right\} \\
+              &= \left\{ x \otimes [f,|A|]             : x \in P(B),\, f : A   \to B,\, B \in \mathbf{C} \right\} \\
+              &= \left\{ x \cdot f \otimes [\id_A,|A|] : x \in P(B),\, f : A \to B,\, B \in \mathbf{C} \right\} \\
+              &= \left\{ P(f)(x) \otimes [\id_A, |A|]  : x \in P(B),\, f \in \Hom(A,B),\, B \in \mathbf{C} \right\} \\
+              &= \left\{ x \otimes [\id_A, |A|]        : x \in P(A) \right\}.
+\end{align*}
+In the second equality, we use the fact that $D_f^*$ has $|D_f|$ as its only ``vertex'', so that $D_f = A$. In the third equality we use the tensor product rule, and in the last equality we use the fact that $P(f)$ is a bijection for all $f$ by \cref{prop:locally constant iff every restriction map is a bijection} and \cref{lem:alexandroff implies trivial endomorphisms}.
+\end{proof}
+
+\begin{corollary}
+\label{coro:number of LHs if size of P(A) from ST(A) to the tensor product}
+Let $P$ be a locally constant finite presheaf on $\mathbf{C}$. For every $A \in \mathbf{C}$, we have a natural bijection of sets
+\[ \left(\mathbf{LH}/X_{\mathbf{C}}\right)\left(\ST(A), P \otimes_{\mathbf{C}}\ST \right) \cong P(A). \]
+\end{corollary}
+\begin{proof}
+Combine the results of \cref{coro:number of LHs is d if the degree is d}, \cref{thm:equivalence of categories} and \cref{lem:fiber of the tensor product P otimes ST is PA}.
+\end{proof}
+
+The category of finite covering spaces over $X_{\mathbf{C}}$ is denoted by $\mathbf{FinCov}/X_{\mathbf{C}}$. It is a full subcategory of $\mathbf{LH}/X_{\mathbf{C}}$. The equivalence of categories in \cref{thm:equivalence of categories between etale spaces and sheaves} restricts to an equivalence
+\[ \mathbf{FinCov}/X_{\mathbf{C}} \cong \Sh(\mathcal{O}(X_{\mathbf{C}}))_{\lcf}. \]
+
+\begin{corollary}
+Let $\pi_E : E \to X_{\mathbf{C}}$ be a finite covering space. Consider the finite covering space $\pi : \underline{\Hom}(\ST,E) \otimes \ST \to X_{\mathbf{C}}$. Then for each object $A \in \mathbf{C}$, we have a natural bijection of fibers (i.e. stalks)
+\[ \pi^{-1}(|A|) \cong \pi_E^{-1}(|A|). \]
+\end{corollary}
+\begin{proof}
+By \cref{lem:fiber of the tensor product P otimes ST is PA}, we have
+\[ \pi^{-1}(|A|) \cong \Hom\left(\ST(A), E \right). \]
+And by \cref{coro:number of LHs is d if the degree is d},
+\[ \Hom\left(\ST(A), E \right) \cong \pi_E^{-1}(|A|). \]
+So the claim follows.
+\end{proof}
+
+\section{The Unit and Counit are Natural Isomorphisms}
+
+\begin{proposition}
+\label{prop:the counit of the adjunction is an isomorphism}
+Let $E \in \mathbf{FinCov}/X_{\mathbf{C}}$. Then the counit at the component $E$
+\[ \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \otimes_{\mathbf{C}} \ST \to E \]
+of the adjunction $- \otimes_{\mathbf{C}} \ST \dashv \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST,-\right)$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+The counit is given by the continuous map over the base space $X_{\mathbf{C}}$
+\[ \varepsilon_E : \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \otimes_{\mathbf{C}} \ST \to E, \qquad \varphi \otimes [f,p] \mapsto \varphi\left([f,p]\right), \]
+where $\varphi \in \left(\mathbf{LH}/X_{\mathbf{C}}\right)(\ST(A),E)$ for some $A \in \mathbf{C}$ and $[f,p] \in \ST(A)$. Like for sheaves, it suffices to prove that $\varepsilon_E$ is an isomorphism on the level of stalks, i.e. fibers of the finite covering maps. First of all, it suffices to look at points $p$ of the form $p = |A|$ for some object $A \in \mathbf{C}$, for recall (viz. \cref{def:well-fibered}, \cref{lem:alexandroff implies well-fibered}) that $\ST$ is well-fibered, so that $p^* \circ \ST \cong \Hom(M_p,-)$. This gives
+\begin{align*}
+p^* \circ \left( \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \otimes_{\mathbf{C}} \ST \right) 
+&\cong \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \otimes_{\mathbf{C}} \left( p^* \circ \ST \right) 
+\\
+&\cong \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \otimes_{\mathbf{C}} \Hom\left(M_p,-\right)
+\\
+&\cong \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST, E\right) \left(M_p \right) \\
+&= \Hom_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST(M_p), E\right) \\
+&\cong \pi_E^{-1}\left(|M_p| \right)
+\end{align*}
+Now if we follow the isomorphisms, the composition is precisely the counit.
+\end{proof}
+
+A similar thing occurs with the unit.
+
+\begin{proposition}
+\label{prop: the unit of the adjunction is an isomorphism}
+Let $P$ be a locally constant finite presheaf. Then the unit of the adjunction $-\otimes_{\mathbf{C}} \ST \dashv \underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(\ST,-\right)$ at the component $P$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+The unit is a map of presheaves
+\begin{equation}
+\label{eq:the unit of the adjunction equation}
+\eta : P \to \uHomLHOverXC{\ST}{P\otimes_{\mathbf{C}} \ST}
+\end{equation}
+which for a given object $A \in \mathbf{C}$ is a map of sets
+\[ \eta_A : P(A) \to \HomLHOverXC{\ST(A)}{P \otimes_{\mathbf{C}} \ST} \]
+and, since $\mathbf{LH}/X_{\mathbf{C}}$ is cartesian closed (because it is a topos), this is the same thing as giving a map of sets
+\[ \eta_A^\top : P(A) \times \ST(A) \to P \otimes \ST \]
+and this map is given by
+\[ \eta_A^\top(x, [f,p]) = x \otimes [f,p]. \]
+Now the isomorphism in \cref{coro:number of LHs if size of P(A) from ST(A) to the tensor product} is precisely the unit.
+\end{proof}
+
+\begin{corollary}
+\label{coro:left and right adjoint restrict to an equivalence of categories for lcf}
+The left and right adjoint of \cref{prop:the geometric morphism induced by ST} restrict to an equivalence of categories
+\[ \mathbf{FinCov}/X_{\mathbf{C}} \cong \left(\mathbf{Set}^{\mathbf{C}^{op}}\right)_{\lcf}. \]
+\end{corollary}
+\begin{proof}
+Apply \cref{prop: the unit of the adjunction is an isomorphism} and \cref{prop:the counit of the adjunction is an isomorphism}.
+\end{proof}
+
+\begin{corollary}
+\label{coro:isomorphism of profinite groups}
+Let $A \in \mathbf{C}$ be an object. Then there is a natural isomorphism of profinite groups
+\[ \widehat{\pi}_1\left(X_\mathbf{C}, |A|\right) \cong \pi_1 \left( \mathbf{Set}^{\mathbf{C}^{op}}, A \right). \]
+\end{corollary}
+\begin{proof}
+Interpret $A$ as a geometric morphism (point)
+\[ A : \mathbf{Set} \to \mathbf{Set}^{\mathbf{C}^{op}} \]
+where the inverse image part sends a presheaf $P$ on $\mathbf{C}$ to $P(A)$, and the direct image part sends a set $S$ to the ``underline Hom'' from \cref{constr:how to get points}. So $A$ is a point of the topos $\mathbf{Set}^{\mathbf{C}^{op}}$.
+The category $\left(\mathbf{Set}^{\mathbf{C}^{op}}\right)_{\lcf}$ is a Galois category with fundamental functor given by the inverse image part of the point $A$. From \cref{coro:left and right adjoint restrict to an equivalence of categories for lcf}, we obtain
+\[ \pi_1 \left( \mathbf{Set}^{\mathbf{C}^{op}}, A \right) \cong \pi_1 \left( \Sh(X_\mathbf{C}), |A| \right). \]
+Then from \cite[Theorem 1.15, or 3.10]{lenstra08}, we obtain
+\[ \pi_1 \left( \Sh(X_\mathbf{C}), |A| \right) \cong \widehat{\pi}_1\left(X_\mathbf{C}, |A|\right). \]
+\end{proof}
+
+\begin{example}
+Take $\mathbf{C}$ to be the graph category $x \rightrightarrows y$ with $f,g : x \to y$. Then $X_{\mathbf{C}}$ is a circle with fundamental group $\Z$, so \cref{coro:isomorphism of profinite groups} tells us that
+\[ \pi_1 \left( \mathbf{Sets}^{\mathbf{C}^{op}}, x\right) = \widehat{\Z}. \] Compare this with section 3.3.
+\end{example}
+
+\begin{example}
+Take $\mathbf{C}$ to be the (co)equalizer category from \cref{ex:ST of the equalizer category} or \cref{ex:ST of the coequalizer category}. Both realizations $X_{\mathbf{C}}$ are disks, so we can immediately conclude that $\pi_1 \left( \mathbf{Set}^{\mathbf{C}^{op}}, x \right) = 0$.
+\end{example}
+
+\begin{example}
+Take $\mathbf{C}$ to be the category given by $x \rightrightarrows y \leftleftarrows z$. Then the realization $X_{\mathbf{C}}$ is a figure-8. The fundamental group of the figure-8 can be computed using the Van Kampen theorem to find that $\pi_1\left(\mathbf{Set}^{\mathbf{C}^{op}}, x\right) = \widehat{\Z * \Z}$.
+\end{example}
+
+\begin{example}
+Take $\mathbf{C}$ to be any finite poset. Then the fundamental group of $\mathbf{Set}^{\mathbf{C}^{op}}$ is the profinite completion of the fundamental group of $\mathbf{C}$ viewed as a finite $T_0$-space by \cref{thm:mccord functor generalizes the mccord map}.
+\end{example}

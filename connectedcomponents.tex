@@ -1,0 +1,170 @@
+%!TEX root = main.tex
+%
+% connectedcomponents.tex
+%
+
+\chapter{Motivating Example}
+
+Consider the map $f : X \to Y$ between finite $T_0$ spaces:
+\[ \begin{tikzcd}
+a_1 \arrow[d, no head] \arrow[dr, no head] & a_2 \arrow[dl, no head, crossing over] \arrow[dr, no head] & c \arrow[d, no head] \arrow[dl, no head, crossing over] &  & a \arrow[d, no head] \arrow[dr, no head] & b \arrow[d, no head] \arrow[dl, no head, crossing over] \\
+a_3 &  b  & d & \xrightarrow{f} & c & d
+\end{tikzcd} \]
+where $f(a_1) = f(a_2) = f(a_3) = a$, $f(b) = b$, $f(c) = c$ and $f(d) = d$. The map $f$ is order-preserving, hence continuous. The partially ordered set $\mathcal{O}(X)$ is given by
+\[ \begin{tikzcd}
+X \\
+U_{a_1} \cup U_{a_2} & U_{a_1} \cup U_c & U_{a_2} \cup U_c \\
+U_{a_1} \arrow[d, no head] & U_{a_2} \arrow[d, no head] & U_{c} \arrow[d, no head] \\
+U_{a_3} \cup U_b \arrow[d, no head] & U_{a_3} \cup U_d \arrow[dr, no head] & U_b \cup U_d \\ 
+U_{a_3} \arrow[dr, no head] \arrow[ur, no head] & U_b \arrow[d, no head] \arrow[ul, no head, crossing over] \arrow[ur, no head, crossing over] & U_d \arrow[dl, no head] \arrow[u, no head] \\
+& \emptyset &
+\end{tikzcd} \]
+while the partially ordered set $\mathcal{O}(Y)$ is given by
+\[ \begin{tikzcd}
+& Y \arrow[dl, no head] \arrow[dr, no head] & \\
+U_a \arrow[dr, no head] & & U_b \arrow[dl, no head] \\
+& U_c \cup U_d \arrow[dl, no head] \arrow[dr, no head] & \\
+U_c \arrow[dr, no head] & & U_d \arrow[dl, no head] \\
+& \emptyset &
+\end{tikzcd} \]
+So a sheaf $F \in \Sh(Y)$ is completely determined by $FU_a$, $FU_b$, $FU_c$ and $FU_d$. More precisely, if $F$ wants to be a sheaf then it suffices to specify the four sets $FU_y$, with $y \in Y$, and then note that $F(U_c \cup U_d) = FU_c \times FU_d$ and
+\[ FX = FU_a \times_{F(U_c \cup U_d)} FU_b \]
+which follow from the equalizer diagrams. Likewise, a sheaf $G \in \Sh(X)$ is completely determined by $GU_x$ for all $x \in X$.
+
+The continuous map $f : X \to Y$ induces a geometric morphism $f = (f^* \dashv f_*) : \Sh(X) \to \Sh(Y)$. We can explicitly tell what $f^*$ and $f_*$ do; namely
+\begin{align*}
+(f_*F)(U_a) &= F(f^{-1}U_a) = F\left( U_{a_1} \cup U_{a_2}\right) = FU_{a_1} \times_{F(U_{a_3} \cup U_c \cup U_d)} FU_{a_2}, \\
+(f_*F)(U_b) &= F(f^{-1}U_b) = FU_b, \\
+(f_*F)(U_c) &= F(f^{-1}U_c) = FU_c, \\
+(f_*F)(U_d) &= F(f^{-1}U_d) = FU_d.
+\end{align*}
+If $G \in \Sh(Y)$, then by definition,
+\[ f^*G = \left( U \mapsto \colim_{V \in \mathcal{O}(Y) : V \supseteq f(U)} GV \right)^+. \]
+But taking the colimit over all open $V$ such that $V \supseteq f(U)$ is the same as just substituting the open set $\bigcup_{y \in f(U)} U_y$, in which case we don't have to sheafify. Hence we can explicitly say what the sheaf $f^*G$ is too, for any $G \in \Sh(Y)$. We have
+\begin{align*}
+(f^*G)(U_{a_1}) &= (f^*G)(U_{a_2}) = (f^*G)(U_{a_3}) = GU_a, \\
+(f^*G)(U_b) &= GU_b, \\
+(f^*G)(U_c) &= GU_c, \\
+(f^*G)(U_d) &= GU_d.
+\end{align*}
+
+apter{Connected Components}
+
+\begin{lemma}
+Let $\mathscr{E}$ be a topos and $A,B \in \mathscr{E}$. Then the collection of isomorphisms $\Iso(A,B)$ is an object in $\mathscr{E}$.
+\end{lemma}
+\begin{proof}
+Since $\mathscr{E}$ is cartesian closed, we have an adjunction $\left( \cdot \right)^X \dashv \left( \cdot \times X\right)$ for every object $X$. In particular, we call the counit of this adjunction the ``evaluation map''; so we have a morphism
+\[ \eval_A : A^B \times B \to A. \]
+Thus we have a composition of two morphisms
+\[ \eval_A \circ \left( 1_{A^B} \times \eval_B \right) : A^B \times \left( B^A \times A \right) \to A^B \times B \to A. \]
+By the adjunction, this morphism corresponds to a unique morphism
+\[ \circ_A : A^B \times B^A \to A^A, \]
+which we will call ``composition''. Likewise, we have a composition
+\[ \circ_B : A^B \times B^A \to B^B. \]
+Hence we have a product of compositions
+\[ \left(\circ_A, \circ_B \right) : A^B \times B^A \to A^A \times B^B. \]
+On the other hand,
+\[ \Hom\left(A,A\right) \cong \Hom\left(1 \times A, A\right) \cong \Hom\left(1, A^A \right). \]
+So $1_A \in \Hom\left(A,A\right)$ corresponds to a unique global section $1 \to A^A$, which by abuse of language we will also call $1_A$. Since $1 \cong 1 \times 1$, we have a global section to the product $\left(1_A, 1_B\right) : 1 \to A^A \times B^B$. Hence we have a pullback
+\[ \begin{tikzcd}
+\Iso(A,B) \arrow[r] \arrow[d] & 1 \arrow[d, "{\left(1_A,1_B \right)}"] \\
+A^B \times B^A \arrow[r, swap, "{\left(\circ_A, \circ_B \right)}"] & A^A \times B^B \\
+\end{tikzcd} \]
+Here $\Iso(A,B) \to A^B \times B^A$ is the map given by $f \mapsto \left(\left(f^{-1}\right)^\intercal, f^\intercal \right)$, where $f^\intercal$ denotes the transpose under the adjunction.
+\end{proof}
+
+We will use the familiar notation $\Aut_\mathscr{E}(X) := \Iso(X,X)$ for the object of automorphisms of an object $X \in \mathscr{E}$.
+We remark that $\Aut_\mathscr{E}$ is in general not a functor.
+
+\begin{lemma}
+Let $\mathscr{E}$ be a topos. Then every $X \in \mathscr{E}$ induces a monomorphism $\Aut_\mathscr{E}(X) \to X^X$.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{lemma}
+Let $\mathscr{E}$ be a topos. Then every object $X$ comes equipped with a morphism $X \times \Aut_{\mathscr{E}}\left(X \right) \to X$.
+\end{lemma}
+\begin{proof}
+Giving a morphism $X \times \Aut(X) \to X$ is equivalent to giving a morphism $\Aut(X) \to X^X$. So we send $f \in \Aut(X)$ to its transpose $f^\intercal$ under the adjunction $\left( \cdot \right)^X \dashv \left( \cdot \times X\right)$.
+\end{proof}
+
+\begin{proposition}
+Let $\mathscr{E}$ be a topos. Then there is a geometric morphism
+\[ \begin{tikzcd} \mathscr{E} \arrow[r, bend left, "\Gamma"] & \mathbf{Sets} \arrow[l, bend left, "\Delta"] \end{tikzcd} \]
+defined by $\Gamma(X) := \Hom_{\mathscr{E}}(1, X)$ and $\Delta(S) := \bigsqcup_{s \in S} 1$ if $S$ is non-empty and $\Delta(\emptyset) = 0$.
+\end{proposition}
+\begin{proof}
+For any $X \in \mathscr{E}$ and any non-empty set $S \in \mathbf{Sets}$ we have
+\begin{align*}
+\Hom_{\mathscr{E}}\left(\Delta S, X \right) &= \Hom_{\mathscr{E}} \left( \bigsqcup_{s \in S} 1, X \right) \\
+&\cong \prod_{s \in S} \Hom_{\mathscr{E}} \left(1, X \right) \\
+&= \prod_{s \in S} \Gamma X \\
+&\cong \left(\Gamma X \right)^{S} \\
+&\cong \Hom_{\mathbf{Sets}}\left( S, \Gamma X \right).
+\end{align*}
+By construction $\Delta$ preserves the terminal object, and if $A \times_C B$ is a fibre product of sets $A \xrightarrow{f} C \xleftarrow{g} B$ in $\mathbf{Sets}$, with projections $p_A : A \times_C B \to A$ and $p_B : A \times_C B \to B$ respectively, then we need to show that
+\[ \begin{tikzcd}
+\Delta\left( A \times_C B \right) \arrow[r, "\Delta p_A"] \arrow[d, "\Delta p_B"] & \Delta A \arrow[d, "\Delta f"] \\
+\Delta B \arrow[r, "\Delta g"] & \Delta C 
+\end{tikzcd} \]
+is a pullback in $\mathscr{E}$. Let $P$ be the pullback of $\Delta A \rightarrow \Delta C \leftarrow \Delta B$ in $\mathscr{E}$, with morphisms $\pi_{\Delta A} : P \to \Delta A$ and $\pi_{\Delta B} : P \to \Delta B$. Then there exists a unique mediating morphism $\varphi : \Delta \left( A \times_C B \right) \to P$. Equivalently, there is a unique collection of morphisms $\left\{ \varphi_{a,b} : (a,b) \in A \times_C B \right\}$ where for each $(a,b) \in A \times_C B$, $\varphi_{a,b} : 1_{a,b} \to P$. Here, $1_{a,b}$ denotes the terminal object, but it is labeled with an index. For every $(a,b) \in A \times_C B$ we have a unique morphism $ \psi_{a,b} : P \to 1_{a,b}$.
+\end{proof}
+
+\begin{definition}
+Let $\mathscr{E}$ be a topos. An object $X \in \mathscr{E}$ is called \emph{locally constant} if there exists an object $U \in \mathscr{E}$ with an epi $U \to 1$ and a set $S \in \mathbf{Sets}$ such that $X \times U \cong \Delta S \times U$ in the slice topos $\mathscr{E}/U$.
+If in addition $S$ can be chosen to be finite, then $X$ is called \emph{locally constant finite}.
+If the functor $\Delta : \mathbf{Sets} \to \mathscr{E}$ has a left adjoint $\pi_0 : \mathscr{E} \to \mathbf{Sets}$, then we call $\mathscr{E}$ \emph{locally constant}. We call the left adjoint $\pi_0$ the \emph{connected components} functor.
+\end{definition}
+
+\begin{definition}
+Let $\mathscr{E}$ be a topos. A \emph{point} of $\mathscr{E}$ is a geometric morphism $\mathbf{Sets} \to \mathscr{E}$.
+\end{definition}
+
+\begin{proposition}
+Let $\mathscr{E}$ be a topos, $p : \mathbf{Sets} \to \mathscr{E}$ a point and fix a full subcategory $\mathscr{E}_{f}$ of locally constant finite objects. Then the left adjoint $p^* : \mathscr{E} \to \mathbf{Sets}$ restricts to an exact functor $\mathscr{E}_{f} \to \mathbf{FinSets}$.
+\end{proposition}
+
+\begin{proof}
+Let $X \in \mathscr{E}_f$. Then there exists a finite set $S$ and an epi $U \to 1$ such that $X \times U \cong \Delta S \times U$ in $\mathscr{E}/U$. Since $p^*$ is left exact, we see that $p^*X \times p^*U \cong p^* \Delta S \times p^* U$ as sets in $\mathbf{Sets}/p^*U$. Hence the bijection restricts to a bijection $p^*X \cong p^* \Delta S$. But then we see that $p^* \Delta S = p^* \left( 1 \sqcup \ldots \sqcup 1 \right) = p^*(1) \sqcup \ldots \sqcup p^*(1) = * \sqcup \ldots \sqcup *$, which is a finite set. The fact that the restriction is exact is trivial.
+\end{proof}
+
+\begin{proposition}
+The category $\mathscr{E}_f$ is Galois. The fundamental functor is $p^*$.
+\end{proposition}
+\begin{proof}
+asdf
+\end{proof}
+
+\begin{definition}
+Let $\mathscr{E}$ be a topos. An object $X \in \mathscr{E}$ is said to be \emph{connected} if whenever $X = X_1 \oplus X_2$, then $X_1 = 0$ or $X_2 = 0$, where $0$ denotes the initial object of $\mathscr{E}$. The topos $\mathscr{E}$ is itself called \emph{connected} if its terminal object $1$ is connected.
+
+An object $X \in \mathscr{E}$ is said to be \emph{constant} if it is (isomorphic to) a coproduct of terminals. Equivalently, if there exists some set $A \in \mathbf{Sets}$ such that $c(A) \cong X$. The topos $\mathscr{E}$ is itself called \emph{constant} if its initial object $0$ is constant.
+
+An object $X \in \mathscr{E}$ is said to be \emph{trivialized by an object $U \in \mathscr{E}$} if the restriction $X|_U = \left(X \times U \to U \right)$ in $\mathscr{E}/U$ is a constant object.
+
+If $\mathscr{E}$ is a Grothendieck topos, say with site $(\mathcal{C},J)$, then an object $X \in \mathscr{E}$ is said to be \emph{locally constant} if the collection of all objects that trivialize $X$ cover $1$. That is, if for every object $U \in \mathscr{E}$ such that $X|_U$ is constant in $\mathscr{E}/U$, we have $U = \dom(f)$ for some $f \in R \in J(1)$, where $R$ is a covering sieve.
+The topos $\mathscr{E}$ is itself called \emph{locally constant} if the constant set functor $c$ has a left adjoint $\pi_0 : \mathscr{E} \to \mathbf{Sets}$, called the \emph{connected components} functor.
+
+If the connected components functor $\pi_0$ is moreover left exact, then we call the geometric morphism $(c \dashv \pi_0)$ the \emph{global point} of the topos $\mathscr{E}$.
+\end{definition}
+
+\begin{example}
+Every constant object is locally constant in a Grothendieck topos.
+\end{example}
+
+\begin{example}
+In $\mathbf{Sets}$, every object is connected and constant.
+\end{example}
+
+\begin{example}
+If $X$ is a topological space, then the connected objects of $\Sh(X)$ correspond to the connected components of the space $X$. If $A \in \mathbf{Sets}$ is any set, then the constant sheaf $A_X$ is a locally constant object in $\Sh(X)$. If $X$ is connected, then $A_X$ is a constant object.
+\end{example}
+
+\begin{definition}
+Let $\mathscr{E}$ be a topos. An object $X \in \mathscr{E}$ is called a \emph{Galois} object if it connected, locally constant, and the morphism
+\[ X \times \Aut_{\mathscr{E}}(X) \xrightarrow{1 \times e} X \times X, \qquad \]
+is an isomorphism, where $e$ is evaluation.
+\end{definition}

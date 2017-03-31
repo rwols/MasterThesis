@@ -1,0 +1,35 @@
+%!TEX root = main.tex
+%
+% geometricrealization.tex
+%
+
+Let $\mathbf{C} \in \mathbf{Cat}$ be a small category, and as usual $\mathbf{SSets} = \mathbf{Sets}^{\mathbf{\Delta}^{op}}$. There is a natural full inclusion functor
+\[ \mathbf{\Delta} \xrightarrow{i} \mathbf{Cat} \]
+by viewing an object $[n] \in \mathbf{\Delta}$ as a totally ordered poset $[n] \in \mathbf{Cat}$. A monotonic map $f : [n] \to [m]$ then gives exactly the data for a functor. For any small category $\mathbf{C} \in \mathbf{Cat}$, this gives rise to a functor
+\[ \mathbf{\Delta}^{op} \xrightarrow{i^{op}} \mathbf{Cat}^{op} \xrightarrow{\Hom_{\mathbf{Cat}}\left(-, \mathbf{C}\right)} \mathbf{Sets}. \]
+\begin{definition}
+\label{def:nerve}
+The \emph{nerve} of $\mathbf{C}$ is the simplicial set
+\[ N(\mathbf{C}) := \Hom_{\mathbf{Cat}}(-,\mathbf{C}) \circ i^{op}. \]
+\end{definition}
+
+Hence $N$ defines a functor
+\[ N : \mathbf{Cat} \to \mathbf{SSet}. \]
+The $0$-simplices are the objects of $\mathbf{C}$. For $k>0$, the $k$-simplices of $N\mathbf{C}$ are $k$-tuples of morphisms
+\[ (f_1,\ldots,f_k) \in \left( N \mathbf{C} \right)_k \]
+such that $\cod(f_i) = \dom(f_{i+1})$ for $1 \leq i <k$. Unraveling what the face maps are, we see that
+\[ d_j : \left( N \mathbf{C} \right)_k \to \left( N \mathbf{C} \right)_{k-1}, \quad \left(f_1,\ldots,f_k\right) \mapsto \left( f_1, \ldots, f_{j-1}, f_{j+1} \circ f_j, f_{j+2},\ldots, f_k \right), \]
+that is, $d_j$ composes the $j$-th and $(j+1)$th morphism in the tuple for $0 < j < k$. $d_0$ and $d_k$ discard the morphism $f_0$ and $f_k$, respectively. The degeneracy maps insert an identity morphism in the tuple. That is,
+\[ s_j : \left(N \mathbf{C} \right)_{k} \to \left( N \mathbf{C} \right)_{k+1}, \quad \left(f_1,\ldots,f_k\right) \mapsto \left(f_1,\ldots,\id,f_{j-1},\ldots,f_k \right) \]
+for $1 \leq j \leq k$
+
+\begin{definition}
+\label{def:truncated order category}
+For each $n \geq 0$, denote by $\mathbf{\Delta}_n$ the fully faithful subcategory of $\mathbf{\Delta}$ whose objects consist of all $[m]$ with $m \leq n$.
+An object of the functor category $\mathbf{Sets}^{\mathbf{\Delta}^{op}_n}$ is called an $n$-\emph{truncated simplicial set}. We denote the category of all such $n$-truncated simplicial sets by $\mathbf{SSets}_n$.
+\end{definition}
+
+The inclusion $i_n : \mathbf{\Delta}_n \to \mathbf{\Delta}$ induces a functor
+\[ \tr_n : \mathbf{SSets} \to \mathbf{SSets}_n, \qquad X \mapsto X \circ i_n^{op}. \]
+
+

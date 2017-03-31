@@ -1,0 +1,61 @@
+\begin{thebibliography}{{Sta}16}
+
+\bibitem[Bar11]{barmak11}
+Jonathan~A. Barmak.
+\newblock {\em Algebraic Topology of Finite Spaces and Applications}.
+\newblock 2011.
+
+\bibitem[GJ09]{goersjardinne09}
+Paul~G. Goerss and John~F. Jardine.
+\newblock {\em Simplicial Homotopy Theory}.
+\newblock 2009.
+
+\bibitem[Gro71]{SGA1}
+Alexander Grothendieck.
+\newblock {\em Rev\^etements \'etales et groupe fondamental (SGA 1)}, volume
+  224 of {\em Lecture notes in mathematics}.
+\newblock Springer-Verlag, 1971.
+
+\bibitem[Hat02]{AlgebraicTopologyBible}
+Allen Hatcher.
+\newblock {\em Algebraic Topology}.
+\newblock Cambridge University Press, Cambridge, New York, 2002.
+
+\bibitem[Joh77]{johnstone77}
+Peter Johnstone.
+\newblock {\em Topos Theory}.
+\newblock 1977.
+
+\bibitem[JT08]{JT2008}
+Andr\'{e} Joyal and Myles Tierney.
+\newblock Notes on simplicial homotopy theory.
+\newblock
+  \url{http://mat.uab.cat/~kock/crm/hocat/advanced-course/Quadern47.pdf},
+  February 2008.
+
+\bibitem[Len08]{lenstra08}
+Hendrik~W. Lenstra.
+\newblock Galois theory for schemes.
+\newblock \url{http://websites.math.leidenuniv.nl/algebra/GSchemes.pdf}, 2008.
+
+\bibitem[Len11]{lenz2011}
+Oliver~Urs Lenz.
+\newblock {The classifying space of a monoid}.
+\newblock Master's thesis, Universiteit Leiden, The Netherlands, 2011.
+
+\bibitem[LM91]{MacLaneMoerdijk91}
+Saunders~Mac Lane and Ieke Moerdijk.
+\newblock {\em Sheaves in Geometry and Logic}.
+\newblock 1991.
+
+\bibitem[{Sta}16]{stacks-project}
+The {Stacks Project Authors}.
+\newblock Stacks project.
+\newblock \url{http://stacks.math.columbia.edu}, 2016.
+
+\bibitem[Sza10]{szamuely}
+Tamasz Szamuely.
+\newblock {\em Galois Groups and Fundamental Groups}.
+\newblock 2010.
+
+\end{thebibliography}

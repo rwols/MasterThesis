@@ -1,0 +1,96 @@
+%
+% main.tex
+%
+
+\input{config}
+
+\includeonly
+{
+	introduction,
+	ToposTheory,
+	thefundamentalgroup,
+	simplicialcomplexes,
+	etalefunctor,
+	isomorphism,
+	outlook
+}
+
+\makeindex
+
+\begin{document}
+
+	\thispagestyle{empty}
+	\vspace*{7em}
+	\begin{center}
+	{\large\bf R.A.C.H. Wols\par} \vspace{3em} {\LARGE\bf A McCord Functor for Alexandroff Categories\par} \vspace{3em} {\large\bf
+	Master thesis\par} \vspace{1em} {\large\bf Thesis advisor:
+	Dr. O.D. Biesel \par} \vspace{3em} {\large\bf July 7, 2016\\
+	master exam: July 15, 2016\par}\vfill
+	\includegraphics{ulzegel.pdf}\\
+	\vspace{2em}
+	{\large\bf Mathematisch Instituut, Universiteit Leiden}
+	\end{center}
+
+
+	\clearpage
+
+	\begin{abstract}
+	We shall generalize the construction of McCord's weak homotopy equivalence between the realization of the nerve of a finite poset and the original poset to Alexandroff categories and the induced toposes between them. For this, we shall construct a functor, called the McCord functor, which will give us the basis for a geometric morphism. Finally, we attempt to find sufficient conditions for flatness. The resulting geometric morphism will provide an equivalence of categories on the level of locally constant finite objects.
+	\end{abstract}
+
+	\thispagestyle{empty}
+	\null\vfill
+	{
+		\raggedright
+		{
+			\Huge
+			\itshape
+				What I cannot create, \\
+				I do not understand.
+			\par
+			\bigskip
+		}
+		\bigskip
+		\bigskip
+		\raggedleft
+		\Large
+		\MakeUppercase
+		{
+			Richard Feynman
+		}
+		\par
+	}
+
+	\vfill
+	\vfill
+
+	\clearpage
+
+	\newpage
+	
+	\addtocontents{toc}{\protect\enlargethispage{\baselineskip}}
+	\tableofcontents
+	\thispagestyle{empty}
+
+	\newpage
+	\clearpage
+	\pagenumbering{roman} 
+
+	\include{introduction}
+
+	\clearpage
+	\pagenumbering{arabic} 
+
+	\include{ToposTheory}
+	\include{thefundamentalgroup}
+	\include{simplicialcomplexes}
+	\include{etalefunctor}
+	\include{isomorphism}
+	\include{outlook}
+
+	\bibliographystyle{alpha}
+	\bibliography{references}
+
+	\printindex
+	
+\end{document}

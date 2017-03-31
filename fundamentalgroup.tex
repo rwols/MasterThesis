@@ -1,0 +1,261 @@
+%!TEX root = main.tex
+%
+% fundamentalgroup.tex
+%
+
+% \chapter{Calculations}
+
+\begin{corollary} The following is true in $\mathscr{E}_{lcf}$.
+\begin{enumerate}
+	\item The atoms of $\mathscr{E}_{lcf}$ are precisely the connected graphs.
+	\item Any endomorphism of a connected graph is an automorphism.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+Simple translation from Lemma 8.44 in Johnstone.
+\end{proof}
+
+Note that it is \emph{not} true that connected graphs are atoms in $\mathscr{E}$ !
+
+\begin{lemma}
+$\mathscr{E}_{lcf}$ is non-trivial and has arbitrarily large atoms, in the sense that their vertex set is arbitrarily large.
+\end{lemma}
+\begin{proof}
+For any $n \in \Z_{>0}$, let $C_n \in \mathscr{E}$ be a cyclic graph with $n$ vertices and $n$ edges. Let $U \in \mathscr{E}$ be the graph with two vertices and one edge between them. Then $U \twoheadrightarrow 1$ is epi and $C_n \times U \cong \Delta \{1,\ldots,n\} \times U$ in $\mathscr{E}/U$. Hence $C_n \in \mathscr{E}_{lcf}$ for each $n$. Each such $C_n$ is clearly an atom in $\mathscr{E}_{lcf}$.
+\end{proof}
+
+To determine the fundamental group of $\mathscr{E}$, we first need to find a point $p : \mathbf{Sets} \to \mathscr{E}$. Points of $\mathscr{E}$ are in bijection with flat functors $\mathbf{C} \to \mathbf{Sets}$. A functor $A : \mathbf{C} \to \mathbf{Sets}$ consists of the data
+\[ \begin{tikzcd} A(V) \arrow[r, bend left, "A(s)"] \arrow[r, bend right, "A(t)"] & A(E) \end{tikzcd} \]
+and $A$ is flat if, by definition, the tensor functor $- \otimes_{\mathbf{C}} A : \mathscr{E} \to \mathbf{Sets}$ is left exact, i.e. preserves terminals and pullbacks. So we require $1 \otimes_{\mathbf{C}} A$ to be a one-point set, where $1$ denotes the terminal presheaf. By definition,
+\[ 1 \otimes_{\mathbf{C}} A = \left( \left(1(V) \times A(V)\right) \sqcup \left(1(E) \times A(E) \right)\right) / \sim, \]
+which may be simplified to
+\[ 1 \otimes_{\mathbf{C}} A = \left( A(V) \sqcup A(E) \right) / \sim \]
+where $A(t)(v) \sim v \sim A(s)(v)$, for all $v \in A(V)$, cf. just above Theorem VII.2.1 in Maclane\&Moerdijk.
+\begin{itemize}
+	\item If $A(V) = \emptyset$, then this forces $A(E) = \{e\}$, a one-point set.
+	\item If $A(V) = \{v\}$, then there are two choices for $A(E)$, namely $A(E) = \{e\}$ or $A(E) = \{e_1,e_2\}$, with $A(s)(v) = e_1$ and $A(t)(v) = e_2$.
+	\item If $A(V) = \{v_1,v_2\}$, then $A(E) = \{e\}$ or $\{e_1,e_2\}$ or $\{e_1,e_2,e_3\}$ with $A(s)$ and $A(t)$ such that the sets $A(V)$ and $A(E)$ form a connected bipartite graph in a picture (I don't know how to say this neatly).
+	\item In general, we may consider $A(V)$ as a set of vertices, $A(E)$ \emph{also as a set of vertices}, and the arrows $A(s)$ and $A(t)$ as \emph{edges}, and this picture needs to be a \emph{connected} bipartite graph in order for $1 \otimes_{\mathbf{C}} A$ to be terminal. Note that $\# A(E) + 1 \leq \# A(V)$ if $A(V)$ is a finite set.
+\end{itemize}
+Now this is one requirement for the functor $A$. The other one is that $- \otimes_{\mathbf{C}} A : \mathscr{E} \to \mathbf{Sets}$ preserves pullbacks. So let
+\[ \begin{tikzcd}
+X \times_{Z} Y \arrow[r, "p_X"] \arrow[d, "p_Y"] & X \arrow[d, "f"] \\
+Y \arrow[r, "g"] & Z
+\end{tikzcd} \]
+be a pullback of presheaves on $\mathbf{C}$. Recall that the pullback $X \times_Z Y$ is just the pointwise fibre product, that is $(X \times_Z Y)(V) = XV \times_{ZV} YV$ and $(X \times_Z Y)(E) = XE \times_{ZE} YE$. Tensoring this diagram of presheaves in $\mathscr{E}$ with $A$ produces the following diagram in $\mathbf{Sets}$:
+\[ \begin{tikzcd}
+\left( \left( XV \times_{ZV} YV \right) \times AV \sqcup \left( XE \times_{ZE} YE \right) \times AE\right) / \sim \arrow[r] \arrow[d] & \left( XV \times AV \sqcup XE \times AE \right) / \sim \arrow[d] \\
+\left( YV \times AV \sqcup YE \times AE \right) / \sim \arrow[r] & \left( ZV \times AV \sqcup ZE \times AE \right) / \sim
+\end{tikzcd}\]
+and we want to determine what conditions $A$ must satisfy in order for this to be a pullback in $\mathbf{Sets}$. The equivalence relation now states that
+\[ P(s)(e) \otimes v = e \otimes A(s)(v), \qquad P(t)(e) \otimes v = e \otimes A(t)(v), \qquad e \in P(E), \; v \in A(V), \; P \in \mathscr{E}. \]
+One that works is the functor $A(V) = \emptyset$, $A(E) = \{e\}$. So let $A$ denote this flat functor. To get the associated point $p : \mathbf{Sets} \to \mathscr{E}$, Theorem VII.5.2 tells us that $p$ is defined by
+\[ \begin{tikzcd} \mathbf{Sets} \arrow[r, bend left, "p_*"] & \mathscr{E} \arrow[l, bend left, "p^*"] \end{tikzcd} \]
+where
+\[ p^*(X) = X \otimes_{\mathbf{C}} A \]
+and
+\[ p_*(S) = \underline{\Hom}_{\mathbf{C}}\left(A, S\right). \]
+Here $\underline{\Hom}_{\mathbf{C}}(A,-)$ is the presheaf defined for each set $S \in \mathbf{Sets}$ by
+\[ \underline{\Hom}_{\mathbf{C}}(A,S)(V) = \Hom_{\mathbf{Sets}}\left(A(V), S\right) = * \]
+and
+\[ \underline{\Hom}_{\mathbf{C}}(A,S)(E) = \Hom_{\mathbf{Sets}}\left(A(E), S\right) = S. \]
+Hence the fundamental group is $\pi_1(\mathscr{E},p) = \Aut(p^*)$. The functor $p^*$ simply sends a graph to its edge set. Now we need to build a projective system $\mathbf{I}$. For the objects of $\mathbf{I}$, take pairs $(A,e)$ where $A \in \mathscr{E}_{lcf}$ is an atom (i.e. a connected graph) and $e \in p^*(A)$ (i.e. an edge). The morphisms of $\mathbf{I}$ are arrows $f : (A,e_A) \to (B,e_B)$ such that $f : A \to B$ is a natural transform (of graphs) and $p^*(f)(e_A) = e_B$. I claim that $\mathbf{I}$ is a poset. Since if two morphisms $f,g : A \rightrightarrows B$ have the same effect on $e \in p^*(A)$, their equalizer must be nonzero and so must be all of $A$ (because $A$ is an atom).
+The poset $\mathbf{I}^{op}$ is also filtered (Johnstone).
+
+Now if $(A,e) \in \mathbf{I}$, we have a natural map $\Aut(A) = \Hom(A,A) \to p^*(A)$; send $f \in \Aut(A)$ to $f_E(e)$. This map is always mono, because the transition maps in the projective system $\mathbf{I}$ are epimorphisms.
+\begin{definition}
+We say $(A,e)$ is a \emph{normal} or \emph{Galois} object if the natural map $\Aut(A) \to p^*(A)$ is also epi. This is the same as saying that the group $\Aut(A)$ acts transitively on $p^*(A)$. Note then, that being Galois is independent of $e$.
+\end{definition}
+
+\begin{proposition}
+For any $X \in \mathscr{E}_{lcf}$, there exists a Galois object $(A,e)$ such that the canonical map $\Hom(A,X) \to p^*(X)$ is iso. Hence in particular the Galois objects form a cofinal subcategory of $\mathbf{I}$.
+\end{proposition}
+\begin{proof}
+Johnstone, proposition 8.46.
+\end{proof}
+
+
+% Let $\eta \in \Aut(p^*)$. This means that for every $f : X \to Y$ in $\mathscr{E}$, we have a commutative diagram
+% \[ \begin{tikzcd}
+% X(E) \arrow[r, "f_E"] \arrow[d, "\eta_X"] & Y(E) \arrow[d, "\eta_Y"] \\
+% X(E) \arrow[r, "f_E"] & Y(E)
+% \end{tikzcd} \]
+% where $\eta_X$, $\eta_Y$ are bijections. So if we let $X = 1$, the terminal presheaf, then we see that
+% \[ \begin{tikzcd}
+% * \arrow[r, "f_E"] \arrow[d, "\eta_*"] & Y(E) \arrow[d, "\eta_Y"] \\
+% * \arrow[r, "f_E"] & Y(E)
+% \end{tikzcd} \]
+% and therefore $\eta_Y = \id$ for all $Y \in \mathscr{E}$. So $\pi_1(\mathscr{E},p)$ is trivial.
+
+Let $G$ be a topological group. Denote by $\mathbf{B}G$ the topos of sets equipped with a continuous right $G$-action and equivariant $G$-maps between them as morphisms. Let $\mathscr{E} = \mathbf{B}G$.
+
+\begin{lemma}
+Let $A,B,C \in \mathbf{Sets}$ be such that $A \times B \cong C \times B$ in $\mathbf{Sets}/B$ and $B \neq \emptyset$. Then $|A| = |C|$.
+\end{lemma}
+\begin{proof}
+Denote the bijection by $\varphi : A \times B \to C \times B$. Then $\varphi = (\varphi_C, \varphi_B)$, and since the bijection is over $\mathbf{Sets}/B$, we see that $\varphi_B = 1_B$. So for any fixed $b \in B$, the map $\varphi$ restricts to a bijection $\varphi : A \times \{b\} \to C \times \{b\}$. Hence $|A| = |B|$.
+\end{proof}
+
+\begin{lemma}
+Let $X \in \mathscr{E}$ and suppose that the underlying set $X_0$ of $X$ is finite. Then there exists an open normal subgroup $N \subset G$ that stabilizes each element of $X$.
+\end{lemma}
+\begin{proof}
+Denote the action by $\varphi : G \to \Sym(X)^{op}$. Let $N$ be the kernel of $\varphi$, that is $N = \{g \in G \mid x \cdot g = x \text{ for all } x \in X\}$. Note that $X$ carries the discrete topology and $\Sym(X)$ carries the subspace topology inherited from the compact-open topology on the space of all continuous maps $X \to X$. But since $X$ is finite, $\Sym(X)$ is a discrete space. Therefore $\{1_X\} \subset \Sym(X)$ is open, so $N = \varphi^{-1}\{1_X\}$ is open too. Now clearly if $x \in X$ and $n \in N$, then $x \cdot n = x$.
+\end{proof}
+
+\begin{lemma}
+If $X \in \mathscr{E}$ and the underlying set $X_0$ of $X$ is finite, then $X \in \mathscr{E}_{lcf}$.
+\end{lemma}
+\begin{proof}
+Let $N \subset G$ be an open normal subgroup of $G$ which stabilizes each element of $X$. Then $G/N$ is discrete. Define $\varphi : X \times G/N \to X_0 \times G/N$ by $\varphi(x,gN) = (xg^{-1},gN)$. Its inverse is $\psi : X_0 \times G/N \to X \times G/N$ given by $\psi(x,gN) = (xg,gN)$. Since $X$, $X_0$ and $G/N$ are discrete, the maps $\varphi$ and $\psi$ are continuous. Moreover they are each other's inverse, they respect the $G$-action and respect the projection onto $G$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: X is connected if and only if G acts transitively}
+Let $X \in \mathscr{E}$. Then $X$ is connected if and only if $G$ acts transitively on $X$.
+\end{lemma}
+\begin{proof}
+Suppose that $X$ is connected. Let $x,y \in X$ and suppose that there is no $g \in G$ such that $xg = y$. Then $y \not\in xG$. So $X = xG + (X - xG)$, in contradiction with $X$ being connected since $y \in X - xG$. Hence there does exist some $g \in G$ such that $xg = y$, and so $G$ acts transitively. On the other hand, suppose that the action of $G$ is transitive. Then there is only one orbit, say $X = xG$. Now if $X = X_1 + X_2$ for some $X_1,X_2 \in \mathscr{E}$, then without loss of generality $x \in X_1$, so $xG = X_1$ and so $X_2 = 0$. Hence $X$ is connected.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: X is connected if and only if X is an atom}
+Let $X \in \mathscr{E}$. Then $X$ is connected if and only if $X$ is an atom.
+\end{lemma}
+\begin{proof}
+Assume that $X$ is connected. Suppose that $X$ has a non-trivial subobject $m : S \rightarrowtail X$. This means that if $s \in S$ and $g \in G$, then $sg \in S$. But $sG = X$ for any $s \in S$ by \cref{lemma: X is connected if and only if G acts transitively}, so $S = X$, a contradiction. On the other hand, assume $X$ is an atom and suppose that $X = X_1 + X_2$. From the universal property of a coproduct we obtain two maps $m_1 : X_1 \to X$ and $m_2 : X_2 \to X$ such that $m_1 + m_2 = 1_X$. If $f,g : T \to X_1$ are equalized by $m_1$ i.e. $m_1 \circ f = m_1 \circ g$, then $f(t) = g(t)$ for all $t \in T$, so $f = g$. Hence $m_1$ and $m_2$ are monomorphisms. Since $X$ is an atom, either $X_1 = 0$ or $X_2 = 0$.
+\end{proof}
+Recall that if $H \subset G$ is a subgroup, then $H \backslash G$ denotes the $G$-set of right cosets of $H$, i.e. $H \backslash G = \{Hg \mid g \in G\}$. The group $G$ acts naturally on $H\backslash G$ via $(H \cdot g) \cdot h = H \cdot (gh)$. If $G$ is a right-action on $X$, then the stabilizer of $x \in X$ is denoted by $\Stab(x) = \{g \in G \mid xg = x\}$.
+\begin{proposition}
+\label{proposition: characterizations of Galois objects in the topos of G-sets}
+Let $X \in \mathscr{E}_{lcf}$. The following are equivalent.
+\begin{enumerate}
+	\item $X$ is an atom.
+	\item $X$ is connected.
+	\item $G$ acts transitively on $X$.
+	\item $X$ is a Galois object.
+	\item $X \cong \Stab(x) \backslash G$ for any $x \in X$, as $G$-equivariant sets.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Combine \cref{lemma: X is connected if and only if G acts transitively} and \cref{lemma: X is connected if and only if X is an atom} and use basic group theory.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: topos of G-sets has a single point}
+$\mathscr{E}$ has a single point $p : \mathbf{Sets} \to \mathscr{E}$. It is given by $p^*(X) = X_0$, the underlying set, and $p_*(S) = G^{S}$.
+\end{lemma}
+\begin{proof}
+It is straightforward to check that $p$ is a geometric morphism. It now suffices to show that there is exactly one flat functor $G \to \mathbf{Sets}$, where $G$ is viewed as a groupoid with a single object $\star$ and for each element $g \in G$ an endomorphism $g : \star \to \star$. Suppose that $A : G \to \mathbf{Sets}$ is flat. That is, $- \otimes_G A$ preserves terminals and pullbacks. From the fact that $- \otimes_G A$ preserves terminals, we may conclude that $A$ is a transitive left $G$-action on some set $S$. If $X \to Z \leftarrow Y$ are $G$-equivariant maps with left $G$-action, take the pullback $X \times_Z Y$. Then $(X\times_Z Y) \otimes_G A$ must be a pullback of $X \otimes_G A \to Z \otimes_G A \leftarrow Y \otimes_G A$. ...
+\end{proof}
+Denote by $\mathbf{I}$ the filtered category consiting of pairs $(A,a)$ where $A \in \mathscr{E}_{lcf}$ is an atom and $a \in A_0$ is an element of the underlying set of $A$ and whose morphisms $f : (A,a) \to (B,b)$ are $G$-equivariant maps $f : A \to B$ such that $b = f(a)$. Denote by $\mathbf{G}$ the full subcategory of $\mathbf{I}$ whose objects are Galois.
+
+\begin{lemma}
+\label{lemma: characterization of automorphism groups of atoms}
+If $(A,a) \in \mathbf{G}$, then $\Aut_G(A) \cong G/N$ for some open normal subgroup $N$, as topological groups.
+\end{lemma}
+\begin{proof}
+Write $H = \Stab(a)$. By \cref{proposition: characterizations of Galois objects in the topos of G-sets}, $A \cong H \backslash G$ as right $G$-sets.  We can make a map
+\[ \varphi : G \to \Aut_G\left( H \backslash G \right), \qquad g \mapsto \left( Hh \mapsto Hgh \right). \]
+Note that $\varphi(g_1 g_2) = \varphi(g_1) \circ \varphi(g_2)$, so $\varphi$ is a homomorphism.
+The set $\Aut_G(H \backslash G)$ is discrete since $A$ is finite, so take the normal open subgroup to be $N = \ker \varphi$.
+It now suffices to prove that $\varphi$ is surjective.
+For that, take $f \in \Aut_G(H \backslash G)$. Then $f(Hh)g = f(Hhg)$ for all $h,g \in G$ since $f$ is $G$-equivariant
+\end{proof}
+
+\begin{corollary}
+The fundamental group of $\mathbf{B}G$ at the unique point $p$ is the profinite completion $\widehat{G}$ of $G$.
+\end{corollary}
+\begin{proof}
+Using \cref{lemma: characterization of automorphism groups of atoms},
+\[ \pi_1(\mathbf{B}G,p) = \lim_{(A,a) \in \mathbf{G}} \Aut(A) \cong \lim_{(A,a) \in \mathbf{G}} G/N = \widehat{G}. \]
+\end{proof}
+
+
+Fix a topological group $G$ and let $\mathscr{E}$ be the topos of sets with a continuous $G$-action, henceforth simply called $G$-sets.
+
+\begin{theorem}
+There is exactly one point $p : \mathbf{Sets} \to \mathscr{E}$, namely $p^*X = X_0$, the underlying set of the $G$-set $X$, and $p_*S = S^G$.
+\end{theorem}
+\begin{proof}
+We will determine all possible flat functors $A : G \to \mathbf{Sets}$. Recall that such a functor $A$ is called flat if $- \otimes_{G} A$ is left-exact. Observe also that $A$ may be regarded as a set together with a left $G$-action. Suppose $A$ is such a flat functor. Then it must preverse the terminal object $1 \in \mathscr{E}$, so $1 = 1 \otimes_G A = A / \left(a \sim ga \right)$. From this we conclude that $A$ is a transitive left $G$-set. So $A$ is of the form $G/H$ for some subgroup $H \subset G$. I claim that $H$ must be the trivial subgroup. To see that, $A = G/H$ must also preserve products, so let us first determine what $X \otimes_G (G/H)$ is for an arbitrary right $G$-set $X$. We see that $X \otimes_G (G/H) = X \times (G/H) / (xg, g'H) \sim (x, gg'H)$. Thus every element $[x,gH] \in X \otimes_G (G/H)$ may be written in the form $[xg,H]$ for some $g \in G$. And if $[x,H] = [y,H]$ then there is some $g \in G$ such that $y = xg$ and $gH = H$. In other words there is some $h \in H$ such that $y = xh$. So $X \otimes_G (G/H)$ is nothing but the set of $H$-orbits of $X$, i.e. $X \otimes_G (G/H) = X/H$. We note that this ties in nicely with the intuition that $X \otimes_G G$ should be $X$.
+
+Now for two arbitrary $X,Y \in \mathscr{E}$, the set $(X \times Y) \otimes_G (G/H) = (X \times Y)/H$. Since $- \otimes_G G/H$ preserves products, $(X \times Y) /H \cong X/H \times Y/H$. Setting $X=Y=H$ we see that $(H \times H) / H \cong H/H \times H/H$. The right hand side is a one-point set. So $H \times H$ has only one $H$-orbit, i.e. $H$ acts transitively on $H \times H$. Translated, this means that for all $a,b \in H$ there exists an $h \in H$ such that $a = h = b$. So $H$ is trivial. Hence the functor $A$ is given by $G$ acting on itself from the left, transitively. The unique induced point $p : \mathbf{Sets} \to \mathscr{E}$ is automatic from Theorem VII.5.2 in [MM]. 
+\end{proof}
+
+\begin{lemma}
+Let $X \in \mathscr{E}$. The following are equivalent.
+\begin{enumerate}
+	\item $X$ is connected.
+	\item $X$ is an atom.
+	\item $G$ acts transitively on $X$.
+	\item $X \cong \Stab(x) \backslash G$ for any $x \in X$, as $G$-sets.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+$[1] \implies [2]$. This is true for any Boolean topos. \\
+$[2] \implies [3]$. Let $x \in X$. Then $xG \subseteq X$, so $xG = X$ since $X$ is an atom. So there's only one orbit, hence $G$ acts transitively. \\
+$[3] \implies [4]$. There is a bijection $xG \cong \Stab(x) \backslash G$ of $G$-sets via $xg \leftrightarrow \Stab(x)g$. \\
+$[4] \implies [1]$. Suppose that $X = X_1 \sqcup X_2$ for some $X_1, X_2 \in \mathscr{E}$. Suppose that $X_1 \neq \emptyset$ and choose some $x \in X_1$. Then $X \cong xG \cong \Stab(x) \backslash G$, so $xG = X_1$. Hence $X_2 = \emptyset$.
+\end{proof}
+
+\begin{lemma}
+Let $A$ be an atom of $\mathscr{E}_{lcf}$ and choose some $a \in p^*A = A_0$. Write $H = \Stab(a)$, $A \cong H\backslash G$. The following are equivalent.
+\begin{enumerate}
+	\item $\Aut_G(H \backslash G)$ acts transitively on $H \backslash G$.
+	\item $H$ is an open normal subgroup of $G$ of finite index.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Let $f \in \Aut_G(H \backslash G)$. Say $f(H) = Hg_0$. Then for all $g \in G$ we have $f(Hg) = f(H)g = Hg_0g$. So if $g \in H$, then $Hg_0 = f(H) = f(Hg) = Hg_0 g$. So $g_0gg_0^{-1} \in H$. Hence $g_0 \in N_G(H)$. Now assume $\Aut_G(H \backslash G)$ acts transitively on $H \backslash G$. This means that for all $Hg, Hg' \in H \backslash G$ there exists some $f \in \Aut_G(H \backslash G)$ such that $f(Hg) = Hg'$. But $f(Hg) = Hg_0 g$, so we might as well say that for every $Hg \in H \backslash G$ there exists some $g_0 \in N_G(H)$ such that $Hg = Hg_0$. This is equivalent to saying that for all $g \in G$ there exists some $h \in H$ such that $hg \in N_G(H)$, which is the same as saying that $G = N_H(G)$, which is equivalent to saying that $H$ is normal. The fact that $H$ is open is because the $G$ action is continuous, so stabilizers are open. Since the underlying set $A_0$ of $A$ is finite, $H$ has finite index in $G$.
+\end{proof}
+
+Let $\mathbf{I}$ denote the category whose objects are $(A,a)$ where $A \in \mathscr{E}_{lcf}$ is an atom and $a \in p^*A = A_0$ and whose morphisms $f : (A,a) \to (B,b)$ are morphisms $f : A \to B$ of (finite) $G$-sets such that $f(a) = b$. Denote by $\mathbf{N} \subseteq \mathbf{I}$ the full subcategory whose objects are normal objects, i.e. $\Aut_G(A)$ acts transitively on $A$ for each $(A,a) \in \mathbf{N}$.
+
+\begin{lemma}
+Let $(A,a) \in \mathbf{N}$. Write $H = \Stab(a)$, $A \cong H \backslash G$. Then $\Aut_G(H \backslash G) \cong G/H$.
+\end{lemma}
+\begin{proof}
+Since $H$ is normal, $H \backslash G \cong G / H$ is a group. Hence it suffices to prove that $\Aut_G(G/H) \cong G/H$ as $G$-sets. We can define $\varphi : G \to \Aut_G(G/H)$ by $\varphi(g_0) = (gH \mapsto g_0 g H)$. Then $\ker \varphi = \{g_0 : \left( gH \mapsto g_0 gH = Hg_0 g \right) = \id_{G/H} \} = H$. If $f \in \Aut_G(G/H)$ is arbitrary, then $f(H) = g_0 H = H g_0$, so $g_0 \in N_G(H) = G$. Hence $\varphi(g_0) = f$, so $\varphi$ induces a bijection, even of groups, as $G/H \cong \Aut_G(G/H)$.
+\end{proof}
+
+\begin{theorem}
+\label{thm:the fundamental group of BG is the profinite completion of G}
+Let $p : \mathbf{Sets} \to \mathscr{E}$ be the unique point of $\mathscr{E}$. Then $\pi_1(\mathscr{E}, p) \cong \widehat{G}$, the profinite completion of $G$.
+\end{theorem}
+\begin{proof}
+Combining the previous two lemmas,
+\[ \pi_1\left( \mathscr{E}, p \right) = \lim_{ (A,a) \in \mathbf{N} } \Aut_G \left(A \right) \cong \lim_{\stackrel{H \text{ normal in } G}{[G:H] < \infty}{H \text{ open in } G} } G/H = \widehat{G}. \]
+\end{proof}
+
+Denote by $\mathbf{GrTop}_*$ the category of connected Grothendieck toposes with a distinguished point. Morphisms $f : (\mathscr{F},q) \to (\mathscr{E},p)$ are geometric morphisms $f : \mathscr{F} \to \mathscr{E}$ such that $f_* \circ q_* \cong p_*$, or equivalently $q^* \circ f^* \cong p^*$. Let $G$ and $H$ be profinite groups such that $\mathscr{E}_{lcf} \cong G\text{-}\mathbf{sets}$ and $\mathscr{F}_{lcf} \cong H\text{-}\mathbf{sets}$.
+
+\begin{lemma}
+The logical functor $f^* : G\text{-}\mathbf{sets} \to H\text{-}\mathbf{sets}$ induces a continuous group homomorphism $\pi_1(f) : H \to G$.
+\end{lemma}
+\begin{proof}
+We know that $\Aut(q^*) \cong G$ and $\Aut(p^*) \cong H$. If $\left(\sigma_X\right)_{X \in H\text{-}\mathbf{sets}} \in \Aut(p^*)$, we may send it to $\left(\sigma_{f^*(Y)} \right)_{Y \in G\text{-}\mathbf{sets}}$.
+\end{proof}
+
+% Denote by $\mathbf{Topos}_*$ the category of toposes with a distinguished point. 
+% So the objects are pairs $(\mathscr{E}, p)$ where $\mathscr{E} \in \mathbf{Topos}$ and $p : \mathbf{Sets} \to \mathscr{E}$ is a point. 
+% A morphism $f : (\mathscr{F},q) \to (\mathscr{E},p)$ is a morphism between toposes $f : \mathscr{F} \to \mathscr{E}$ such that $p_* \cong f_* \circ q_*$ or equivalently $p^* \cong q^* \circ f^*$. 
+% Given such $(\mathscr{E},p)$, we know that $\pi_1(\mathscr{E},p) \in \mathbf{TopGrp}$. Furthermore, $\mathscr{E}_{lcf} \cong \pi_1(\mathscr{E},p)\text{-}\mathbf{sets}$ and $\mathscr{F}_{lcf} \cong \pi_1(\mathscr{F},q)\text{-}\mathbf{sets}$, and $f^*$ restricts to a logical functor between the Boolean toposes $\mathscr{E}_{lcf} \to \mathscr{F}_{lcf}$. Write $G = \pi_1(\mathscr{E},p)$ and $H = \pi_1(\mathscr{F},q)$. We thus have a logical functor $G\text{-}\mathbf{sets} \to H\text{-}\mathbf{sets}$. For each open normal subgroup of finite index $N$ of $G$ we have $G/N \in G\text{-}\mathbf{sets}$. Let $\varphi : \mathscr{E}_{lcf} \to G\text{-}\mathbf{sets}$ be the equivalence of categories, and denote by $\varphi^{-1}$ its quasi-inverse. Then $G/N$ corresponds to a locally constant finite object $\varphi^{-1}(G/N)$, which is mapped 
+
+% \begin{proposition}
+% Let $X \in \mathbf{B}G$. The following are equivalent.
+% \begin{enumerate}
+% 	\item The action $X \times G \xrightarrow{A} X$ is continuous.
+% 	\item The stabilizer $\Stab(x)$ of every point $x \in X$ is open in $G$.
+% 	\item $X = \bigcup_{N}X^N$, where $N$ ranges over the open normal subgroups of $G$.
+% \end{enumerate}
+% \end{proposition}
+% \begin{proof}
+% $(1) \implies (2)$. Let $x \in X$. Since $X$ is discrete, $A^{-1}(x)$ is open in $G \times X$. Moreover $G \times \{x\}$ is open in $G \times X$. Hence $A^{-1}(x) \cap \left(G \times \{x\} \right) \cong \Stab(x)$ is open in $G \times X$.
+
+% $(2) \implies (1)$. We want to show that $A$ is continuous. It suffices to show that for any $x,y \in X$, the set $S(x,y) := \{g \in G \mid gx = y\}$ is open in $G$. Suppose that $S(x,y)$ is not empty (if $S(x,y)$ is empty then it is open in $G$). Take some $g \in S(x,y)$. Then $g \cdot \Stab(y) = \{gh \mid h \in G, \; hx = x\} = \{ gh \mid ghx = gx \} = \{gh \mid ghx = y\} = \{g \mid gx = y\} = S(x,y)$. Since $\Stab(y)$ is open and the multiplication on $G$ is continuous, $S(x,y)$ is open in $G$.
+
+% $(2) \implies (3)$. Let $x \in X$. We want to find an open normal subgroup $N$ of $G$ such that $nx = x$ for all $n \in N$. Now since $\Stab(x)$ is open and the open normal subgroups of $G$ form a neighborhood base of $1 \in G$, there exists such $N$ so that $N \subseteq \Stab(x)$. Hence $x \in X^N$ for this $N$.
+
+% $(3) \implies (2)$. Let $x \in X$. Then there exists some open normal subgroup $N$ of $G$ such that $x \in X^N$. Since $N$ is open it has finite index in $G$.
+% \end{proof}

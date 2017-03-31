@@ -1,0 +1,428 @@
+%!TEX root = main.tex
+%
+% ToposTheory.tex
+%
+
+\chapter{Topos Theory Done Quick}
+This preliminary section treats some basic concepts of topos theory. The main ingredients that we will need are the definition of a topos, the concept of a geometric morphism, the concept of points on a topos and the ``generalized $\otimes\text{-}\Hom$ adjunction''. We will follow mostly Chapter 2, 3, 4 and 7 of \cite{MacLaneMoerdijk91}. The book \cite{johnstone77} is also a good reference. This section is very terse and contains a lot of information. The reader is invited to consult the references.
+
+\section{Basic Definitions}
+
+We made an attempt to give the definition of a topos in its most elementary form, but it turned out that for the purposes of this thesis, it was not necessary to know the definition in its utmost generality. Because of this, we shall give two definitions; they are both instances of a more general concept of a topos. The interested reader is invited to read \cite{johnstone77} or \cite{MacLaneMoerdijk91}.
+
+\begin{definition}
+\index{presheaf topos}
+\label{def:presheaf topos}
+Let $\mathbf{C} \in \mathbf{Cat}$ be a small category. Recall that $\mathbf{C}^{op}$ denotes the opposite category. We call the category of set-valued functors
+\[ [\mathbf{C}^{op}, \mathbf{Set}] = \mathbf{Set}^{\mathbf{C}^{op}} \]
+a \emph{presheaf topos}.
+\end{definition}
+
+\begin{definition}
+\index{Yoneda functor}
+\label{def:Yoneda functor}
+Let $\mathbf{C}$ be a category. The contravariant \emph{Yoneda functor} is defined as the functor which sends objects to representables. That is,
+\[ \mathbf{y} : \mathbf{C} \to \mathbf{Set}^{\mathbf{C}^{op}}, \qquad A \mapsto \Hom_{\mathbf{C}}(-,A). \]
+\end{definition}
+
+Recall that if $X \in \mathbf{Top}$ and if $F : \mathcal{O}(X)^{op} \to \mathbf{Set}$ is a presheaf, then $F$ is called a \emph{sheaf} if every matching family has a unique amalgamation.
+
+\begin{definition}
+\index{sheaf topos}
+\label{def:sheaf topos}
+Let $X \in \mathbf{Top}$ be a topological space. The category of all sheaves
+\[ \Sh(\mathcal{O}(X)) \]
+is called a \emph{Grothendieck topos}.
+\end{definition}
+\begin{definition}
+\label{def:Gset topos}
+Let $G$ be a topological group. The category $G\text{-}\mathbf{Set}$ is the category of all sets with a continuous right $G$-action, together with equivariant maps respecting the continuous $G$ action between them. We call this a \emph{topos of $G$-sets}.
+\end{definition}
+In the special case that $G$ is discrete, it is in fact a presheaf topos: consider $G$ as a one-object category, call the object $\bullet$. For each $g \in G$, consider it as a morphism $g : \bullet \to \bullet$. Then $G$ is a groupoid. Take the presheaves on this groupoid. This is the same thing as $G\text{-}\mathbf{Set}$.
+\begin{definition}
+\index{topos}
+\label{def:topos}
+By a \emph{topos} we mean either a presheaf topos, a Grothendieck topos or a topos of $G$-sets, for some topological group $G$. A topos will always be denoted by $\mathscr{E}$ or $\mathscr{F}$.
+\end{definition}
+
+\begin{fact}[A topos is like the category of sets] Let $\mathscr{E}$ be a topos. Then $\mathscr{E}$ has all finite limits and all finite colimits, so in particular an initial object $0$ and a terminal object $1$. Every monic arrow is an equalizer. Every arrow both monic and epi is an isomorphism. $\mathscr{E}$ has exponentials. Every arrow $f$ factors as $f = m \circ e$, with $e$ epi and $m$ mono. For any object $B \in \mathscr{E}$, the slice category $\mathscr{E}/B$ is also a topos. Any arrow $k : A \to 0$ is an isomorphism. Any arrow $0 \to B$ is monic.
+Any object $C \in \mathscr{E}$ has a monomorphism to an injective object. All of these facts can be found as theorems, lemma's and propositions in \cite[Chapter 3]{MacLaneMoerdijk91}.
+\end{fact}
+
+We shall see during the thesis that $\mathscr{E}$ is also like a ``space'', with ``points''.
+
+% \begin{definition}[Elementary Topos]
+% \label{def:elementary topos}
+% An \emph{elementary topos} \index{elementary topos} is a category $\mathscr{E}$ with the following properties.
+% \begin{enumerate}
+% 	\item Every diagram $X \to B \leftarrow Y$ can be completed to a pullback diagram.
+% 	\item $\mathscr{E}$ has a terminal object $1$.
+% 	\item $\mathscr{E}$ has an object $\Omega$ and a monomorphism $\text{true} : 1 \rightarrowtail \Omega$ such that for any mono $m : S \rightarrowtail B$ there exists a \emph{unique} morphism $\chi_S : B \to \Omega$, called the \emph{characteristic} map \index{characteristic map} or \emph{classifying} \index{classifying map} map, such that
+% 	\[ \begin{tikzcd}
+% 	S \arrow{r} \arrow[swap,tail]{d}{m} & 1 \arrow[tail]{d}{\text{true}} \\
+% 	B \arrow[swap]{r}{\chi_S} & \Omega
+% 	\end{tikzcd} \]
+% 	is a pullback diagram.
+% 	\item For every $B \in \mathscr{E}$ we require an object $PB \in \mathscr{E}$, called the \emph{power object},\index{power object} and we require an arrow $\in_B : B \times PB \to \Omega$ such that for any morphism $f : B \times A \to \Omega$ there is a \emph{unique} arrow for which the following diagram commutes.
+% 	\[ \begin{tikzcd}
+% 	A \arrow[dashed, swap]{d}{\exists ! g} & B \times A \arrow{r}{f} \arrow[swap, dashed]{d}{1 \times g} & \Omega \arrow[equals]{d} \\
+% 	PB & B \times PB \arrow[swap]{r}{\in_B} & \Omega
+% 	\end{tikzcd} \]
+% \end{enumerate}
+% \end{definition}
+
+% \begin{example}
+% The category of sets $\mathbf{Set}$ is a topos. The slice category $\mathbf{Set}/X$ is a topos for every set $X$. If $\mathbf{C}$ is a small category, then the presheaf category $\mathbf{Set}^{\mathbf{C}^{op}}$ is a topos.
+% \end{example}
+
+\begin{definition}
+\index{subobject}
+\label{def:subobject}
+A \emph{subobject} \index{subobject} of $B \in \mathscr{E}$ is an isomorphism class of monomorphisms $m : S \rightarrowtail B$. Two subobjects lie in the same isomorphism class if and only if there is an isomorphism between them making the obvious triangle commute. The set of subobjects is denoted by $\Sub_{\mathscr{E}}(B)$.
+\end{definition}
+
+\begin{definition}
+\index{sieve}
+\label{def:sieve}
+Let $\mathbf{C}$ be a category and take an object $C \in \mathbf{C}$. By a \emph{sieve} we mean a subfunctor $S \subseteq \mathbf{y}(C)$.
+\end{definition}
+
+Among all objects in a topos is one which requires special attention. We shall construct it here using our definition of a topos, but we stress that in the elementary definition of a topos, it is \emph{part of the definition}.
+
+\begin{construction}[$\Omega$ for presheaf toposes]
+Suppose that $\mathscr{E}$ is a presheaf topos. Define a presheaf $\Omega$ as follows. For every object $C \in \mathbf{C}$, we set
+\[ \Omega(C) = \{\text{sieves on $C$}\}. \]
+If $f : D \to C$ is a morphism in $\mathbf{C}$, the restriction map $\Omega(f)$ is given by pulling back the sieve. Define a natural transformation $\text{true}:1 \to \Omega$ which on the component $C$ works by sending the unique element of $1$ to the maximal sieve $\mathbf{y}(C)$.
+\end{construction}
+
+\begin{construction}[$\Omega$ for sheaf toposes]
+Suppose that $\mathscr{E}$ is a sheaf topos on a topological space $X$. Define a presheaf $\Omega$ on $\mathcal{O}(X)$ by
+\[ \Omega(U) = \{W \mid W \subset U, \; W \text{ open in } X\}, \qquad U \in \mathcal{O}(X). \]
+If $V \subset U$ are opens of $X$, the restriction map is given by intersecting with $V$. The so-constructed presheaf $\Omega$ is a sheaf by \cite[Theorem II.9.2]{MacLaneMoerdijk91}. Define a natural transformation $\text{true} : 1 \to \Omega$ which on the component $U \in \mathcal{O}(X)$ works by sending the unique element of $1$ to the element $U \in \Omega(U)$.
+\end{construction}
+
+\begin{construction}[$\Omega$ for $G$-sets]
+Suppose that $\mathscr{E}$ is equivalent to $G\text{-}\mathbf{Set}$ for some topological group $G$. Take $\Omega = 1 \sqcup 1$ with trivial $G$-action and choose a monomorphism $\text{true} : 1 \to \Omega$.
+
+\end{construction}
+
+\begin{proposition}
+For each object $A \in \mathscr{E}$ there is a natural isomorphism
+\[ \Sub_\mathscr{E}(A) \cong \Hom_{\mathscr{E}}\left(A, \Omega \right) \]
+\end{proposition}
+\begin{proof}
+Given a monomorphism $m : S \rightarrowtail A$, construct a classifying map. For the other way, take the pullback with the map $\text{true} : 1 \to \Omega$.
+\end{proof}
+
+Thus, $\Omega$ may be regarded as the representable object for subobjects. For this reason, we call it the \index{subobject classifier}\emph{subobject classifier}.
+
+Before we move on to the next section, there is one construction which we'll use too.
+
+\begin{definition}
+\index{category of elements}
+\label{def:category of elements}
+Let $P \in \mathbf{Set}^{\mathbf{C}^{op}}$ be a presheaf. The \emph{category of elements}, denoted
+\[ \int_\mathbf{C} P \]
+is the category whose objects are pairs $(C,c)$ with $C \in \mathbf{C}$ and $c \in P(C)$. An arrow $f : (C,c) \to (C',c')$ is an arrow $f : C \to C'$ in $\mathbf{C}$ such that $c = P(f)(c')$, or in a more compact notation, such that $c = c' \cdot f$.
+\end{definition}
+
+There is an evident projection functor
+
+\[ \pi_P : \int_{\mathbf{C}} P \to \mathbf{C}, \qquad (C,c) \mapsto C. \]
+Thus, when composed with the Yoneda functor we have a functor back to the original presheaf topos that we started with, that is:
+\[ \mathbf{y} \circ \pi_P : \int_{\mathbf{C}} P \to \mathbf{Set}^{\mathbf{C}^{op}}, \qquad (C,c) \mapsto \Hom_{\mathbf{C}}\left(-,C \right). \]
+
+\begin{proposition}
+\label{prop:every presheaf is a colimit of representables}
+We have a natural isomorphism
+\[ P \cong \colim \left( \mathbf{y} \circ \pi_P \right). \]
+In other words, every presheaf is a colimit of representables.
+\end{proposition}
+\begin{proof}
+This is \cite[Corollary I.3]{MacLaneMoerdijk91}.
+\end{proof}
+
+% If $B$ is an arbitrary object we have two projection maps $B \times B \to B$. The \emph{diagonal map} \index{diagonal map} is the map $\Delta_B : B \to B \times B$ with the property that composition with the two projections to $B$ give the identity $\id_B$. This shows that $\Delta_B$ is monic, so from the third axiom in \cref{def:elementary topos} we have a pullback diagram
+% \[ \begin{tikzcd}
+% B \arrow{r} \arrow[swap]{d}{\Delta_B} & 1 \arrow[tail]{d}{\text{true}} \\
+% B \times B \arrow[swap, dashed]{r}{\delta_B} & \Omega
+% \end{tikzcd} \]
+% and thus from the fourth axiom we get a unique map
+% \[ \begin{tikzcd}
+% B \arrow[dashed]{r}{\{.\}_B} & PB
+% \end{tikzcd}. \]
+% We call the so-constructed map $\{\cdot\}_B$ the \emph{singleton map} \index{singleton map}, because for $\mathbf{Set}$ it is just the map which sends an element to the singleton set. We collect now some useful properties of elementary toposes.
+
+% \begin{proposition}
+% Let $\mathscr{E}$ be a topos. Then the following is true.
+% \begin{enumerate}
+% 	% \item For all objects $B \in \mathscr{E}$, $\{\cdot\}_B$ is monic.
+% 	\item Every monic arrow is an equalizer.
+% 	\item Every arrow both monic and epi is an isomorphism.
+% 	\item $\mathscr{E}$ has exponentials.
+% 	\item $\mathscr{E}$ has all finite colimits.
+% 	\item Every arrow $f$ factors as $f = m \circ e$, with $e$ epi and $m$ mono.
+% 	\item For any object $B \in \mathscr{E}$, the slice category $\mathscr{E}/B$ is also a topos.
+% 	\item Any arrow $k : A \to 0$ is an isomorphism.
+% 	\item Any arrow $0 \to B$ is monic.
+% 	\item Any object $C \in \mathscr{E}$ has a monomorphism to an injective object.
+% \end{enumerate}
+% \end{proposition}
+% \begin{proof}
+% (1) is \cite[Lemma IV.1.1]{MacLaneMoerdijk91}. (2) and (3) are \cite[Proposition IV.1.2]{MacLaneMoerdijk91}. (4) is \cite[Theorem IV.2.1]{MacLaneMoerdijk91}. (5) is \cite[Corollary IV.5.4]{MacLaneMoerdijk91}. (6) is \cite[Proposition IV.6.1]{MacLaneMoerdijk91}. (7) is \cite[Theorem IV.7.1]{MacLaneMoerdijk91}. (8) is \cite[Proposition IV.7.4]{MacLaneMoerdijk91}. (9) is \cite[Corollary IV.7.5]{MacLaneMoerdijk91}.
+% \end{proof}
+
+% \section{Sheaves on a Site}
+
+% This section introduces Grothendieck toposes.
+
+% \begin{definition}
+% Let $\mathbf{C}$ be a category and $C \in \mathbf{C}$.
+% A \emph{sieve on $C$} \index{sieve} is a set $S$ of arrows with codomain $C$ such that
+% \[ f \in S \text{ and the composite } f \circ h \text{ is defined implies } f \circ h \in S. \]
+% \end{definition}
+% Equivalently, a sieve $S$ on $C$ is a subfunctor of the Yoneda functor $\mathbf{y}(C)$.
+
+% \begin{definition}
+% \label{def:grothendieck topology}
+% Let $\mathbf{C}$ be a category. A \emph{(Grothendieck) topology} \index{Grothendieck topology} is a function $J$ which assigns to every object $C \in \mathbf{C}$ a collection $J(C)$ of sieves on $C$ with the property that
+% \begin{enumerate}
+% 	\item[(non-emptyness)] the maximal sieve $t_C$ is in $J(C)$,
+% 	\item[(stability)] if $S \in J(C)$, then for every $h : D \to C$ we have $h^*(S) \in J(D)$, and
+% 	\item[(transitivity)] if $S \in J(C)$ and $R$ is a sieve on $C$ with the property that for all $h : D \to C$ in $S$ we have $h^*(R) \in J(D)$, then $R \in J(C)$.
+% \end{enumerate} 
+% \end{definition}
+
+% A sieve $S$ is called a \emph{covering sieve} \index{covering sieve} if $S \in J(C)$ for some $C \in \mathbf{C}$.
+% It's beneficial to define a basis for a Grothendieck topology in order to give one for practical purposes. It's only possible to define such a basis when $\mathbf{C}$ has pullbacks. In most applications the underlying category $\mathbf{C}$ does have pullbacks.
+
+% \begin{definition}
+% Let $\mathbf{C}$ be a category with pullbacks. A \emph{basis} \index{basis} for a Grothendieck topology is a function $K$ which gives for each object $C \in \mathbf{C}$ a collection $K(C)$ which consists of families of morphisms with codomain $\mathbf{C}$ with the property that
+% \begin{enumerate}
+% 	\item[(non-emptyness)] if $f : C' \to C$ is an isomorphism, then $\{f\} \in K(C)$,
+% 	\item[(stability)] if $\{f_i : C_i \to D\}_{i \in I} \in K(C)$, then for every morphism $g : D \to C$ the collection of pullbacks $\{C_i \times_C D \to \}_{i \in I}$ is in $K(D)$, and
+% 	\item[(transitivity)] if $\{f_i : C_i \to C\}_{i \in I}$ is in $K(C)$ and if for every $i \in I$ we have a family $\{g_{ij} : D_{ij} \to C_i\}_{j \in I_i}$, then the family of compositions $\{f_i \circ g_{ij} : D_{ij} \to C\}_{i \in I, j \in I_i}$ is in $K(C)$.
+% \end{enumerate}
+% \end{definition}
+% A topology $J$ is not a basis. But if $K$ is a basis on $\mathbf{C}$, then $K$ generates a topology $J$ by saying that
+% \[ S \in J(C) \iff \exists R \in K(C) : R \subseteq S. \]
+ 
+% \begin{definition}
+% \label{def:site}
+% A \emph{site} \index{site} is a pair $(\mathbf{C},J)$ where $\mathbf{C}$ is a small category and $J$ is a Grothendieck topology. By abuse of notation, by $(\mathbf{C},K)$ we will also mean a site, where $K$ is a basis.
+% \end{definition}
+
+% \begin{example}
+% The \emph{trivial topology} on $\mathbf{C}$ is the one in which the only covering sieves are the maximal sieves.
+% \end{example}
+% \begin{example}
+% If $\mathbf{T}$ is a suitable subcategory of $\mathbf{Top}$ (for instance, separated Hausdorff spaces), then define a basis $K$ by $\{f_i : Y_i \to X\}_{i \in I} \in K(X) \iff$ every $Y_i$ is an open subset of $X$ with $f_i$ the natural inclusion.
+% \end{example}
+% \begin{example}
+% Let $\mathbf{P}$ be a partially ordered set. If $p \in \mathbf{P}$ then a subset $D \subseteq \{q \in \mathbf{P} : q \leq p\}$ is said to be \emph{dense below $p$} if for any $r \leq p$ there is a $q \leq r$ with $q \in D$. Define the \emph{dense topology} on $\mathbf{P}$ by declaring
+% \[ J(p) = \{D \mid q \leq p \text{ for all } q \in D \text{ and } D \text{ is a sieve dense below } p\}. \]
+% \end{example}
+% \begin{example}
+% The \emph{atomic topology} on $\mathbf{C}$ is the one defined by
+% \[ S \in J(C) \iff \text{ the sieve } S \text{ is not empty}. \]
+% Here we require that every diagram $E \to C \leftarrow D$ in $\mathbf{C}$ can be completed to a commutative square (much weaker than the requirement of pullbacks).
+% \end{example}
+% \begin{example}
+% Let $X$ be a scheme. Let $X_{\text{Zar}}$ be the category whose objects are all open sets $U \subset X$ and whose morphisms are the inclusion maps. Define the basis $K$ on $X_{\text{Zar}}$ by declaring
+% \[ \{U_i \to U\}_{i \in I} \in K(U) \iff \bigcup_{i \in I} U_i = U. \]
+% \end{example}
+% \begin{example}
+% Similarly, let $X$ be a scheme again. This time, let $X_{\text{et}}$ be the category whose objects are all etale morphisms of schemes $f : Y \to X$. Define the basis $K$ on $X_{\text{et}}$ by declaring
+% \[ \{f_i : Y_i \to X\}_{i \in I} \in K(Y) \iff \bigcup_{i \in I}f_i(Y_i) = Y. \]
+% \end{example}
+
+% The point of defining a site is to define sheaves on that site. Let $(\mathbf{C},J)$ be a site. A presheaf $P$ on $\mathbf{C}$ is simply a functor $P : \mathbf{C}^{op} \to \mathbf{Set}$. 
+% Now if $C \in \mathbf{C}$ is an object and $S \in J(C)$ is a covering sieve, let us define a \emph{matching family} \index{matching family} for $S$ to be a function which assigns to every element $f \in S$, where $f : D \to S$, an element $x_f \in P(D)$ such that
+% \[ P(g)(x_f) = x_{f \circ g} \qquad \text{for all } g : E \to D \text{ in } \mathbf{C}. \]
+% An \emph{amalgamation} \index{amalgamation} of a matching family is a single $x \in P(C)$ such that
+% \[ P(f)(x) = x_f \qquad \text{for all } f \in S. \]
+% \begin{definition}
+% \label{def:presheaf is a sheaf iff every matching family has a unique amalgamation}
+% The presheaf $P$ is called a $J$-\emph{sheaf}, \index{sheaf} or simply a \emph{sheaf}, if every matching family has a unique amalgamation. The full subcategory of $\mathbf{Set}^{\mathbf{C}^{op}}$ consisting of all sheaves is denoted by $\Sh(\mathbf{C},J)$. A category which is equivalent to sheaves on some small site is called a \emph{Grothendieck topos} \index{Grothendieck topos}
+% \end{definition}
+% % In diagram form, this condition is translated as saying that the below diagram must be an equalizer diagram for every object $C$:
+% % \[ \begin{tikzcd}
+% % P(C) \arrow{r}{e} & \prod_{f \in S} P\left(\dom f \right)
+% % %\arrow[shift left=0.25em{r}{p}
+% % %\arrow[shift left = 0.25em, swap]{r}{a} & \prod_{\stackrel{f,g \; f \in S}{\dom = \cod g}} P(\dom g)
+% % \end{tikzcd} \]
+
+% \begin{theorem}
+% Every Grothendieck topos in the sense of \cref{def:presheaf is a sheaf iff every matching family has a unique amalgamation} is an elementary topos in the sense of \cref{def:elementary topos}.
+% \end{theorem}
+% \begin{proof}
+% See \cite[Proposition 1.12]{johnstone77}.
+% \end{proof}
+
+\section{The Morphisms Between Toposes}
+
+Let $f : X \to Y$ be a continuous map of topological spaces. If $F \in \Sh(\mathcal{O}(X))$, we can turn it into a sheaf on $Y$ using $f$ by defining
+\[ f_*(F)(V) = F(f^{-1}V), \qquad V \in \mathcal{O}(Y). \]
+On the other hand, given a sheaf $G \in \Sh(\mathcal{O}(Y))$, we can turn it into a sheaf on $X$ using $f$ by defininig
+\[ f^*(G)(U) = \colim_{V \supset f(U)} G(V), \qquad U \in \mathcal{O}(X). \]
+If $f$ is an open map, we have the benefit of seeing that the colimit degenerates into the simpler definition $G(f(U))$. One can show that $f^*$ is left adjoint to $f_*$, that is $f^* \dashv f_*$. Moreover, one can show that $f^*$ is left exact (so preserves finite limits). This motivates the following definition.
+
+\begin{definition}
+\index{geometric morphism}
+\index{direct image part}
+\index{inverse image part}
+\label{def:geometric morphism}
+Let $\mathscr{F}$ and $\mathscr{E}$ be toposes. A \emph{geometric morphism} \index{geometric morphism}
+\[ f : \mathscr{F} \to \mathscr{E} \]
+is an adjoint pair of functors $f^* \dashv f_*$ where $f_*$ is a functor $f_* : \mathscr{F} \to \mathscr{E}$, $f^*$ is a functor $f^* : \mathscr{E} \to \mathscr{F}$ and $f^*$ is left exact. The functor $f^*$ is called the \emph{inverse image part} \index{inverse image part} and the functor $f_*$ is called the \emph{direct image part}. \index{direct image part}
+\end{definition}
+
+So we have a category $\mathbf{Topos}$ whose objects are toposes and whose morphisms are geometric morphisms. We shall be needing the fact that every Grothendieck topos always comes equipped with a unique geometric morphism to $\mathbf{Set}$.
+
+\begin{proposition}
+\label{prop:the structure morphism of a Grothendieck topos is unique}
+Let $\mathscr{E}$ be a Grothendieck topos. Then there exists a unique geometric morphism $\gamma : \mathscr{E} \to \mathbf{Set}$, called the \emph{structure morphism}. \index{structure morphism} Its direct image part is given by the global sections functor
+\[ \gamma_*(F) = \Gamma(F) = \Hom_{\mathscr{E}}\left(1, F \right), \]
+and its inverse image part is given by the constant sheaf functor
+\[ \gamma^*(S) = \Delta(S) = \bigsqcup_{s \in S}1. \]
+\end{proposition}
+\begin{proof}
+The fact that $\gamma$ exists is a matter of checking that $\gamma^* \dashv \gamma_*$ and checking that $\gamma^*$ preserves finite limits. For uniqueness, suppose that $f : \mathscr{E} \to \mathbf{Set}$ is a geometric morphism. Then for any set $S$ we have $S \cong \mathbf{Set}(1, S)$ and this gives
+\[ f_* E \cong \mathbf{Set}(1, f_* E) \cong \mathscr{E}(f^*1, E) \cong \mathscr{E}(1, E) \cong \Gamma E \]
+for any object $E \in \mathscr{E}$. So we get a natural isomorphism $f_* \cong \gamma_*$.
+\end{proof}
+
+A point of a topological space $X \in \mathbf{Top}$ is an element $x \in X$. Equivalently, it is a map $x : 1 \to X$. This gives us a geometric morphism $x : \Sh(\mathcal{O}(1)) = \mathbf{Set} \to \Sh(\mathcal{O}(X))$ with direct image part $x_*$ a constant sheaf and inverse image part $x^*$ a skyscraper sheaf.
+
+\begin{definition}
+\index{point (of a topos)}
+\label{def:point of a topos}
+Let $\mathscr{E}$ be a topos. A \emph{point} of $\mathscr{E}$ is a geometric morphism $p : \mathbf{Set} \to \mathscr{E}$.
+\end{definition}
+
+\section{Tensor Products} % (fold)
+\label{sub:tensor_products}
+Let $P : \mathbf{C}^{op} \to \mathbf{Set}$ be a presheaf and $A : \mathbf{C} \to \mathbf{Set}$ a set-valued functor.
+
+\begin{definition}
+\index{tensor product}
+\label{def:tensor product}
+The \emph{tensor product} $P \otimes_{\mathbf{C}} A$ of $P$ and $A$ is defined to be the coequalizer of
+\begin{equation}
+\label{eq:tensor product definition}
+\begin{tikzcd}
+\bigsqcup_{C,C'} P(C) \times \Hom(C',C) \times A(C') \arrow[shift left=0.25em]{r}{\theta} \arrow[swap, shift right=0.25em]{r}{\tau} & \bigsqcup_{C} P(C) \times A(C) \arrow{r}{\phi} & P \otimes_{\mathbf{C}} A,
+\end{tikzcd}
+\end{equation}
+where for elements $p \in P(C)$, $u : C' \to C$ and $a' \in A(C')$ the maps $\theta$ and $\tau$ are given by
+\[ \theta(p,u,a') = (p \cdot u, a'), \qquad \tau(p,u,a') = (p, u \cdot a'). \]
+\end{definition}
+The elements of $P \otimes_{\mathbf{C}} A$ are all of the form $\phi(p,a)$. Let us introduce a useful notation for this set. Write
+\[ \phi(p,a) = p \otimes a, \qquad p \in P(C), \; a \in A(C). \]
+By definition of $\theta$ and $\tau$, we then see that
+\begin{equation}
+\label{eq:tensor product rule}
+p \cdot u \otimes a' = p \otimes u \cdot a', \qquad p \in P(C), \; u : C' \to C, \; a' \in A(C').
+\end{equation}
+So in other words, the set $P \otimes_{\mathbf{C}} A$ is the quotient of the set
+\[ \bigsqcup_{C} P(C) \times A(C) \]
+by the equivalence relation generated by \cref{eq:tensor product rule}.
+
+\begin{theorem}
+\label{thm:hom-tensor-adjunction}
+Let $P : \mathbf{C}^{op} \to \mathbf{Set}$ be a presheaf and $A : \mathbf{C} \to \mathbf{Set}$ a set-valued functor. Then the functor
+\[ R_A : \mathbf{Set} \to \mathbf{Set}^{\mathbf{C}^{op}} \]
+defined for each set $E$ and each object $C \in \mathbf{C}$ by
+\[ R_A(E)(C) = \Hom_{\mathbf{Set}}\left(A(C), E \right) \]
+has a left adjoint $L_A$ defined for each presheaf $P$ as the equalizer $P \otimes_{\mathbf{C}} A$ of \cref{eq:tensor product definition}.
+\end{theorem}
+\begin{proof}
+See \cite[Theorem VII.2.1]{MacLaneMoerdijk91} for the details.
+\end{proof}
+
+\begin{definition}
+\label{def:set valued flat functor}
+A set-valued functor $A : \mathbf{C} \to \mathbf{Set}$ is said to be \emph{flat} \index{flat functor} if the induced tensor product functor $- \otimes_{\mathbf{C}} A$ is left exact.
+\end{definition}
+
+\begin{theorem}
+\label{thm:points of the presheaf topos correspond to flat functors to SET}
+Points of the presheaf topos $\mathbf{Set}^{\mathbf{C}^{op}}$ correspond to flat functors $A : \mathbf{C} \to \mathbf{Set}$.
+\end{theorem}
+\begin{proof}
+The proof can be found in \cite[Theorem VII.5.2]{MacLaneMoerdijk91}. When a functor $A : \mathbf{C} \to \mathbf{Set}$ is flat, we get from \cref{thm:hom-tensor-adjunction} an adjunction $- \otimes_{\mathbf{C}} A \dashv \underline{\Hom}_{\mathbf{C}}(A,-)$, and this constitutes a geometric morphism. To go from a point $p : \mathbf{Set} \to \mathbf{Set}^{\mathbf{C}^{op}}$ to a flat functor $A : \mathbf{C} \to \mathbf{Set}$, use the Yoneda embedding $\mathbf{C} \xrightarrow{\mathbf{y}} \mathbf{Set}^{\mathbf{C}^{op}} \xrightarrow{p^*} \mathbf{Set}$, and define $A$ in this way. That is, take $A = p^* \circ \mathbf{y}$.
+\end{proof}
+
+\begin{construction}[How to find points]
+\label{constr:how to get points}
+It is not immediately clear how to determine the points of a topos. For a presheaf topos $\mathscr{E} = \mathbf{Set}^{\mathbf{C}^{op}}$, we can use the following construct. Take an object $A \in \mathbf{C}$. Then we have a covariant representable functor $\Hom(A,-) : \mathbf{C} \to \mathbf{Set}$. This functor is flat, because if $P$ is a presheaf on $\mathbf{C}$, then one can show that $P \otimes \Hom(A,-) \cong P(A)$. This preserves products and equalizers, so is left exact. The right adjoint is then given by the presheaf
+\[ \underline{\Hom}_{\mathbf{C}}(\Hom(A, -), -) \]
+defined for each set $S$ by
+\[ \underline{\Hom}_{\mathbf{C}}(\Hom_{\mathbf{C}}(A, -), S)(B) = \Hom_{\mathbf{Set}}(\Hom_{\mathbf{C}}(A,B), S), \qquad B \in \mathbf{C}. \]
+\end{construction}
+
+For a set-valued functor $A: \mathbf{C} \to \mathbf{Set}$, replace now the category $\mathbf{Set}$ with an arbitrary cocomplete category $\mathscr{E}$. The cocompleteness of $\mathscr{E}$ provides the same definition of $\otimes_{\mathbf{C}}$ as a coequalizer.
+
+\begin{definition}
+\index{flat functor}
+\label{def:flat functor for cocomplete E}
+A functor $A : \mathbf{C} \to \mathscr{E}$ is said to be \emph{flat} if the corresponding tensor product functor $- \otimes_{\mathbf{C}} A : \mathbf{Set}^{\mathbf{C}^{op}} \to \mathscr{E}$ is left exact.
+\end{definition}
+
+\begin{theorem}
+\label{thm:the adjunction holds for cocomplete E}
+The adjunction of \cref{thm:hom-tensor-adjunction} holds for cocomplete $\mathscr{E}$.
+\end{theorem}
+\begin{proof}
+See \cite[Theorem VII.2.1bis]{MacLaneMoerdijk91}.
+\end{proof}
+
+\begin{theorem}
+\label{thm:geometric morphisms correpsond to flat functors to E}
+Let $\mathscr{E}$ be a topos with small colimits and let $\mathbf{C}$ be any category. Geometric morphisms $\mathscr{E} \to \mathbf{Set}^{\mathbf{C}^{op}}$ correspond to flat functors $\mathbf{C} \to \mathscr{E}$.
+\end{theorem}
+\begin{proof}
+See \cite[Theorem VII.7.2]{MacLaneMoerdijk91}.
+\end{proof}
+
+\begin{theorem}
+\index{filtering}
+\label{thm:flat iff filtering}
+Let $\mathscr{E}$ be a topos with small colimits and let $\mathbf{C}$ be a category. Then a functor $A : \mathbf{C} \to \mathscr{E}$ is flat if and only if it is filtering. \index{filtering functor}
+\end{theorem}
+\begin{proof}
+See \cite[Theorem VII.9.1]{MacLaneMoerdijk91}.
+\end{proof}
+
+\section{Etale Spaces are Sheaves}
+One problem with the generality of sites is that it is not easy to define the stalk of a sheaf, a classical notion.
+Here we quickly describe a useful equivalence of categories that we'll use throughout. Recall that if $X$ is a space, then $\mathcal{O}(X)$ denotes the lattice of opens of $X$, regarded as category with its canonical Grothendieck topology.
+
+\begin{definition}
+\label{def:stalk of a sheaf}
+Let $X$ be a topological space and take a presheaf $P \in \mathbf{Set}^{\mathbf{C}^{op}}$ and take a point $x \in X$. The \emph{stalk at $x$} \index{stalk} is defined to be the colimit
+\[ P_x := \colim_{x \in U} P(U). \]
+\end{definition}
+Elements of the stalk are called \emph{germs}. \index{germ}
+
+\begin{definition}
+\label{def:LH/X}
+Let $X$ be a topological space. The category $\mathbf{LH}/X$ is defined as follows. Its objects are local homeomorphisms \index{local homeomorphism} $f : Y \to X$. also called \emph{etale maps}. \index{etale map} The space $Y$ is regarded as an \emph{etale space} \index{etale space} over $X$. An arrow from $(f : Y \to X)$ to $(g : Z \to X)$ is a continuous map $h : Y \to Z$ making the obvious triangle commute.
+\end{definition}
+
+It's not hard to prove that $h$ is in fact automatically an etale map too. 
+
+\begin{theorem}
+\label{thm:equivalence of categories between etale spaces and sheaves}
+There is an equivalence of categories
+\[ \mathbf{LH}/X \cong \Sh(\mathcal{O}(X)) \]
+which sends an etale space $p : Y \to X$ to the sheaf of sections $\Gamma(p)$ defined on opens $U$ of $X$ by
+\[ \Gamma(p)(U) = \left\{ s : U \to Y \mid p \circ s = \id_U \right\} \]
+and which sends a sheaf $F$ on $\mathcal{O}(X)$ to the etale space
+\[ \pi : \bigsqcup_{x \in X} F_x \to X \]
+where $\pi$ is the etale map sending a germ to the point at which the colimit was taken. The etale space $\bigsqcup F_x$ is topologized in a suitable way.
+\end{theorem}
+\begin{proof}
+It's a matter of checking the definitions. For the details, see \cite[Corollary II.6.3]{MacLaneMoerdijk91}.
+\end{proof}
+Hence we see that $\mathbf{LH}/X$ is a topos.

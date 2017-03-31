@@ -1,0 +1,113 @@
+%!TEX root = main.tex
+%
+% introduction.tex
+%
+
+\chapter{Introduction}
+
+\section{Outline}
+
+Chapter 1 of this thesis gives a light introduction to the subject ending with \cref{eq:intro-question}.
+After that, the general flow of this thesis is divided into two parts. The first part, chapters 2 and 3, deal with topos theory. It sets up some basic definitions, theorems and propositions. There is basically no original work in these two chapters, except at the end of chapter 3, where we prove \cref{prop:locally constant iff every restriction map is a bijection}. This result will be used in chapter 6.
+
+The second part of this thesis consists of the theory of simplicial sets. This is devoted to chapter 4. Half of this chapter is preliminary theory and should be well-known. Section 4.4 is all original work, where we set up a framework to work with open sets in a geometric realization. This it to be used in chapter 5.
+Chapter 5 is devoted to the construction of the McCord functor. This is all original work, so the proofs become somewhat detailed here.
+Chapter 6 proves the equivalence of categories on the level of locally constant finite objects. This, too, is all original work. So again the proofs are detailed.
+Chapter 7 ends with an outlook on what problems might be solved still.
+The reader knowledgeable in both topos theory and simplicial sets may thus skip to section 4.4 and read on.
+In summary, up to section 4.4 is preliminary text (with the exclusion of \cref{prop:locally constant iff every restriction map is a bijection}), while section 4.4 and on is original work.
+
+The bibliography and index pages may be found at the end of the paper. They do not appear in the contents because they would not fit.
+
+\newpage
+\section{Prerequisites and Notation}
+
+As for the prerequisites, it is assumed that the reader has a firm grasp on category theory. I contemplated whether to include all the relevant category theoretic definitions, but I refrained from doing so because the preliminary text is already substantial. Here are some notions which should be familiar. Category. Small category. Balanced category. Functor. Left exact functor. Right exact functor. Exact functor. Isomorphism-reflecting functor. Adjoint pair of functors. Monoid. Monomorphism. Epimorphism. Exponentials. Cartesian closed categories. (Finite) (co)limits.
+Moreover, I assume that the reader has seen (pre)sheaves, and is familiar with the classic construction of turning a continuous map $f : X \to Y$ of spaces into an adjoint pair of functors $f_* \dashv f^*$.
+
+\bigskip
+
+The set $\N$ is the set of natural numbers including zero. 
+The set $\Z$ is the set of all integers. $\R$ denotes the real numbers. If something is in boldface, for instance, $\mathbf{C}$, then this is always a category. If something is in scriptface, for instance, $\mathscr{E}$, then this is always a topos. Sheaves and presheaves will be denoted by $F,G,P,Q$, etcetera (so \emph{not} by $\mathcal{F}$, $\mathcal{G}$). Natural transformations are always greek small letters, for instance $\alpha, \eta, \varepsilon$. Every diagram that is drawn in this thesis is commutative, or will be proven to be commutative. If $F$ and $G$ are functors, the symbol $F \dashv G$ means that $F$ is the left adjoint of $G$, or equivalently, $G$ is the right adjoint of $F$. $\mathbf{Set}$ is the category of sets. $\mathbf{set}$ is the category of finite sets. $\mathbf{Top}$ is the category of topological spaces.
+
+\newpage
+\section{Acknowledgements}
+\bigskip \bigskip
+
+I want to seize this opportunity to thank my advisor Owen Biesel. The past year has been great and I am thankful to have worked on mathematical problems with you. Thank you for for the fun weekly meetings.
+
+\bigskip
+
+\bigskip
+
+My deepest gratitude goes to my family and especially my parents. Their love and support has kept me going these past years. Their unbounded patience is a virtue which I hope to inherit some day.
+
+\bigskip
+
+\bigskip
+
+Finally, my friends. Thank you. From Dordrecht, Rotterdam, Den Haag, Leiden, Amsterdam, and Utrecht. You know who you are. Couldn't have done it without you. I thank you for the shared experiences. For the troubles we got into. For the late nights. For the early mornings. The coffee breaks. The tea breaks. Dinners. For the milestones we made. The card games. The live stage. Lunches. Festivals. The music. You have all been such a central part of my life for a long time. I want to believe that your combined effort has made a better person. Let me raise the glass for the things that still lie ahead of us. Here's to you!
+
+\newpage
+
+\section{Motivation and Problem Statement}
+Let $X$ be a finite connected $T_0$-space. Then we have a lattice of open subsets $\mathcal{O}(X)$. We may form the category of sheaves on this lattice. Let us denote it by $\Sh(\mathcal{O}(X))$. From a different viewpoint, $X$ can be regarded as a partially ordered set. Every partially ordered set is a category. So we may also form the presheaf category $\mathbf{Set}^{X^{op}}$. That is, $\mathbf{Set}^{X^{op}}$ is the category whose objects are functors $X^{op} \to \mathbf{Set}$ and whose morphisms are natural transformations between them. Observe that every point $x$ of the space $X$ has a minimal open neighborhood. Let us denote it by $U_x \subset X$. This thesis began with the following observation.
+
+\begin{theorem}
+\label{thm:intro-theorem}
+Let $X$ be a finite $T_0$-space. Then there is an equivalence of categories
+\[ \begin{tikzcd}
+\Sh(\mathcal{O}(X)) \arrow[shift left=0.25em]{r}{\varphi} & \mathbf{Set}^{X^{op}} \arrow[shift left=0.25em]{l}{\psi} \end{tikzcd} \]
+where the functor $\varphi$ sends a sheaf $F$ to the presheaf defined by
+\[ \varphi(F)(x) = F(U_x), \qquad x \in X, \]
+while the quasi-inverse functor $\psi$ sends a presheaf $P$ to the sheaf defined on the basis of opens $\{U_x : x \in X\}$ by
+\[\psi(P)(U_x) = P(x). \]
+\end{theorem}
+\begin{proof}
+The functors are each other's quasi-inverse once we show that $\varphi$ and $\psi$ are well-defined. Note that $x \leq y \iff U_x \subseteq U_y$, so that $\varphi$ is well-defined, and for every presheaf $P$ on $X$ the presheaf $\psi(P)$ is a sheaf on the basis $\{U_x : x \in X\}$. So after taking a projective limit it corresponds to a sheaf on all of $\mathcal{O}(X)$.
+\end{proof}
+Meanwhile there is the notion of the nerve of a category, to be defined in \cref{def:nerve of a category}. In the case of the poset $X$, the nerve $N(X)$ is simply the simplicial set defined by the $n$-chains of elements $(x_0 \leq \ldots \leq x_n)$, with $x_i \in X$. So there are $n$ less-than-or-equal-to signs together with $n+1$ elements $x_i \in X$ in such an $n$-chain. One should view such an $n$-chain as being an actual $n$-simplex. To get the $i$'th face of an $n$-chain, simply forget the element $x_i$ in the chain to get an $(n-1)$-chain. Similarly, one can turn an $n$-chain into a so-called degenerate $(n+1)$-chain by repeating the $i$'th element $x_i$. Every simplicial set has a so-called geometric realization, whereby we turn a simplicial set into a topological space. Let us denote that space by $|NX|$. Concretely, elements of $|NX|$ are equivalence classes of pairs $[\sigma, t]$ where $\sigma = (x_1,\ldots, x_n)$ is an $n$-simplex of $NX$ and $t$ is a point on the standard geometric $n$-simplex $\Delta^n \subset \R^{n+1}$. Two representatives $(\sigma,t)$ and $(\tau,s)$ are equivalent if and only if ``one is a face of the other'', that is, if one can find a sequence of ``taking faces'' which realizes $\sigma$ as a face of $\tau$, and the point $t$ is geometrically reduced alongside the face maps to the point $s$. All this will be made precise in chapter 4. In any case, notice that every such $n$-chain is totally ordered with a minimal element. If $t \in \Delta^n$, let us define the \emph{support} \index{support (classic)}of $t$ to be the set of indices
+\[ \supp(t) := \{i : t_i > 0\}. \]
+Then, \cite[Theorem 1.4.6]{barmak11} tells us that there is a continuous map
+\[ \mu : |NX| \to X, \qquad [(x_0 \leq \ldots \leq x_n),t] \mapsto x_{\min \supp(t)}, \]
+called the \emph{McCord map}, \index{McCord map}which moreover induces a weak homotopy equivalence
+\[ \widetilde{\mu} : \pi_n(|NX|) \xrightarrow{\sim} \pi_n(X), \qquad n \geq 0. \]
+Combining this with \cref{thm:intro-theorem}, we see that we have an adjoint pair of functors
+\begin{equation}
+\label{eq:intro-equation}
+\begin{tikzcd}
+\Sh(\mathcal{O}|NX|) \arrow[shift left=0.25em]{rr}{\mu_* \circ \varphi} & \; & \mathbf{Set}^{X^{op}} \arrow[shift left=0.25em]{ll}{\mu^* \circ \psi} \end{tikzcd}
+\end{equation}
+where the right adjoint $\mu_* \circ \varphi$ sends a sheaf $F$ on $|NX|$ to the presheaf defined by
+\[ \left(\mu^{-1} \circ \varphi\right)(F)(x) = F\left( \mu^{-1} U_x \right), \qquad x \in X. \]
+It turns out that categories such as in \cref{eq:intro-equation} may be regarded as ``spaces'', and with that notion comes the notion of a ``fundamental group''. Such fundamental groups are not merely groups, but are in fact profinite groups carrying topological structure. By general category yoga, we may dedude then, using \cite[Theorem 1.15]{lenstra08}, that the functor above induces an isomorphism of profinite groups
+\[ \widehat{\pi}_1\left(|NX|, |p| \right) \cong \pi_1\left( \mathbf{Set}^{X^{op}}, p \right). \]
+Here, the notion of a ``point'' $p$ will be defined in \cref{def:point of a topos}.
+
+The small category $X$ is part of a (big) category called the category of all small categories (with functors between them as morphisms), denoted by $\mathbf{Cat}$. Moreover, it turns out that such an adjoint pair is so common that a theory around it was developed by Grothendieck and co. Let us call such an adjoint pair for which the left adjoint is left exact a \emph{geometric morphism}. The precise definition is given in \cref{def:geometric morphism}.
+
+\begin{question}
+\label{eq:intro-question}
+For which (connected) categories $\mathbf{C} \in \mathbf{Cat}$ does there exist a geometric morphism
+\[
+\begin{tikzcd}
+\Sh(\mathcal{O}|N\mathbf{C}|) \arrow[shift left=0.25em]{rr} & \; & \mathbf{Set}^{\mathbf{C}^{op}} \arrow[shift left=0.25em]{ll} \end{tikzcd}
+\]
+which induces an isomorphism of profinite groups
+\[ \widehat{\pi}_1(|N\mathbf{C}|, |p|) \cong \pi_1\left(\mathbf{Set}^{\mathbf{C}^{op}}, p \right)\; \]
+and does all this even make sense?
+\end{question}
+The notion of connectedness is defined in \cref{def:connected topos}. What a fundamental group is is treated in chapter 3. Because geometric morphisms are so common, we'll denote them from now on with a \emph{single arrow} $\to$ instead of two arrows $\leftrightarrows$, but keep in mind that an adjoint pair is always meant.
+
+This thesis will give a partial answer to \cref{eq:intro-question}. As it turns out, for \emph{every small category} there is at least a functor, dubbed the \emph{McCord functor} which looks like
+\[ \ST : \mathbf{C} \to \mathbf{LH}/|N\mathbf{C}|. \]
+Here, $\mathbf{LH}$ is the subcategory of $\mathbf{Top}$ consisting of all topological spaces together with \emph{local homeomorphisms} between them as morphisms (instead of just continuous maps). To make this $\ST$ work, we needed to introduce a certain class of categories called \emph{Alexandroff} categories which carry the right properties in order to turn $\ST$ into an equivalence of categories on the level of locally constant finite objects. The precise meaning of an Alexandroff category is given in \cref{def:alexandroff cat}. What locally constant finite objects are is explained in \cref{def:locally constant finite}.
+We end here with the statement of the main result of the thesis, to be proved in \cref{coro:isomorphism of profinite groups}.
+\begin{theorem}
+Let $\mathbf{C}$ be a small connected Alexandroff category. Then there exists a geometric morphism
+\[ \tau(\ST) : \Sh(\mathcal{O}|N\mathbf{C}|) \to \mathbf{Set}^{\mathbf{C}^{op}} \]
+which induces an isomorphism of profinite groups
+\[ \widehat{\pi}_1(|N\mathbf{C}|, |A|) \cong \pi_1\left(\mathbf{Set}^{\mathbf{C}^{op}}, A \right) \]
+for every object $A \in \mathbf{C}$.
+\end{theorem}
+

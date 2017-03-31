@@ -1,0 +1,187 @@
+%!TEX root = main.tex
+%
+% appendixB.tex
+%
+
+\chapter{Category Theory}
+Most can be found in \cite{MacLaneMoerdijk91}.
+\begin{lemma}
+\label{lem:mono iff pullback}
+Let $\mathcal{C}$ be a category with pullbacks. If $f : A \to B$ is a morphism in $\mathcal{C}$, then $f$ is a monomorphism if and only if the diagram
+\[
+	\begin{tikzcd}
+		A \arrow[r, equal] \arrow[d, equal] & A \arrow[d, "f"] \\
+		A \arrow[r, "f"]              & B
+	\end{tikzcd}
+\]
+is a pullback diagram.
+\end{lemma}
+\begin{proof}
+Suppose $f$ is mono. Let $P$ be the pullback of $f$ with itself. There exists a unique $\phi : A \to P$ such that
+\[
+	\begin{tikzcd}
+		A \arrow[dr, dotted, "\exists ! \phi"] \arrow[drr, "\id_A", bend left=20] \arrow[ddr, "\id_A", bend right=20] \\
+		& P \arrow[r, "p_1"] \arrow[d, "p_2"] & A \arrow[d, "f"] \\
+		& A \arrow[r, "f"] & B
+	\end{tikzcd}
+\]
+Notice first that $p_1 = p_2$, using that $f$ is mono. Next, we have $f p_1 \phi = f \id_A$, so $p_1 \phi = \id_A$. Monomorphisms are stable under pullbacks, so $p_1$ is also mono. Hence, we have $p_1 \phi p_1 = p_1 \id_P \Rightarrow \phi p_1 = \id_P$. We conclude that $P \cong A$.
+
+On the other hand, Let $\begin{tikzcd} C \arrow[r, shift left=.50ex, "g"] \arrow[r, shift right=.50ex, swap, "h"] & A \arrow[r, "f"] & B \end{tikzcd}$ be morphisms such that $fg = fh$. Then there exists a unique morphism $\phi : C \to A$, such that the diagram
+\[
+	\begin{tikzcd}
+		C \arrow[dr, dotted, "\exists ! \phi"] \arrow[drr, "g", bend left=20] \arrow[ddr, "h", bend right=20] \\
+		& A \arrow[r, equal] \arrow[d, equal] & A \arrow[d, "f"] \\
+		& A \arrow[r, hook, "f"]              & B
+	\end{tikzcd}
+\]
+commutes. In other words, $g = \phi = h$.
+\end{proof}
+
+\begin{corollary}
+Let $\mathcal{C}$ be a category with pushouts. If $f : A \to B$ is a morphism in $\mathcal{C}$, then $f$ is an epimorphism if and only if the diagram
+\[
+	\begin{tikzcd}
+		A \arrow[r, "f"] \arrow[d, "f"] & B \arrow[d, equal] \\
+		A \arrow[r, equal]              & B
+	\end{tikzcd}
+\]
+is a pushout.
+\end{corollary}
+\begin{proof}
+Follows from duality of Lemma \ref{lem:mono iff pullback}.
+\end{proof}
+\begin{lemma}
+Every equalizer is a monomorphism.
+\end{lemma}
+\begin{proof}
+Let $\mathcal{C}$ be a category with equalizers. Suppose that
+\[ \begin{tikzcd} E \arrow[r, "e"] & A \arrow[r, shift left=0.50ex, "f"] \arrow[r, swap, shift right=0.50ex, "g"] & B \end{tikzcd} \]
+is an equalizer diagram in $\mathcal{C}$. Suppose that there are morphisms
+\[ \begin{tikzcd} F
+\arrow[r, shift left=0.50ex, "x"] 
+\arrow[r, swap, shift right=0.50ex, "y"] & E \arrow[r, "e"] & A \end{tikzcd} \]
+such that $ex = ey$. Clearly, $fex = gex$. It follows that, as shown in the diagram below, there exists a unique commuting $u : F \to E$ because $e$ is an equalizer.
+\[ \begin{tikzcd} E \arrow[r, "e"] & A 
+\arrow[r, shift left=0.50ex, "f"] 
+\arrow[r, swap, shift right=0.50ex, "g"] & B \\
+F
+\arrow[ur, swap, "ex = ey"]
+\arrow[u, dotted, "\exists ! u"] \end{tikzcd} \]
+By uniqueness of this $u$, we may conclude that $x=u=y$.
+\end{proof}
+\begin{proposition}
+In the category $\mathbf{Sets}$, monomorphisms are in bijection with injective maps, and epimorphisms are in bijection with surjective maps.
+\end{proposition}
+\begin{proof}
+Suppose $f : A \to B$ is a monomorphism. We want to show that $f$ is injective. So let $a,a' \in A$ be such that $f(a) = f(a')$. Consider the diagram
+\[ \begin{tikzcd} *
+\arrow[r, shift left=0.50ex, "a"] 
+\arrow[r, swap, shift right=0.50ex, "a'"]& A \arrow[r, "f"] & B \end{tikzcd} \]
+where $a(*) = a \in A$ and $a'(*) = a' \in A$. Then $f a = f a'$, so $a = a'$. We have shown that $f$ is injective. Assume now instead that $f$ is injective. We want to show that it is mono. So let
+\[ \begin{tikzcd} C
+\arrow[r, shift left=0.50ex, "g"] 
+\arrow[r, swap, shift right=0.50ex, "h"]
+& A \arrow[r, "f"] & B \end{tikzcd} \]
+be an arbitrary diagram such that $fg = fh$. This means that for all $c \in C$, we have $f(g(c)) = f(h(c))$. Since $f$ is injective, this implies that for all $c \in C$ we have $g(c) = h(c)$, in other words that $g = h$. We have shown that $f$ is mono. Suppose now that $f$ is an epimorphism. We want to show that $f$ is surjective. Let $b \in B$. Consider the diagram
+\[ \begin{tikzcd} A \arrow[r, "f"] & B \arrow[r, two heads] & \{b\} \end{tikzcd} \]
+\end{proof}
+\begin{definition}
+Let $\mathcal{C}$ be a locally small category and let $C \in \mathcal{C}$. A \emph{sieve on $C$} is a subfunctor $S \subseteq \Hom(\cdot,C)$.
+\end{definition}
+Note that a subfunctor just means that there is a monic natural transformation from $S$ to $\Hom(\cdot,C)$.
+
+If $S$ is a sieve on $C$ and $h : D \to C$ a morphism, then the pullback sieve $h^*S$ is a sieve on $D$; just compose with $h$. We call a sieve $S$ a \emph{maximal} sieve if $S = \Hom(\cdot, C)$.
+
+\begin{lemma}
+Let $S$ be a sieve on $C$. Then $S$ is a maximal sieve if and only if $\id_C \in S(C)$.
+\end{lemma}
+\begin{proof}
+Suppose that $\id_C \in S(C)$. Let $f : D \to C$ be a morphism. The natural inclusion $i : S \to \Hom(\cdot, C)$ induces a commutative diagram
+\[
+	\begin{tikzcd}
+		S(C) \arrow[r, "f^*"] \arrow[d, swap, "i_C"] & S(D) \arrow[d, "i_D"] & \id_C \arrow[r, mapsto] \arrow[d, mapsto] & f \arrow[d, mapsto] \\
+		\Hom(C,C) \arrow[r, "f^*"] & \Hom(D,C) & \id_C \arrow[r, mapsto] & f
+	\end{tikzcd}
+\]
+Since $f$ was arbitrary, $S = \Hom(\cdot, C)$.
+\end{proof}
+If $\mathcal{C}$ and $\mathcal{D}$ are categories, we denote by $[\mathcal{C},\mathcal{D}]$ the category of functors $\mathcal{C} \to \mathcal{D}$, with as morphisms the natural transformations between them.
+\begin{definition}
+Let $\mathcal{C}$ be a locally small category. We set
+\[ \widehat{\mathcal{C}} := [\mathcal{C}^{\text{op}}, \mathbf{Sets}].\]
+Objects of this category are called \emph{presheaves}.
+\end{definition}
+The motivation for presheaves stems from topological spaces. If $X$ is a topological space, then we have a category $\mathcal{O}(X)$ where the objects are the open sets of $X$ and the morphisms are inclusions $U \subseteq V$ of open sets. A presheaf $F$ on $\mathcal{O}(X)$ is then a rule which associates to every open $U$ a set $FU$ and whenever we have an inclusion $U \subseteq V$, we require a map $FV \to FU$, called a \emph{restriction} map. For instance, in order to study continuous maps $X \to \mathbb{R}$, one could restrict attention to the presheaf $F$ which assigns to every open $U$ the set of all continous maps $U \to \mathbb{R}$. The restriction map $FV \to FU$ can then be defined as actual restriction of continuous functions.
+
+The term ``presheaf'' suggests that there is also a definition of a sheaf. This is indeed the case. So what's wrong with presheaves themselves? Suppose that $X,Y$ are topological spaces and $A,B \subseteq X$ open sets. We do not require that $A \cap B \neq \emptyset$, as this is a perfectly possible option. Suppose that we have two continuous maps $f : A \to Y$ and $g : B \to Y$. From the gluing lemma of topology, we know that if $f|_{A \cap B} = g|_{A \cap B}$, then there exists a unique continuous map $h : A \cup B \to Y$ such that $h|_{A} = f$ and $h|_{B} = g$.
+Presheaves do not guarantee the existence of such $h$. To give an example, let $X = \{a,b\}$ be the discrete space with two points. For our presheaf $F \in \widehat{\mathcal{O}(X)}$, we set $F\emptyset = FX = F\{a\} = F\{b\} = \Z$. We can regard the elements of $FU$ as constant functions $U \to \Z$. Then $0 \in F\{a\}$ and $1 \in F\{b\}$, and the fact that they agree on the intersection $\{a\} \cap \{b\}$ is vacuously true, yet we cannot ``glue'' the constant functions $0$ and $1$ to some constant function $n \in \Z$.
+The notion of a sheaf fixes this problem by forcing this gluing property on it.
+\begin{definition}
+Let $F \in \widehat{\mathcal{O}(X)}$. Then $F$ is called a \emph{sheaf} if for every open $U \in \mathcal{O}(X)$ and for every open cover $\{U_i\}_{i \in I}$ the diagram
+\[
+	\begin{tikzcd}
+		FU \arrow[r, dotted, "e"] & \prod_{i \in I} FU_i \arrow[r, shift left=.50ex, "g"] \arrow[r, shift right=.50ex, swap, "h"] & \prod_{i,j \in I} F(U_i \cap U_j)
+	\end{tikzcd}
+\]
+is an equalizer, where $g\{s_i\} := \{s_i|_{U_i \cap U_j}\}$ and $h\{s_j\} := \{s_j|_{U_i \cap U_j}\}$.
+\end{definition}
+The natural numbers $\N$ include $0$, so $\N = \{0,1,2,\ldots\}$.
+\begin{definition}
+Let $n \in \N$ By $\underline{n}$ we denote the subset $\{0,1,\ldots,n-1,n\} \subset \N$. If $m,n \in \N$, then a map $f : \underline{m} \to \underline{n}$ is called an \emph{order-preserving} map if $x \leq y \Rightarrow f(x) \leq f(y)$ for all $x,y \in \underline{m}$. By $\Delta$ we denote the category whose objects are the $\underline{n} \subset \N$ and whose morphisms are the order-preserving maps. The objects of the presheaf category $\widehat{\Delta}$ are called \emph{simplicial sets}.
+\end{definition}
+
+Specifying a simplicial set $X \in \widehat{\Delta}$ amounts to giving a set $X_n$ for each $n \in \N$, and for each order-preserving map $f : \underline{m} \to \underline{n}$ a map of sets $Xf : X_n \to X_m$ with the usual requirements of $X$ being a functor. A map between simplicial sets $X,Y \in \widehat{\Delta}$ is then, of course, a natural transformation of functors $X \to Y$.
+
+\begin{definition}
+For each $n \in \N$, the \emph{standard geometric $n$-simplex} is the topological space
+\[ \Delta_n := \left\{ x \in \mathbb{R}^{n+1} : \sum_{i=0}^n x_i = 1,\; x_i \geq 0 \right\} \]
+\end{definition}
+
+\begin{definition}
+For each $n \in \N$, the \emph{standard $n$-simplex} is the (representable) simplicial set $\Hom_{\Delta}(\cdot, \underline{n})$.
+\end{definition}
+
+Hence, we see that standard $n$-simplices are exactly the maximal sieves.
+
+\begin{lemma}
+There exists a functor $F: \Delta \to \mathbf{Top}$.
+\end{lemma}
+\begin{proof}
+Given $\underline{n} \in \Delta$, we send it to the geometric $n$-simplex $ F \underline{n} := \Delta_n$. Given an order-preserving map $f : \underline{n} \to \underline{m}$, we send it to the map $Ff : \Delta_n \to \Delta_m$ defined as follows:
+\[ \left( x_0,\ldots,x_n \right) \mapsto \left( y_0, \ldots, y_m \right), \qquad y_j := \sum_{f(i) = j}x_i. \]
+It remains to be seen why this assignment gives us a continuous map $Ff : \Delta_n \to \Delta_m$.
+% We do this by induction on $m$. For $m=0$, the object $\underline{m} \in \Delta$ is terminal, so there is for each $n$ only one morphism $\underline{n} \to \underline{0}$. Then $y_0 = \sum_{i} x_i = 1 \in \Delta_0$, so this is a continuous map. Suppose now that the statement is proven for all $0 \leq m < M$. Consider $m=M$. Since $f$ is order-preserving, $m-1 < M \Rightarrow f(m-1) \leq f(M)$.
+The first thing to see is that $Ff$ is well-defined. Clearly, $y_j \geq 0$ for all $j \in \underline{m}$ since $x_i \geq 0$ for all $i \in \underline{n}$. Also
+\[ \sum_{j=0}^m y_j = \sum_{j=0}^m \sum_{f(i) = j} x_i = \sum_{f(i)=0}x_i + \sum_{f(i)=1}x_i + \ldots + \sum_{f(i)=m}x_i \]
+\[ = \sum_{i \in f^{-1}(0)}x_i + \ldots + \sum_{i \in f^{-1}(m)}x_i = \sum_{i \in \underline{n}}x_i = 1. \]
+In the last equation, we use that $f$ is order preserving: Whenever $0 \leq a < b \leq m$, this implies that for all $x \in f^{-1}(a)$ and all $y \in f^{-1}(b)$, we have $x < y$. Hence $Ff$ is well-defined. Since $Ff$ is linear, it is continuous.
+\end{proof}
+
+\begin{lemma}
+Let $X \in \widehat{\Delta}$ be a simplicial set. Then
+\[ X_n \cong \Hom_{\widehat{\Delta}}\left( \Hom_{\Delta}\left( \cdot, \underline{n} \right), X \right), \qquad n \in \N. \]
+That is, any simplicial set can be seen as mapping the standard $n$-simplices into it.
+\end{lemma}
+\begin{proof}
+Yoneda. (TODO?)
+\end{proof}
+
+\begin{theorem}
+Every simplical set $X \in \widehat{\Delta}$ is a colimit of standard $n$-simplices.
+\end{theorem}
+\begin{proof}
+TODO.
+\end{proof}
+
+\begin{theorem}
+
+\end{theorem}
+
+\begin{theorem}
+There exists an adjoint pair of functors 
+\[ \begin{tikzcd}
+\widehat{\Delta} \arrow[r, shift right=.50ex, swap, "|\cdot|"] & \arrow[l, shift right=.50ex, swap, "\Sing"] \mathbf{Top}
+\end{tikzcd} \]
+where $\Sing_n X := \Hom_{\mathbf{Top}}(\Delta_n, X)$ and $|X| := ...$
+\end{theorem}

@@ -1,0 +1,128 @@
+%!TEX root = main.tex
+%
+% config.tex
+%
+
+\documentclass[11pt,a4paper,titlepage]{report}
+
+\usepackage[pdfpagelabels]{hyperref}
+\usepackage[utf8]{inputenc}
+
+\usepackage
+{
+	makeidx,
+	url,
+	amsmath, 
+	amssymb, 
+	amsthm,
+	mathrsfs,
+	tikz,
+	tikz-cd,
+	chngcntr,
+	apptools,
+	cleveref,
+	enumitem,
+	cite,
+	algorithm,
+	algpseudocode,
+	lmodern
+}
+
+% \usepackage[nottoc]{tocbibind}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\l@chapter}{1.0em}{0.8em}{}{}
+\makeatother
+
+\usepackage{tikz-3dplot/tikz-3dplot}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes}
+\tdplotsetmaincoords{60}{0}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes.geometric}
+
+% \pgfplotsset{compat=1.13}
+\pgfplotsset{compat=1.12}
+
+\author{Raoul Wols}
+\title{Master's Thesis}
+\date{\today}
+
+\theoremstyle{plain}
+	\newtheorem{theorem}{Theorem}
+	\counterwithin{theorem}{section} % important bit
+	\newtheorem{lemma}[theorem]{Lemma}
+	\newtheorem{proposition}[theorem]{Proposition}
+	\newtheorem{corollary}[theorem]{Corollary}
+	\newtheorem{claim}[theorem]{Claim}
+	\newtheorem{conjecture}[theorem]{Conjecture}
+
+	\newtheorem*{theorem*}{Theorem}
+	\newtheorem*{lemma*}{Lemma}
+	\newtheorem*{proposition*}{Proposition}
+	\newtheorem*{corollary*}{Corollary}
+	\newtheorem*{claim*}{Claim}
+	\newtheorem*{conjecture*}{Conjecture}
+
+\theoremstyle{definition}
+	\newtheorem{definition}[theorem]{Definition}
+	\newtheorem{example}[theorem]{Example}
+	\newtheorem{exercise}{Exercise}
+	\newtheorem{fact}[theorem]{Fact}
+	\newtheorem{question}[theorem]{Question}
+	\newtheorem{construction}[theorem]{Construction}
+
+	\newtheorem*{definition*}{Definition}
+	\newtheorem*{example*}{Example}
+	\newtheorem*{exercise*}{Exercise}
+	\newtheorem*{fact*}{Fact}
+	\newtheorem*{question*}{Question}
+	\newtheorem*{construction*}{Construction}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}[theorem]{Note}
+
+\AtAppendix{\counterwithin{theorem}{section}}
+\AtAppendix{\counterwithin{exercise}{section}}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\NEEDREF}{\begin{color}{red}{\texttt{REF?}}\end{color}}
+\newcommand{\TODO}{\begin{color}{red}{\texttt{TODO}}\end{color}}
+
+\newcommand{\axiomnumbering}[1] {($#1 \arabic* $)}
+\newcommand{\romansmallnumbering}{(\roman*)}
+
+
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\lcf}{lcf}
+\DeclareMathOperator{\Int}{int}
+\DeclareMathOperator{\ST}{\mu}
+\DeclareMathOperator{\st}{star}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Sing}{Sing}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Sh}{Sh}
+\DeclareMathOperator{\verteq}{\rotatebox{90}{=}}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\Sub}{Sub}
+\DeclareMathOperator*{\colim}{colim}
+\DeclareMathOperator{\cod}{cod}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\eval}{eval}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}
+
+\newcommand{\HomLHOverXC}[2]{\Hom_{\mathbf{LH}/X_{\mathbf{C}}}\left(#1, #2\right)}
+\newcommand{\uHomLHOverXC}[2]{\underline{\Hom}_{\mathbf{LH}/X_{\mathbf{C}}}\left(#1, #2\right)}

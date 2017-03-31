@@ -1,0 +1,196 @@
+%!TEX root = main.tex
+%
+% locallyconst.tex
+%
+
+\chapter{Locally Constant Objects}
+
+% \begin{definition}
+% Let $\mathscr{E}$ be a topos. An object $X \in \mathscr{E}$ is called \emph{constant} if $X \cong \Delta S$ for some set $S \in \mathbf{Set}$.
+% \end{definition}
+
+% \begin{definition}
+% Let $\mathscr{E}$ be a topos. An object $X \in \mathscr{E}$ is called \emph{locally constant} if there is an object $U \in \mathscr{E}$ such that $U \to 1$ is epi and a set $S \in \mathbf{Set}$ such that $X \times U \cong \Delta S \times U$ in the slice topos $\mathscr{E}/U$.
+% \end{definition}
+
+% \begin{definition}
+% A geometric morphism $f : \mathscr{F} \to \mathscr{E}$ between toposes is called \emph{connected} if the inverse image part $f^*$ is fully faithful.
+% \end{definition}
+% Recall that if $\mathscr{E}$ is a Grothendieck topos, then it has a unique structure morphism $\gamma : \mathscr{E} \to \mathbf{Set}$ whose direct image part are the global sections $g^* = \Hom_\mathscr{E}(1,-)$ and whose inverse image part is the constant sheaf $\gamma^* = \Delta(-)$.
+
+% \begin{definition}
+% Let $\mathscr{E}$ be a Grothendieck topos. Let $\gamma : \mathscr{E} \to \mathbf{Set}$ be the structure morphism. Then $\mathscr{E}$ is called \emph{connected} if $\gamma$ is connected.
+% \end{definition}
+
+% \begin{proposition}
+% Let $\mathscr{E}$ be a Grothendieck topos. Then the following are equivalent.
+% \begin{enumerate}
+% 	\item $\mathscr{E}$ is connected.
+% 	\item If the terminal object $1 \in \mathscr{E}$ is expressed as a coproduct $1 = A + B$ for some objects $A,B \in \mathscr{E}$, then $A = 0$ or $B = 0$ (i.e. initial).
+% \end{enumerate}
+% \end{proposition}
+
+\begin{proposition}
+\label{prop:locally constant iff every restriction map is a bijection}
+Let $\mathbf{C}$ be a category and $P \in \mathbf{Set}^{\mathbf{C}^{op}}$. If the topos $\mathbf{Set}^{\mathbf{C}^{op}}$ is connected, then the following are equivalent.
+\begin{enumerate}
+	\item $P$ is locally constant.
+	\item Every restriction map of $P$ is a bijection.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+$(1) \implies (2)$. There exists a presheaf $U$ with $U \to 1$ epi, a set $S \in \mathbf{Set}$ and an isomorphism $\varphi : P \times U \to \Delta S \times U$ in $\mathbf{Set}^{\mathbf{C}^{op}}/U$. So for every morphism $f : x \to y$ in $\mathbf{C}$ we have a commutative diagram
+\[ \begin{tikzcd}
+Py \times Uy \arrow{r}{\left(\varphi_{Py}, \id_{Uy} \right)} \arrow[swap]{d}{Pf \times Uf} & S \times Uy \arrow{d}{\id_S \times Uf} \\
+Px \times Ux \arrow[swap]{r}{\left(\varphi_{Px}, \id_{Ux} \right)} & S \times Ux
+\end{tikzcd} \]
+We'll show that $Pf$ is a bijection. So let $c \in Px$. Take any $b \in Uy$. Let $s = \varphi_{Px}\left( c, (Uf)(b) \right) \in S$. Then
+\[ \begin{tikzcd}
+\; & \left(s, b \right) \arrow[maps to]{d} \\
+\left( c, (Uf)(b) \right) \arrow[maps to]{r} & \left( s, (Uf)(b) \right)
+\end{tikzcd} \]
+The map $\varphi_y$ is a bijection, so there exists a unique $(d,b) \in Py \times Uy$ such that $\varphi_y(d,b) = (s,b)$. Write $\left(Pf \times Uf\right) \left(d,b \right) = \left(c', (Uf)(b) \right)$. The diagram commutes, so $(c', (Uf)(b)) \mapsto (s, (Uf)(b))$. The map $\varphi_x$ is a bijection, so $c = c'$. Hence $Pf$ is a bijection. \\
+$(2) \implies (1)$. Suppose $P$ is a presheaf with the property that all of its restriction maps are bijections. Take any object $x_0 \in \mathbf{C}$. Let
+\[ S = \bigsqcup_{a \in Px_0} *. \]
+Observe that for all objects $x \in \mathbf{C}$ we now have a bijection of sets $Px \cong S$ because the topos is assumed to be connected.
+Define the presheaf $U$ as follows. For every object $x \in \mathbf{C}$, we set
+\[ U(x) = \Iso(S, P(x)). \]
+Given a morphism $f : x \to y$ in $\mathbf{C}$, the restriction map $Uf : Uy \to Ux$ is defined by
+\[ \Iso(S, Py) \to \Iso(S, Px), \qquad g \mapsto (Pf) \circ g. \]
+This is well-defined, because $Pf$ is a bijection for each morphism $f$ by assumption. The restriction maps are compatible with composition of morphisms because $P$ is a presheaf. The unique morphism $U \to 1$ is epi since the set $\Iso(S, Px)$ is non-empty for all $x \in \mathbf{C}$. Define the natural transformation $\varphi : P \times U \to \Delta S \times U$ as follows. Given an object $x \in \mathbf{C}$, the component $\varphi_x$ is defined as
+\[ \varphi_x : Px \times \Iso(S, Px) \to S \times \Iso(S, Px), \qquad (a,g) \mapsto \left(g^{-1}(a), g \right). \]
+The inverse of $\varphi_x$ is then given by $\varphi_x^{-1} \left( s, g \right) = (g(s), g)$. Clearly, $\varphi_x$ respects the projection onto $Ux$ for every $x \in \mathbf{C}$. It remains to check that for every $f : x \to y$ in $\mathbf{C}$ the usual diagram commutes. So let $f : x \to y$ be any morphism in $\mathbf{C}$. Let $(a,g) \in Py \times \Iso(S, Py)$. Then on the one hand,
+\[ \left(\left(\id_S \times Uf\right) \circ \varphi_y\right) \left( a, g \right) = \left( \id_S \times Uf \right)\left(g^{-1}(a), g \right) = \left(g^{-1}(a), \left(Pf \right) \circ g \right). \]
+On the other hand,
+\[ \left( \varphi_x \circ \left( Pf \times Uf \right) \right)\left(a, g \right) = \varphi_x \left((Pf)(a), (Pf) \circ g \right) = \left( g^{-1}(a), (Pf) \circ g \right). \]
+Hence $\varphi$ is a natural isomorphism.
+\end{proof}
+The proof shows that when $\mathbf{Set}^{\mathbf{C}^{op}}$ is not connected it is still true that $(1) \implies (2)$.
+
+An $n$-simplex $\sigma$ of a simplicial set $S$ is called \emph{degenerate} if there exists an $m < n$ and an order-preserving surjection $f : \mathbf{n} \to \mathbf{m}$ and an $m$-simplex $\tau$ of $S$ such that $\sigma = (Sf)(\tau)$. Note that $0$-simplices (vertices) are never degenerate. An $n$-simplex $\sigma$ is called \emph{non-degenerate} if it is not degenerate.
+
+\begin{lemma}[Eilenberg-Zilber]
+\label{lem:eilenberg-zilber} Let $S \in \mathbf{SSets}$. For each $n$-simplex $\sigma \in S_n$ there exists a unique order-preserving surjection $f : \mathbf{n} \to \mathbf{m}$ and a unique non-degenerate $m$-simplex $\tau \in S_m$ such that $\sigma = (Sf)(\tau)$.
+\end{lemma}
+\begin{proof}
+\begin{color}{red} Put a reference here... \end{color}
+If $\sigma$ is already non-degenerate, take $m=n$ and $f = \id$. If $\sigma$ is degenerate, then there exists some surjection $f_1 : [n] \to [m_1]$ with $m_1 < n$ and an $m_1$-simplex $\sigma_1$ such that $\sigma = (Sf_1)(\sigma_1)$. If $\sigma_1$ is non-degenerate, we are done. Otherwise, continue in this way until we reach a $\sigma_j$ that is non-degenerate. This process ends eventually since with each iteration, $m_i < m_{i-1}$, and vertices are always non-degenerate.
+So the existence of such a pair $(f,\tau)$ with $\sigma = (Sf)(\tau)$ is established. Suppose then that $(f',\tau')$ is another pair with $\sigma = (Sf')(\tau')$. Consider the pushout
+\[ \begin{tikzcd}
+\left[n\right] \arrow{r}{f} \arrow[swap]{d}{f'} & \left[m\right] \arrow{d}{\pi} \\
+\left[m'\right] \arrow[swap]{r}{\pi'} & \left[p\right]
+\end{tikzcd} \]
+in $\mathbf{\Delta}$. We can apply the Yoneda functor to get a commutative diagram
+\[ \begin{tikzcd}
+\mathbf{\Delta}\left(-,\left[n\right]\right) \arrow{r}{\mathbf{\Delta}\left(-,f\right)} \arrow[swap]{d}{\mathbf{\Delta}\left(-,f'\right)} & \mathbf{\Delta}\left(-,\left[m\right]\right) \arrow{d}{\mathbf{\Delta}\left(-,\pi\right)} \\
+\mathbf{\Delta}\left(-,\left[m'\right]\right) \arrow[swap]{r}{\mathbf{\Delta}\left(-,\pi'\right)} & \mathbf{\Delta}\left(-,\left[p\right]\right)
+\end{tikzcd} \]
+in $\mathbf{SSet}$. This diagram is still a pushout. While the $n$-simplex $\sigma$ is an element of the set $S_n$, it may equivalently be regarded as a functor $\sigma : \mathbf{\Delta}(-,[n]) \to S$ describing how the simplex is laid into the simplicial set. Similarly for $\tau$ and $\tau'$. Hence we have a commutative diagram
+\[ \begin{tikzcd}
+\mathbf{\Delta}\left(-,\left[n\right]\right) \arrow{r}{\mathbf{\Delta}\left(-,f\right)} \arrow[swap]{d}{\mathbf{\Delta}\left(-,f'\right)} & \mathbf{\Delta}\left(-,\left[m\right]\right) \arrow{d}{\mathbf{\Delta}\left(-,\pi\right)} \arrow[bend left]{ddr}{\tau} \\
+\mathbf{\Delta}\left(-,\left[m'\right]\right) \arrow[swap]{r}{\mathbf{\Delta}\left(-,\pi'\right)} \arrow[swap, bend right]{rrd}{\tau'} & \mathbf{\Delta}\left(-,\left[p\right]\right) \arrow[dotted]{dr}{\exists ! \rho} \\
+\; & \; & S
+\end{tikzcd} \]
+Since $\tau \circ \mathbf{\Delta}(-,f) = \sigma = \tau' \circ\mathbf{\Delta}(-,f')$, there exists a unique mediating $\rho$ such that $\mathbf{\Delta}(-,\pi) \circ \rho = \tau$ and $\mathbf{\Delta}(-,\pi') \circ \rho = \tau'$ as indicated by the dotted arrow. We can regard $\rho$ equivalently as a $p$-simplex in the set $S_p$, while $\pi$ and $\pi'$ are order-preserving surjections. So we see that $\tau = (S \pi)(\rho)$ and $\tau' = (S \pi')(\rho)$. But $\tau$ and $\tau'$ are both non-degenerate. So we must have $\pi = \pi' = \id$, $m=p=m'$, and hence $\tau = \tau'$.
+\end{proof}
+
+% \begin{lemma}
+% Let $S \in \mathbf{SSets}$ be a simplicial set. For every $p \in |S|$ there exists a unique non-degenerate simplex $\sigma \in S$ such that $p \in |\sigma| \subseteq |S|$ and if $v_1,\ldots,v_n \in S_0$ are the vertices of $\sigma$, then for the barycentric coordinates $p = \sum_{i=1}^n \lambda_i |v_i|$, we have $\lambda_i > 0$ for all $1 \leq i \leq n$.
+% \end{lemma}
+% \begin{proof}
+% Let $p \in |S|$. By \cref{lem:eilenberg-zilber}, we may assume $p$ is contained in some non-degenerate $n$-simplex $\sigma : \mathbf{\Delta}(-,[n]) \to S$, so that $p \in |\sigma| \subset |S|$. Write $p = \sum_{i=0}^n \lambda_i |v_i|$, where $v_i \in S_0$ is $\sigma_{[0]}(i)$, $\sum_{i=0}^n \lambda_i = 1$ and $\lambda_i \geq 0$. If $\lambda_i = 0$ for some $i$, observe then that $p \in |d_i \sigma|$, where $d_i \sigma$ is non-degenerate. Continue in this way until for each remaining indices $i$ we have $\lambda_i > 0$. During each application of a face map $d_i$, the resulting simplex stays non-degenerate.
+% \end{proof}
+
+% \begin{proposition}
+% Let $X$ be a finite $T_0$-space. Then there exists an equivalence of categories
+% \[ \Sh(\mathcal{O}(X)) \cong \mathbf{Set}^{X^{op}}. \]
+% \end{proposition}
+% \begin{proof}
+% Define $\varphi : \Sh(\mathcal{O}(X)) \to \mathbf{Set}^{X^{op}}$ by sending a sheaf $F$ on $\mathcal{O}X$ to the presheaf defined as sending an object $x \in X$ to $FU_x$. If $x \leq y$ in $X$, then $U_x \subseteq U_y$, so we get restriction maps $FU_y \to FU_x$ for free. Thus $\varphi(F)$ is a presheaf on the poset $X$. Given a morphism $f : F \to F'$ in $\Sh(\mathcal{O}X)$, The morphism $\varphi(f) : \varphi(F) \to \varphi(F')$ is defined on components by $\varphi(f)_x = f_{U_x} : FU_x \to F'U_x$. Hence $\varphi$ is a functor. We'll construct a quasi-inverse $\psi : \mathbf{Set}^{X^{op}} \to \Sh(\mathcal{O}X)$ for $\varphi$. Let $P \in \mathbf{Set}^{X^{op}}$. By \cite[Comparison Lemma, paragraph 4 of the appendix]{MacLaneMoerdijk91}, it suffices to define $\psi(P)$ on a basis and checking the sheaf condition on that basis. Of course, as basis for the topological space $X$ we take we minimal opens $\{U_x : x \in X\}$. Hence $\varphi(P)$ is defined on basis-opens by $\varphi(P)(U_x) = P(x)$. The sheaf condition for basis-opens is automatic, since it is minimal. It's straightforward to see that $\varphi$ and $\psi$ are each other's quasi-inverse. The $T_0$ condition is used to show that $(\varphi \circ \psi)(P) = P$.
+% \end{proof}
+
+% \begin{corollary}
+% Let $X$ be a finite $T_0$-space and let $|NX|$ be the geometric realization of the nerve of $X$ regarded as a poset. Then there is a geometric morphism
+% \[ f : \Sh(\mathcal{O}|NX|) \to \mathbf{Set}^{X^{op}} \]
+% whose left-adjoint $f^*$ induces an equivalence of categories
+% \[ \mathbf{Set}^{X^{op}}_{lcf} \cong \Sh(\mathcal{O}|NX|)_{lcf}. \]
+% \end{corollary}
+% \begin{proof}
+% Let $\mu : |NX| \to X$ be the McCord map sending a point $p = \sum_{i=0}^n \lambda_i |v_i| \in |NX|$ to the minimum of its support $\min \{v_i : \lambda_i > 0\}$. Then the continuous map $\mu$ induces two functors
+% \[ f_* : \Sh(\mathcal{O}|NX|) \to \mathbf{Set}^{X^{op}}, \qquad F \mapsto F \circ \mu^{-1} \]
+% and
+% \[ f^* : \mathbf{Set}^{X^{op}} \to \Sh(\mathcal{O}|NX|), \qquad P \mapsto \left( U \mapsto \colim_{V \supseteq \mu(U)} \lim_{x \in V} P(x) \right)^{+} \]
+% which are adjoint, $f^* \dashv f_*$, and $f^*$ is left-exact. Hence $f = (f^* \dashv f_*)$ is a geometric morphism. Since $\mu$ is a weak homotopy equivalence by \cite[Theorem 1.4.6]{barmak11} it is immediate that $\mathbf{Set}^{X^{op}}_{lcf} \cong \Sh(\mathcal{O}|NX|)_{lcf}$.
+% \end{proof}
+
+% \begin{example}
+% We saw that every finite $G$-set, for $G$ a discrete group, is in fact locally constant finite. This is not so for monoids. For instance, consider the finite set $\Z/n\Z$ whereupon $\N$ acts as follows. For $(x,k) \in \Z/n\Z \times \N$, we set $x * k = 0$ if $k > 0$ and $x * k = x$ if $k=0$. Then $*$ is a monoid action, but the map $ - *1 : \Z/n\Z \to \Z/n\Z$ given by $x \mapsto x * 1$ is not injective. So $\Z/n\Z$ with the given action is not locally constant by \cref{prop:locally constant iff every restriction map is a bijection}.
+% \end{example}
+
+% \begin{lemma}
+% \label{lem:every lcf N set is also an lcf Z set}
+% Every locally constant finite $\N$-set is also a locally constant finite $\Z$-set.
+% \end{lemma}
+% \begin{proof}
+% Let $X \in (\mathbf{B}\N)_{lcf}$. Then $1 : X \to X$, $x \mapsto x * 1$ is bijective by \cref{prop:locally constant iff every restriction map is a bijection}. Let $(-1) : X \to X$ be its inverse. Then the map $-n : X \to X$ for $n > 0$ is defined as applying $(-1)$ an $n$ number of times. Thus $X \times \Z \to X_0 \times \Z$, $(x,n) \mapsto (x * (-n), n)$ is a $\Z$-trivialization, so $X \in (\mathbf{B}\Z)_{lcf}$.
+% \end{proof}
+
+% \begin{corollary}
+% Let $p : \mathbf{Set} \to \mathbf{B}\N$ be the point whose inverse image part forgets the $\N$-action. Then
+% \[ \pi_1\left( \mathbf{B}\N, p \right) \cong \widehat{\Z}. \]
+% \end{corollary}
+% \begin{proof}
+% Every locally constant finite $\Z$-set is a locally constant finite $\N$-set since $\Z$ has a canonical $\N$-action. Moreover, by \cref{lem:every lcf N set is also an lcf Z set} the converse is also true. So $\left(\mathbf{B}\N \right)_{lcf} \cong \left( \mathbf{B} \Z \right)_{lcf}$. Consequently, by \cref{thm:the fundamental group of BG is the profinite completion of G} the result follows.
+% \end{proof}
+
+% The inclusion functor $i : \mathbf{Grp} \to \mathbf{Mon}$ from the category of groups to the category of monoids has both a left and right adjoint. 
+% The right adjoint sends a monoid $M$ to its group of units $M^\times$. Indeed, given a homomorphism $f : i(G) \to M$ of monoids, $f$ must map units into units. 
+% But everything in $i(G)$ is a unit since $G$ is a group. So the codomain of $f$ can be restricted to $M^\times$. 
+% On the other hand, given a homomorphism of groups $f : G \to M^\times$, we clearly have a homomorphism of monoids $f : iG \to M$ simply by extending the codomain. Hence we have set up a bijection between $\Hom_{\mathbf{Mon}} \left( iG, M \right)$ and $\Hom_{\mathbf{Grp}} \left( G, M^\times \right)$. 
+% The left adjoint of $i$ is the free group functor $M^{grp}$ for a monoid $M$. 
+% It is defined as the free group on the set of symbols $\{x_m : m \in M\}$ modulo the normal subgroup generated by $x_{1}$ and elements of the form $x_m \cdot x_{m'}$ and $x_{m \cdot m'}^{-1}$ with $m,m' \in M$. For instance, $\N^{grp} = \Z$, $\left( \Z / 3 \Z, + \right)^{grp} = \left( \Z / 3\Z, + \right)$, $  \left( \Z / 3\Z, \times \right)^{grp} = 0$.
+% If $G$ is already a group, then $G^{grp} \cong G$. 
+% Given a homomorphism $f : M \to N$ of monoids, we get a group homomorphism $f^{grp} : M^{grp} \to N^{grp}$ defined by $f(x_{m}) = x_{f(m)}$. 
+% The bijection between $\Hom_{\mathbf{Grp}} \left( M^{grp}, G\right)$ and $\Hom_{\mathbf{Mon}} \left(M, iG \right)$ is then clear. 
+% Summarized, we have three functors
+% \[ \begin{tikzcd} \mathbf{Grp} \arrow{r}{i} & \mathbf{Mon} \arrow[bend left]{l}{\left(-\right)^{grp}} \arrow[swap, bend right]{l}{\left( - \right)^{\times}} \end{tikzcd}, \qquad \left( - \right)^{grp} \dashv i \dashv \left(- \right)^{\times}. \]
+
+% \begin{corollary}
+% Let $M$ be a monoid and let $p : \mathbf{Set} \to \mathbf{B}M$ be the point whose inverse image part forgets the $M$-action. Then
+% \[ \pi_1\left( \mathbf{B}M, p \right) \cong \widehat{M^{grp}}. \]
+% \end{corollary}
+% \begin{proof}
+
+% \end{proof}
+
+% \begin{definition}
+% \label{def:monoid ideals, prime ideals, faces}
+% Let $M$ be a monoid. A subset $I \subseteq M$ is called an \emph{ideal} if $x \in I$ and $y \in M$ imply that $xy \in I$. An ideal $I$ is called \emph{prime} if $I \neq M$ and $xy \in I$ implies that $x \in I$ or $y \in I$. A submonoid $F \subseteq M$ is called a \emph{face} if $xy \in F$ implies that both $x \in F$ as well as $y \in F$.
+% \end{definition}
+
+% Observe that if $\mathfrak{p}$ is a prime ideal of $M$, then $M \setminus \mathfrak{p}$ is a face of $M$. Convserely, if $F$ is a face of $M$ then $M \setminus F$ is a prime ideal of $M$. So we have found an inclusion-reversing bijection between the faces of $M$ and the prime ideals of $M$.
+
+% \begin{definition}
+% \label{def: spectrum of a monoid}
+% Let $M$ be a monoid. The \emph{spectrum} of $M$ is the set
+% \[ \Spec M := \left\{ \mathfrak{p} \mid \mathfrak{p} \text{ is a prime ideal of } M \right\}. \]
+% \end{definition}
+% \begin{example}
+% \label{ex: spectrum of N and spectrum of Z/4Z}
+% The ideals of $\N$ are the empty set $\emptyset$ and subsets of the form $\N_{\geq k}$ for any $k \in \N$. 
+% Of these, the prime ideals are $\emptyset$ and $\N_{\geq 1}$. So $\Spec \N = \{\emptyset, \N_{\geq 1}\}$. The ideals of the monoid $\Z/4\Z$ with multiplication are $\emptyset$, $\{0\}$, $\{0,2\}$ and $\Z/4\Z$. Of these, the prime ideals are $\emptyset$, $\{0\}$ and $\{0,2\}$. So $\Spec \Z/4\Z =\left\{ \emptyset, \{0\}, \{0,2\} \right\}$.
+% \end{example}
+% In \cref{ex: spectrum of N and spectrum of Z/4Z}, notice that there is always a maximal prime ideal (in the sense of inclusion). This is not a coincidence. A maximal ideal is a prime ideal that is maximal with respect to inclusion.
+
+% \begin{lemma}
+% Let $M$ be a monoid. Then $\Spec M$ has a unique maximal ideal, namely the complement of the units $M^\times$.
+% \end{lemma}
+% \begin{proof}
+% First we show that $M^\times$ is a face of $M$. Suppose that $xy \in M^\times$. If $x$ is not a unit, then it follows that $y$ is also not a unit. For if $y$ was a unit, then $(xy) \cdot y^{-1} = x \in M^\times$, since $M^\times$ is a submonoid. But if both $x$ and $y$ are not units, then their product $xy$ is also not a unit. Contradiction. Hence both $x$ and $y$ are units. So $M^\times$ is a face of $M$. Now let $F$ be an arbitrary face of $M$. Let $x \in M^\times$. The claim is that $x \in F$. We have $1 \in F$ because $F$ is a submonoid. Hence $xx^{-1} = x^{-1}x = 1 \in F$ implies that both $x$ and $x^{-1}$ are in $F$. So $M^\times \subseteq F$.
+% \end{proof}
+
+% Hence all the primes in $\Spec M$ are contained between the primes $\emptyset$ and $M \setminus M^\times$. Another easy corollary is that if $M = M^\times$, i.e. $M$ is a group, then $\Spec M = \{\emptyset\}$. Of course, $\Spec M$ can be given the structure of a topological space by declaring that sets of the form $Z(I) = \left\{ \mathfrak{p} \in \Spec M \mid I \subseteq \mathfrak{p} \right\}$, with $I$ an ideal of $M$, are closed, and then checking the usual axioms for a topology. We will not explore this direction.
+
+% \begin{remark}
+% Let $I$ be the unit interval of $\R$. Then $\mathcal{O}(I)$ is a locale and a category at the same time. So if a geometric morphism $\Sh(|N\mathcal{O}(I)|) \to \mathbf{Set}^{\mathcal{O}(I)^{op}}$ were to exist,
+% \end{remark}

@@ -1,0 +1,334 @@
+%!TEX root = main.tex
+%
+% restriction.tex
+%
+
+\chapter{Restriction}
+
+If $f : X \to Y$ is a continuous map of topological spaces, then for every open $U \subseteq Y$ we obtain a map $f|_{f^{-1}U}:f^{-1}U \to U$. We want to generalize this notion of restriction to toposes. Note that in general, $f^{-1}U \to U$ is not surjective nor injective.
+
+The aim is to generalize this notion of restriction to (Grothendieck or elementary) toposes.
+
+\section{Ingredients Which Might Be Useful}
+
+Denote by $\mathfrak{Top}$ the category whose objects are toposes and whose morphisms are geometric morphisms. In what follows, if $f : \mathscr{E} \to \mathscr{F}$ is a morphism in $\mathfrak{Top}$, we always denote the left adjoint, or inverse image part, by $f^*$ and we denote the right adjoint, or direct image part, by $f_*$.
+
+\begin{definition} Let $f : \mathscr{E} \to \mathscr{F}$ be a morphism in $\mathfrak{Top}$. Then $f$ is called \emph{essential} if $f^*$ has a further left adjoint; always denoted by $f_!$. Thus $(f_! \dashv f^* \dashv f_*)$.
+\end{definition}
+
+\begin{definition}
+Let $f : \mathscr{E} \to \mathscr{F}$ be a morphism in $\mathfrak{Top}$. We say that $f$ is \emph{injective}, or an \emph{embedding}, or an \emph{inclusion} if $f^*$ is fully faithful. 
+We say that $f$ is a \emph{surjection} if $f_*$ is faithful.
+\end{definition}
+
+\begin{proposition}
+Let $L \dashv R$ be an adjoint functor pair. Let $\eta : 1 \to RL$ be the unit and $\varepsilon : LR \to 1$ be the counit. Then the following holds.
+\begin{enumerate}
+  \item $R$ is faithful $\iff \varepsilon_x$ is an epimorphism for all objects $x$.
+  \item $R$ is full $\iff \varepsilon_x$ is a split monomorphism for all objects $x$.
+  \item $R$ is fully faithful $\iff \varepsilon_x$ is an isomorphism for all objects $x$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Since $L \dashv R$, for each pair of objects $x,y$ there is a natural bijection
+\[ \varphi = \varphi_{x,y} : \Hom(Lx,y) \to \Hom(x,Ry). \]
+Moreover we have a map
+\[ \psi = \psi_{x,y} : \Hom(x,y) \to \Hom(Rx,Ry), \qquad f \mapsto Rf. \]
+Thus we have a composition
+\[ \Hom(x,y) \xrightarrow{\psi_{x,y}} \Hom(Rx,Ry) \xrightarrow{\varphi_{Rx,y}^{-1}} \Hom(LRx,y). \]
+Now fix $x$. Then for each object $y$,
+\[ \varphi^{-1}_{Rx,y} \circ \psi_{x,y} = \Hom(\varepsilon_x,y) : \Hom(x,y) \to \Hom(LRx,y), \qquad f \mapsto f \circ \varepsilon_x. \]
+Now $R$ is faithful $\iff \psi_{x,y}$ is injective for all $x,y \iff \Hom(\varepsilon_x,y)$ is a split monomorphism for all $x,y \iff \varepsilon_x$ is a split monomorphism for all $x$, by Yoneda. Dually, $R$ is full $\iff \varepsilon_x$ is an epimorphism for all $x$. Finally, split mono $+$ epi $\implies$ iso and if $\varepsilon_x$ is an isomorphism, then $R$ is fully faithful by the $2$-out-of-$3$ property for isomorphisms.
+\end{proof}
+
+\begin{proposition}
+Let $L \dashv R$ be an adjoint functor pair. Let $\eta : 1 \to RL$ be the unit and $\varepsilon : LR \to 1$ be the counit. The following are equivalent.
+\begin{enumerate}
+  \item $L$ is faithful.
+  \item $\eta_x$ is a monomorphism for all objects $x$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+Since $L \dashv R$, for each pair of objects $x,y$ there is a natural bijection
+\[ \varphi = \varphi_{x,y} : \Hom(Lx,y) \to \Hom(x,Ry). \]
+Moreover we have a map
+\[ \psi = \psi_{x,y} : \Hom(x,y) \to \Hom(Lx,Ly), \qquad f \mapsto Lf. \]
+Thus we have a composition
+\[ \Hom(x,y) \xrightarrow{\psi_{x,y}} \Hom(Lx,Ly) \xrightarrow{\varphi_{x,Ly}} \Hom(x,RLy). \]
+Now fix $y$. Then for each object $x$,
+\[ \varphi_{x,Ly} \circ \psi_{x,y} = \Hom(x, \eta_y) : \Hom(x,y) \to \Hom(x, RLy), \qquad f \mapsto \eta_y \circ f. \]
+Now $L$ is faithful $\iff \psi_{x,y}$ is injective for all $x,y \iff \Hom(x,\eta_y)$ is a monomorphism for all $x,y \iff \eta_y$ is a monomorphism for all $y$, by Yoneda.
+\end{proof}
+
+\begin{lemma}
+Let $\phi_! \dashv \phi^* \dashv \phi_*$ be a triple of adjoint functors. Then the unit $1 \to \phi^* \phi_!$ of the first adjunction is an isomorphism if and only if the counit $\phi^* \phi_* \to 1$ of the second adjunction is an isomorphism. Hence $\phi_*$ is fully faithful if and only if $\phi_!$ is.
+\end{lemma}
+\begin{proof}
+\cite{MacLaneMoerdijk91}, Lemma VII.4.1.
+\end{proof}
+
+\begin{corollary}
+Let $(f^* \dashv f_*) = f : \mathscr{E} \to \mathscr{F}$ be a geometric morphism with unit $\eta$ and counit $\varepsilon$. Then the following holds.
+\begin{enumerate}
+  \item $f$ is injective iff $\eta_x$ is a monomorphism for all $x \in \mathscr{E}$.
+  \item $f$ is surjective iff $\varepsilon_x$ is an isomorphism for all $x \in \mathscr{E}$.
+  \item If $f$ is essential with further left adjoint $f_!$, then $f$ is surjective iff the unit $1 \to f^* f_!$ is an isomorphism.
+\end{enumerate}
+\end{corollary}
+
+\begin{definition}
+Call a monic $m$ the \emph{image} of the arrow $f$ in $\mathscr{E}$ if $f$ factors through $m$, say as $f = me$ for some $e$ and if, whenever $f$ factors through a monic $h$, so does $m$.
+\end{definition}
+This says in effect that $m$ is the smallest subobject of the codomain of $f$ through which $f$ can factor.
+
+\begin{theorem}[Internal Factorization Theorem]
+\label{internal factorization}
+Let $\mathscr{E}$ be a topos. Then every morphism $f : x \to y$ in $\mathscr{E}$ factors as $f = me$, where $m$ is the image of $f$ (see definition above) and $e$ an epimorphism. Moreover this decomposition is unique up to isomorphism.
+\end{theorem}
+
+\begin{proof}
+\cite{MacLaneMoerdijk91}, Proposition IV.6.1 and IV.6.2. What you do is you take the cokernel pair of $f$ with itself. That is, the pushout of $f$ with itself.
+\end{proof}
+
+\begin{theorem}[External Factorization Theorem]
+\label{external factorization}
+Let $f = \mathscr{E} \to \mathscr{F}$ be a morphism in $\mathfrak{Top}$. Then there exists a topology $j$ on $\mathscr{F}$ for which $f$ factors through the embedding $i : \Sh_j \mathscr{F} \to \mathscr{F}$ by a surjection $p$:
+\[ \begin{tikzcd}
+\mathscr{E} \arrow[rr, "f"] \arrow[dr, swap, two heads, "p"] & & \mathscr{F} \\
+& \Sh_j \mathscr{F} \arrow[ur, swap, hook, "i"]
+\end{tikzcd} \]
+Moreover, this factorization exists and is unique up to equivalence of categories, and every other factorization factors through this one.
+\end{theorem}
+\begin{proof}
+\cite{MacLaneMoerdijk91}, Theorem VII.4.6, Corollary VII.4.7 and Theorem VII.4.8. The proof is about 4 pages long.
+\end{proof}
+
+\section{Approach One}
+Let $f : \mathscr{E} \to \mathscr{F}$ be a morphism in $\mathfrak{Top}$.
+Fix an object $A \in \mathscr{F}$. Let $(f^* \dashv f_*)$ be the adjoint functor pair corresponding to $f$. Note that $\mathscr{F}/A$ is a topos, as well as $\mathscr{E}/f^*A$. We want to define a geometric morphism
+\[ \mathscr{E}/f^*A \to \mathscr{F}/A. \]
+Thus we need to supply a pair of adjoint functors such that the left adjoint is also left-exact.
+
+Given an object $(B \to A) \in \mathscr{F}/A$, we can send it to $f^*(B\to A) = (f^*B \to f^*A) \in \mathscr{E}/f^*A$, no problems there.
+
+Given an object $(B \xrightarrow{x} f^*A) \in \mathscr{E}/f^*A$, the only thing we can do is send it to $f_*(B \xrightarrow{x} f^*A) = f_*B \xrightarrow{f_*(x)} f_* f^*A$. We have a morphism coming from the unit of the adjunction $\eta_A : A \to f_* f^* A$. Together with $f_*B \to f_* f^*A$, form the pullback:
+\[
+\begin{tikzcd}
+P \arrow[r, "p_1"] \arrow[d, swap, "p_2"] & f_*B \arrow[d, "f_*(x)"] \\
+A \arrow[r, swap, "\eta_A"] & f_*f^*A
+\end{tikzcd}\]
+Since the pullback only depends on the morphism $x$ (the geometric morphism $f$ and the object $A$ are fixed), we will denote it by $P(x) := P$. The morphism $p_2$ from the pullback only depends on $x$, too, so we will denote it by $p(x) := p_2$.
+Thus we have found two functors
+\[ \begin{tikzcd} \mathscr{E} / f^*A \arrow[r, bend left, "f_*/A"] & \mathscr{F}/A \arrow[l, bend left, "f^*/A"] \end{tikzcd} \]
+defined on objects by
+\[ \left( f_*/A \right) \left(B \xrightarrow{x} f^*A \right) = \left( P(x) \xrightarrow{p(x)} A \right) \]
+and
+\[ \left(f^*/A \right) \left( B \xrightarrow{x} A \right) = \left( f^*B \xrightarrow{f^*(x)} f^*A \right). \]
+What $f^*/A$ does on morphisms is clear. What $f_*/A$ does on morphisms could use more exposition. Given a morphism
+\[ \begin{tikzcd}
+B \arrow[rr, "z"] \arrow[dr, swap, "x"] & & C \arrow[dl, "y"] \\
+& f^*A &
+\end{tikzcd} \]
+in $\mathscr{E}/f^*A$, we obtain two pullbacks
+\[\begin{tikzcd}
+P(x) \arrow[r, "p_1"] \arrow[d, swap, "p(x)"] & f_*B \arrow[d, "f_*(x)"] \arrow[rr, bend left, "f_*(z)"] & P(y) \arrow[r, "q_1"] \arrow[d, swap, "p(y)"] & f_*C \arrow[d, "f_*(y)"] \\
+A \arrow[r, swap, "\eta_A"] & f_*f^*A & A \arrow[r, swap, "\eta_A"] & f_*f^*A
+\end{tikzcd}\]
+We know that $f_*(x) = f_*(yz) = f_*(y) f_*(z)$. From the universal property of the pullback, we obtain a (unique) morphism
+\[\begin{tikzcd}
+P(x) \arrow[dr, dotted, "\exists! w"] \arrow[ddr, bend right, swap, "p(x)"] \arrow[drr, bend left, "f_*(z) \circ p_1"] \\
+& P(y) \arrow[r, "q_1"] \arrow[d, swap, "p(y)"] & f_*C \arrow[d, "f_*(y)"] \\
+& A \arrow[r, swap, "\eta_A"] & f_*f^*A
+\end{tikzcd}\]
+such that $p_2 = q_2 \circ w$ and $f_*(z) \circ p_1 = q_1 \circ w$. The induced morphism $w$ depends only on the morphism $z$, so we will denote it by $p(z) := w$. We define $(f_*/A)(z) = p(z)$.
+We should check wether $\left( f^*/A \dashv f_*/A \right)$ and wether $f^*/A$ is left exact. To check wether $\left( f^*/A \dashv f_*/A \right)$, we need to find a unit
+\[ \alpha : 1 \to \left(f_*/A\right) \circ \left( f^*/A \right) \]
+and a counit
+\[ \beta : \left( f^*/A \right) \circ \left( f_*/A \right) \to 1 \]
+such that they satisfy the zigzag identities. 
+Given an object $(B \xrightarrow{x} A) \in \mathscr{F}/A$, form the pullback from $f_*/A$ again, on the object $(f^*B \xrightarrow{f^*(x)} f^*A)$:
+\[\begin{tikzcd}
+B \arrow[dr, dotted, "\exists! b"] \arrow[ddr, bend right, swap, "x"] \arrow[drr, bend left, "\eta_B"] \\
+& P\left(f^*x\right) \arrow[r, "p_1"] \arrow[d, swap, "p\left(f^*x\right)"] & f_*f^*B \arrow[d, "f_*f^*(x)"] \\
+& A \arrow[r, swap, "\eta_A"] & f_*f^*A
+\end{tikzcd}\]
+where $\eta_B : B \to f_* f^* B$ is the unit of $(f^* \dashv f_*)$. The morphism $b : B \to P(f^*x)$ depends only on the morphism $x$, so we denote it by $a(x) := b$. We set $\alpha_B := a(x)$. 
+
+Given an object $(B \xrightarrow{x} f^*A) \in \mathscr{E}/f^*A$, application of $f_*/A$ gives us $\left(P(x) \xrightarrow{p(x)} A \right) \in \mathscr{F}/A$, coming from the pullback
+\[\begin{tikzcd}
+P(x) \arrow[r, "p_1"] \arrow[d, swap, "p(x)"] & f_*B \arrow[d, "f_*x"] \\
+A \arrow[r, swap, "\eta_A"] & f_*f^*A
+\end{tikzcd}\]
+Application of $f^*$ to this pullback diagram gives us
+\[\begin{tikzcd}
+f^*P(x) \arrow[rr, "f^*p_1"] \arrow[dd, swap, "f^*p(x)"] & & f^*f_*B \arrow[dd, "f^*f_*x"] \arrow[dl, swap, "\varepsilon_B"] \\
+ & B & \\
+f^*A \arrow[rr, swap, "f^*\eta_A"] & & f^*f_*f^*A
+\end{tikzcd}\]
+where $\varepsilon_B : f^*f_*B \to B$ is the counit of $(f^* \dashv f_*)$. We set $\beta_B := \varepsilon_B \circ f^*p_1$. Let us check wether $\alpha$ and $\beta$ satisfy the zigzag identities. So we need to check wether
+\[\begin{tikzcd}
+asdf
+\end{tikzcd}\]
+
+\section{Generalization of This Construction}
+Let
+\[\begin{tikzcd}
+\mathcal{D} \arrow[r, bend left, "R"] & \mathcal{C} \arrow[l, bend left, "L"]
+\end{tikzcd}\]
+be two adjoint functors; $(L \dashv R)$. Suppose that $\mathcal{C}$ has pullbacks. Fix an object $X \in \mathcal{C}$. Define two functors
+\[\begin{tikzcd}
+\mathcal{D}/LX \arrow[r, bend left, "R/X"] & \mathcal{C}/X \arrow[l, bend left, "L/X"]
+\end{tikzcd}\]
+as follows. Given an object $ a \in \mathcal{C}/X$, where $a : A \to X$, define
+\[ \left(L/X\right)(a) := La = \left( LA \xrightarrow{La} LX \right) \in \mathcal{D}/LX. \]
+Given a morphism $f : a \to b$ in $\mathcal{C}/X$, where
+\[\begin{tikzcd}
+A \arrow[rr, "f"] \arrow[dr, swap, "a"] & & B \arrow[dl, "b"] \\
+& X &  
+\end{tikzcd}\]
+define
+\[ \left(L/X\right)(f) := Lf = \begin{tikzcd} LA \arrow[rr, "Lf"] \arrow[dr, swap, "La"] & & LB \arrow[dl, "Lb"] \\ & LX & \end{tikzcd} \in \mathcal{D}/LX \]
+This was the easy part. Let us define $R/X$. Given an object $a \in \mathcal{D}/LX$, where $a : A \to LX$, we have a pullback diagram in $\mathcal{C}$:
+\[\begin{tikzcd}
+RA \times_{Ra} X \arrow[r, "\pi_{\eta,a}"] \arrow[d, swap, "\pi_a"] & RA \arrow[d, "Ra"] \\
+X \arrow[r, swap, "\eta_X"] & RLX 
+\end{tikzcd}\]
+where $\eta : 1 \to RL$ is the unit of the adjunction $(L \dashv R)$. We use the notation $RA \times_{Ra} X$ for the pullback to indicate the (only) dependence on the morphism $a : A \to LX$. We define
+\[ \left( R/X \right)(a) := \pi_a = \left(RA \times_{Ra} X \xrightarrow{\pi_a} X \right) \in \mathcal{C}/X. \]
+Given a morphism $f : a \to b$ in $\mathcal{D}/LX$, where
+\[\begin{tikzcd}
+A \arrow[rr, "f"] \arrow[dr, swap, "a"] & & B \arrow[dl, "b"] \\
+& LX &  
+\end{tikzcd} \]
+we form two pullbacks in $\mathcal{C}$:
+\[\begin{tikzcd}
+RA \times_{Ra} X \arrow[r, "\pi_{\eta,a}"] \arrow[d, swap, "\pi_a"] & RA \arrow[d, "Ra"] \arrow[rr, bend left, "Rf"] & RB \times_{Rb} X \arrow[r, "\pi_{\eta,b}"] \arrow[d, swap, "\pi_b"] & RB \arrow[d, "Rb"] \\
+X \arrow[r, swap, "\eta_X"] & RLX & X \arrow[r, swap, "\eta_X"] & RLX
+\end{tikzcd}.\]
+We know that $Ra = (Rb)(Rf)$. From the universal property of the pullback, we obtain a unique morphism
+\[\begin{tikzcd}
+RA \times_{Ra} X \arrow[dr, dotted, "\exists! \pi_f"] \arrow[ddr, bend right, swap, "\pi_a"] \arrow[drr, bend left, "Rf \circ \pi_{\eta,a}"] \\
+& RB \times_{Rb} X \arrow[r, "\pi_{\eta,b}"] \arrow[d, swap, "\pi_b"] & RB \arrow[d, "Rb"] \\
+& X \arrow[r, swap, "\eta_X"] & RLX
+\end{tikzcd}\]
+because $(Rb)(Rf)(\pi_{\eta,a}) = (Ra)\pi_{\eta,a} = \eta_X \pi_a$. We define
+\[ \left( R/X \right)(f) := \pi_f = \begin{tikzcd}
+RA \times_{Ra} X \arrow[rr, "\pi_f"] \arrow[dr, swap, "\pi_a"] & & RB \times_{Rb} X \arrow[dl, "\pi_b"] \\
+& X &  
+\end{tikzcd}. \]
+This is well-defined, because $\pi_a = \pi_b \pi_f$ from the pullback.
+
+\begin{proposition}
+\label{restriction adjoint pair}
+The induced functors $L/X$ and $R/X$ form an adjoint pair: $(L/X \dashv R/X)$.
+\end{proposition}
+\begin{proof}
+Let $\eta : 1_{\mathcal{C}} \to RL$ be the unit of $(L \dashv R)$ and let $\varepsilon : LR \to 1_{\mathcal{D}}$ be the counit. Here $1_{\mathcal{C}}$ denotes the identity functor on $\mathcal{C}$ and $1_{\mathcal{D}}$ denotes the identity functor on $\mathcal{D}$. We want to find two natural transformations
+\[ \alpha : 1_{\mathcal{C}/X} \to (R/X) \circ (L/X), \qquad \beta : (L/X) \circ (R/X) \to 1_{\mathcal{D}/LX} \]
+that satisfy the ``unit-counit triangle'' identities. That is, for every object $a \in \mathcal{C}/X$ and for every object $b \in \mathcal{D}/LX$, we require that the diagrams
+\[ \begin{tikzcd}[column sep=5em,row sep=2em]
+(L/X)(a) \arrow[r, "(L/X)(\alpha_a)"] \arrow[dr, equal] & (L/X) (R/X) (L/X) (a) \arrow[d, "\beta_{(L/X)(a)}"] \\
+& (L/X)(a)
+\end{tikzcd} \]
+and
+\[ \begin{tikzcd}[column sep=5em,row sep=2em]
+(R/X)(b) \arrow[r, "\alpha_{(R/X)(b)}"] \arrow[dr, equal] & (R/X) (L/X) (R/X) (b) \arrow[d, "(R/X)\beta_b"] \\
+& (R/X)(b)
+\end{tikzcd} \]
+commute. Given such an object $a \in \mathcal{C}/X$, where $a : A \to X$, form the pullback in $\mathcal{C}$ from $R/X$ again on the object $La$:
+\[\begin{tikzcd}
+A \arrow[dr, dotted, "\exists! p_a"] \arrow[ddr, bend right, swap, "a"] \arrow[drr, bend left, "\eta_A"] \\
+& RLA \times_{RLa} X \arrow[r, "\pi_{\eta,La}"] \arrow[d, swap, "\pi_{La}"] & RLA \arrow[d, "RLa"] \\
+& X \arrow[r, swap, "\eta_X"] & RLX
+\end{tikzcd}.\]
+We see that, since $\eta$ is a natural transformation, $RLa \circ \eta_A = \eta_X \circ a$. Hence there exists a unique morphism $p_a : A \to RLA \times_{RLa} X$, in $\mathcal{C}$, such that $a = \pi_{La} \circ p_a$ and $\eta_A = \pi_{\eta,La} \circ p_a$. We define the natural transformation $\alpha$ as $\alpha_a := p_a$, for each object $a \in \mathcal{C}/X$.
+
+On the other hand, given an object $b \in \mathcal{D}/LX$, where $b : B \to LX$, form the pullback from $R/X$ again and apply $L$ afterwards:
+\[\begin{tikzcd}
+L\left(RB \times_{Rb} X\right) \arrow[rr, "L \pi_{\eta,b}"] \arrow[dd, swap, "L\pi_b"] & & LRB \arrow[dd, "LRb"] \arrow[dl, dotted, swap, "\varepsilon_B"] \\
+ & B \arrow[dl, dotted, swap, "b"] & \\
+LX \arrow[rr, swap, "L\eta_X"] & & LRLX
+\end{tikzcd}\]
+where $\varepsilon_B$ is coming from the counit of $(L \dashv R)$. 
+This diagram might not be a pullback anymore, since $L$ is not necessarily left exact, although the outer rectangle still commutes. We define $\beta_b := \varepsilon_B \circ L\pi_{\eta,b}$, for each object $b \in \mathcal{D}/LX$.
+
+We will now check wether $\alpha$ and $\beta$ are in fact natural transformations.
+So let $f : a \to b$ be a morphism in $\mathcal{C}/X$, where $a : A \to X$, $b : B \to X$, $f : A \to B$ in $\mathcal{C}$ and $a = b \circ f$ in $\mathcal{C}$. Then we need to check if the diagram
+\[\begin{tikzcd}
+a \arrow[r, "f"] \arrow[d, swap, "\alpha_a"] & b \arrow[d, "\alpha_b"] \\
+\pi_{La} \arrow[r, swap, "\pi_{Lf}"] & \pi_{Lb}
+\end{tikzcd}\]
+commutes in $\mathcal{C}/X$.
+Unraveling what this means, we need to show that the upper left rectangle in the diagram
+\[\begin{tikzcd}
+A \arrow[r, "f"] \arrow[d, swap, "p_a"] & B \arrow[d, "p_b"] \arrow[dr, "\eta_B"] \\
+RLA \times_{RLa} X \arrow[r, swap, "\pi_{Lf}"] \arrow[dr, swap, "\pi_{La}"] & RLB \times_{RLb} X \arrow[d, "\pi_{Lb}"] \arrow[r, swap, "\pi_{\eta,Lb}"] & RLB \arrow[d, "RLb"] \\
+& X \arrow[r, swap, "\eta_X"] & RLX
+\end{tikzcd}\]
+commutes in $\mathcal{C}$. Since $\eta$ is a natural transformation, there exists a unique mediating morphism $\partial : A \to RLB \times_{RLb} X$ coming from the universal property of the pullback $RLB \times_{RLb} X$.
+The morphism $\partial$ is such that
+\begin{align*}
+\eta_B f &= \pi_{\eta,Lb} \partial, \\
+\pi_{La} p_a &= \pi_{Lb} \partial.
+\end{align*}
+But since both $p_b$ and $\pi_{Lf}$ posess a universal property with respect to $RLB \times_{RLb} X$, we must have
+\[ \pi_{Lf} p_b = \partial = p_a f. \]
+
+Now let $f : a \to b$ be a morphism in $\mathcal{D}/LX$, where $a : A \to LX$, $b : B \to LX$ and $f:A \to B$ in $\mathcal{D}$ and $a = b \circ f$. Then we need to check if the diagram
+\[\begin{tikzcd}
+L\pi_a \arrow[r, "L\pi_f"] \arrow[d, swap, "\beta_a"] & L\pi_b \arrow[d, "\beta_b"] \\
+a \arrow[r, swap, "f"] & b
+\end{tikzcd}\]
+commutes in $\mathcal{D}/LX$. Unraveling what this means, we need to show that the diagram
+\[ \begin{tikzcd}
+L\left(RA \times_{Ra} X\right) \arrow[r, "L\pi_f"] \arrow[d, swap, "\varepsilon_A \circ L\pi_{\eta,a}"] & L \left( RB \times_{Rb} X \right) \arrow[d, "\varepsilon_B \circ L \pi_{\eta,b}"] \\
+A \arrow[r, swap, "f"] & B
+\end{tikzcd} \]
+commutes in $\mathcal{D}$. This is a chain of straightforward substitutions from what we know:
+\begin{align*}
+\varepsilon_B L\pi_{\eta,b} L\pi_f &= \epsilon_B L \left( \pi_{\eta,b} \pi_f \right)& & \\
+&= \varepsilon_B L \left((Rf)\pi_{\eta,a} \right) &\text{because $\pi_f$ is a mediating morphism}& \\
+&= \varepsilon_B (LRf) L\pi_{\eta,a} & &\\
+&= f \varepsilon_A L\pi_{\eta,a} & \text{because $\varepsilon$ is a natural transformation.} &
+\end{align*}
+So we conclude that $\alpha$ and $\beta$ are natural transformations.
+
+We will now check the triangle identities. In effect, we need to check for every $a : A \to X$ in $\mathcal{C}$ if the composition
+\[ \begin{tikzcd} LA \arrow[r, "L\alpha_a"] & L\left(RLA \times_{RLa} X \right) \arrow[r, "\beta_{LA}"] & LA \end{tikzcd} \]
+is equal to $L(1_A)$. But this is straightforward:
+\[ \beta_{LA} L\alpha_a = \varepsilon_{LA} L\pi_{\eta,La} Lp_a = \varepsilon_{LA} L \left( \pi_{\eta,La} p_a \right) = \varepsilon_{LA} L \eta_A = L\left(1_A \right). \]
+In the last equality, we use that $\eta$ and $\varepsilon$ satisfy the triangle identities. Now if $b : B \to LX$ is an object in $\mathcal{D}/LX$, we need to check if the composition
+\[ \begin{tikzcd} RB \times_{Rb} X \arrow[r, "\alpha_{\pi_b}"] & \left(RL\left(RB \times_{Rb} X \right)\right) \times_{L\pi_{b}} X \arrow[r, "(R/X)\beta_{b}"] & RB \times_{Rb} X \end{tikzcd} \]
+is equal to $(R/X)(1_B) = 1_{RB \times_{Rb} X}$.
+\end{proof}
+
+\begin{lemma}
+\label{left exact restriction}
+If $L : \mathcal{C} \to \mathcal{D}$ is a left exact functor, then so is $L/X : \mathcal{C}/X \to \mathcal{D}/LX$ for every object $X \in \mathcal{C}$.
+\end{lemma}
+\begin{proof}
+It suffices to show that $L/X$ preserves the terminal object $1_X$ and preserves pullbacks. Clearly $(L/X)(1_X) = 1_{LX}$, which is the terminal object in $\mathcal{D}/LX$. Pullbacks in $\mathcal{C}/X$ are pullbacks over $X$ in $\mathcal{C}$ and $L$ preserves them. So $L/X$ preserves pullbacks too.
+\end{proof}
+
+\begin{proposition}
+Let $f : \mathscr{E} \to \mathscr{F}$ be a geometric morphism between toposes. Then for every object $U \in \mathscr{F}$, we have an induced geometric morphism $f|_U : \mathscr{E}/f^*U \to \mathscr{F}/U$, called restriction, defined by
+\begin{align*}
+\left(f|_U\right)^* \left( A \xrightarrow{a} U \right) &= f^*A \xrightarrow{f^*a} f^*U, \\
+\left(f|_U\right)_*(B \xrightarrow{b} f^*U) &= f_*B \times_{f_*b} U \xrightarrow{\pi_b} U,
+\end{align*}
+where the morphism $\pi_b$ is defined as in (\ref{restriction adjoint pair}).
+\end{proposition}
+
+\begin{example}
+Let $f : X \to Y$ be a continuous map of topological spaces. Choose an open subset $U \subseteq Y$. The Yoneda functor $h_U = \Hom(\cdot, U)$ is a sheaf on $Y$; it is a subobject of the terminal sheaf $\Hom(\cdot, Y)$ on $Y$. I claim that $\Sh(U) \cong \Sh(Y) / h_U$, an equivalence of categories. Indeed, if $F \in \Sh(U)$ is a sheaf on $U$, there is always a morphism of sheaves $F \to h_U$ since $h_U$ is terminal in $\Sh(U)$. Hence we obtain a functor $\Sh(U) \to \Sh(Y)/h_U$. On the other hand, given an object $F \to h_U$ in $\Sh(Y)/h_U$, we have an obvious forgetful functor forgetting the sheaf morphism to $h_U$. This functor is well-defined because $F$ has no support outside $U$.
+
+From the continuous map $f$ we obtain a geometric morphism of toposes
+\[ f : \Sh(X) \to \Sh(Y) \]
+where the inverse image part is defined by $(f^*F)(V) = \colim_{W \supseteq f(V)} F(W)$ and the direct image part is defined by $(f_*F)(V) = F(f^{-1}(V))$. Observe that
+\[ (f^*h_U)(V) = \colim_{W \supset f(V)} h_U(W) = \colim_{W \supset f(V)} \left\{ \begin{array}{ll} 1,& \text{ if $W \subseteq U$}, \\ \emptyset,& \text{ if not}. \end{array} \right. \]
+\[ = h_{f^{-1}U}. \]
+So we obtain a geometric morphism
+\[ f|_U : \Sh(X) / h_{f^{-1}U} \to \Sh(Y) / h_U. \]
+On the other hand, we can just as well consider
+\[ f|_U : \Sh\left(f^{-1}U \right) \to \Sh(U). \]
+\end{example}

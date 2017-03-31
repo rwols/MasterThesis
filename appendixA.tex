@@ -1,0 +1,176 @@
+%!TEX root = main.tex
+%
+% appendixA.tex
+%
+
+\chapter{Finite Topological Spaces}
+Most can be found in \cite{barmak11}.
+%-----------------------------------------------------------------------------
+\begin{definition}
+	Denote the category of finite topological spaces by $\mathbf{FinTop}$.
+	The morphisms are continuous maps.
+	Denote the category of finite preordered sets by $\mathbf{FinPre}$.
+	The morphisms are order-preserving maps. That is, $f : X \to Y$ is a
+	morphism between preordered sets if and only if
+	$x \leq x' \Longrightarrow f(x) \leq f(x')$.
+	Denote the category of finite directed graphs by $\mathbf{FinGraph}$.
+\end{definition}
+%-----------------------------------------------------------------------------
+\begin{definition}
+	If $X \in \mathbf{FinTop}$ and $x \in X$, define the \emph{open hull} of
+	$x$ as
+	\[ U_x := \bigcap_{x \in U \subseteq X} U,\]
+	where $U$ ranges over all open neighborhoods of $x$. 
+	If necessary, we may write $U_x^X$ to make clear that we are talking about
+	the open hull of a specific space $X$. 
+	Similarly, we define the \emph{closed hull} of $x$ as
+	\[ F_x := \bigcap_{x \in F \subseteq X} F,\]
+	where $F$ ranges over all closed neighborhoods of $x$.
+\end{definition}
+%-----------------------------------------------------------------------------
+\begin{remark}
+	The open hull $U_x$ of a point $x \in X$ is an open set. 
+	It is the smallest open set that contains the point $x$. 
+	Similarly, $F_x$ is the smallest closed set that contains $x$.
+	Observe too, that $F_x = \overline{\{x\}}$.
+\end{remark}
+%-----------------------------------------------------------------------------
+\begin{lemma} \label{lem:closed hulls and open hulls}
+	Let $X \in \mathbf{FinTop}$ and $x,y \in X$.
+	Then $x \in F_y \iff y \in U_x$.
+\end{lemma}
+\begin{proof}
+For two points $x,y \in X$, we have
+\begin{align*}
+x \in F_y &\iff x \in \overline{\{y\}} \\
+&\iff x = y \text{ or } x \text{ is a limit point of } y \\
+&\iff x = y \text{ or for every open } U \subseteq X \text{ with } 
+	x \in U \text{ it also holds } y \in U \\
+&\iff y \text{ is in every open neighborhood of } x \\
+&\iff y \in U_x
+\end{align*}
+\end{proof}
+Recall that a topological space $X$ is called a $T_0$-space if for every two
+points $x,y \in X$, with $x \neq y$ there exists an open set $U \subseteq X$
+such that $x \in U$ and $y \not\in U$. If $X$ has the trivial topology, then
+$X$ is not $T_0$. Every discrete space has the $T_0$-property. Every
+Hausdorff space is $T_0$. Not every $T_0$-space is a Hausdorff space.
+For instance, a set with two points $\{0,1\}$ where the topology is given
+by
+\[ \emptyset, \{0,1\}, \{1\} \]
+is a $T_0$-space, but is not Hausdorff.
+A $T_1$-space is a topological space $X$ such that for every two points
+$x,y \in X$, with $x \neq y$ there exist two open sets $U,V \subseteq X$ such
+that $x \in U$, $y \not\in U$ and $x \not\in V$, $y \in V$. Clearly a space
+being $T_1$ is also $T_0$. Not every $T_1$-space is Hausdorff. For instance,
+take $\Z$ with the cofinite topology. More generally, every irreducible
+$T_1$-space with more than one point is not Hausdorff.
+%-----------------------------------------------------------------------------
+\begin{definition}
+	Given $X \in \mathbf{FinTop}$, we define a relation
+	\[ x \leq y \iff x \in F_y. \]
+\end{definition}
+%-----------------------------------------------------------------------------
+
+Given $P \in \mathbf{FinPre}$, we can also construct a graph 
+$(P,E) \in \mathbf{FinGraph}$ where the vertices are the elements of $P$
+and we construct an edge $(x,y) \in E$ if $x \geq y$. A graph morphism
+between two directed graphs $(V,E),(V',E') \in \mathbf{FinGraph}$ is a map
+of sets $f : V \to V'$ with the property that whenever $(v,w) \in E$, then
+$(f(v),f(w)) \in E'$. In other words, graph morphisms respect edges.
+
+Given $(V,E) \in \mathbf{FinGraph}$, we can also decree the sets
+\[ U_x := \{ y \in V : y \leq x \}, \qquad x \in V \]
+as a basis of open sets for $V$, endowing $V$ with a topology.
+
+These three constructions give us equivalent objects in their respective
+categories.
+
+%-----------------------------------------------------------------------------
+\begin{proposition}
+	Let $X \in \mathbf{FinTop}$.
+	\begin{enumerate}[label=\romansmallnumbering]
+		\item \label{prop:p1i} $x \leq y \iff F_x \subseteq F_y$.
+		\item \label{prop:p1ii} $\leq$ is a preordering.
+		\item \label{prop:p1iii} $X$ is $T_0 \iff \leq$ is a partial order 
+			$\iff X$ has no directed cycles in its graph.
+		\item \label{prop:p1iv} $X$ is $T_1 \iff X$ is discrete $\iff$ no
+		two distinct points are comparable $\iff$ the graph of $X$ contains
+		no edges.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+For (\ref{prop:p1i}), suppose that $x \leq y$. Then $x \in F_y$. So $F_y$ is a
+closed neighborhood for $x$. $F_x$ is the smallest closed neighborhood for
+$x$. Hence $F_x \subseteq F_y$. On the other hand, suppose that
+$F_x \subseteq F_y$. Then $x \in F_y$, so $x \leq y$. For (\ref{prop:p1ii}),
+we have $x \in F_x$, so $x \leq x$. Suppose that $x \leq y$ and $y \leq z$ for
+three points $x,y,z \in X$. Then by (\ref{prop:p1i}), we have
+$F_x \subseteq F_y \subseteq F_z$, so $x \leq y$. For (\ref{prop:p1iii}),
+Suppose that $X$ is $T_0$. 
+Assume we have two points $x,y \in X$ such that
+$x \leq y$ and $y \leq x$. 
+Then $U_x = U_y$ by (\ref{prop:p1i}) and Lemma
+\ref{lem:closed hulls and open hulls}. 
+Since $U_x$ and $U_y$ are the smallest
+open sets that contain $x,y$, there exists no open $U \subseteq X$ such that
+$x \in U$ and $y \not\in U$. 
+Therefore $x=y$. Hence $\leq$ is antisymmetric.
+On the other hand, if $\leq$ is antisymmetric, assume we have two distinct
+points $x,y \in X$.
+If $x$ and $y$ are incomparable, we may take $U = X \setminus F_y$.
+If $x$ and $y$ are comparable, let's say $x \leq y$ without loss of
+generality.
+Since $\leq$ is assumed to be a partial order and $x \neq y$, we know that
+$x < y$, hence $y \not\in F_x \iff x \not\in U_y$ by Lemma
+\ref{lem:closed hulls and open hulls}.
+So we may take $U = U_y$.
+\end{proof}
+%-----------------------------------------------------------------------------
+\begin{definition}
+	Given $X \in \mathbf{FinPre}$, define for every $x \in X$ the set
+	\[ U_x := \{y \in X : x \leq y \}. \]
+\end{definition}
+%-----------------------------------------------------------------------------
+\begin{proposition}
+Let $X \in \mathbf{FinPre}$. Then the set $\{U_x : x \in X\}$ is a basis of
+open sets for a topology on $X$.
+\end{proposition}
+\begin{proof}
+Clearly $\bigcup_{x \in X} U_x = X$. 
+Let $x,y \in X$ be such that $U_x \cap U_y \neq \emptyset$.
+If $z \in U_x \cap U_y$, then $x \leq z$ and $y \leq z$. So if $w \in U_z$,
+then $w \leq z \leq x,y$, therefore $U_z \subseteq U_x \cap U_y$.
+\end{proof}
+To every finite space $X$, we can associate a simplicial set. For any $n \in \N$, define
+\[ [n] := \left\{0,1,2,\ldots,n-1,n\right\} \subset \N. \]
+The subsets of the form $[n]$ together with monotonic maps between them forms a category denoted by $\Delta$. In $\Delta$, define the morphisms
+\[ d^i_n : [n-1] \to [n], \qquad j \mapsto \left\{ \begin{array}{ll} j ,& \text{if } j < i, \\ j+1 ,& \text{if } j \geq i. \end{array} \right. , \qquad 0 \leq i \leq n. \]
+Informally, $d_n^i$ skips $i$. When it is clear from context, we sometimes omit the subscript $n$ and just write $d^i$. We call the $d^i$ \emph{coboundary} maps. Now let us define
+\[ s^i_n : [n+1] \to [n], \qquad j \mapsto \left\{ \begin{array}{ll} j ,& \text{if } j < i, \\ j-1,& \text{if } j \geq i. \end{array} \right. , \qquad 0 \leq i \leq n. \]
+Informally, $s_n^i$ repeats $i$. Just like with $d^i$ we write $s^i$ if there's no ambiguity over what the value of $n$ is. We call the $s^i$ \emph{codegeneracy} maps.
+
+\begin{proposition}[The cosimplicial identities]
+\label{cosimplicial identities}
+The following diagrams commute. TODO
+\[ \begin{tikzcd}
+\left[n-1\right] \arrow[r, "d^i_n"] \arrow[d, swap, "d^{j+1}_n"] & \left[n\right] \arrow[d, "d_{n+1}^j"] \\
+\left[n\right] \arrow[r, swap, "d^i_{n+1}"] & \left[n+1\right]
+\end{tikzcd} \]
+\end{proposition}
+\begin{proof}
+Easy diagram chasing.
+\end{proof}
+
+\begin{definition}
+We call the presheaves of $\Delta$, i.e. the objects of $\widehat{\Delta}$ \emph{simplicial sets}.
+\end{definition}
+
+Given a finite $T_0$ space $X$, the set $X$ is partially ordered. Thus we may define a functor $\mathcal{K}$ given by
+\[ \mathcal{K} : \mathbf{FinTop} \to \widehat{\Delta}, \qquad X \mapsto \Hom_{\mathbf{Poset}}\left(\cdot, X\right). \]
+More explicitly, the contravariant functor $\mathcal{K}X$ is defined, for each $n \in \N$, by
+\[ \left( \mathcal{K}X \right)_n = \Hom_{\mathbf{Poset}}\left([n], X \right), \]
+and for each monotonic map $f : [m] \to [n]$,
+\[ (\mathcal{K}X)(f) : \Hom_{\mathbf{Poset}}\left([n], X \right) \to \Hom_{\mathbf{Poset}} \left( [m], X \right), \qquad \alpha \mapsto \alpha \circ f. \]
+We also have a functor
+\[ \Sing : \mathbf{Top} \to \widehat{\Delta}, \qquad X \mapsto \left( [n] \mapsto \Hom_{\mathbf{Top}}\left(\Delta_n, X\right) \right). \]

@@ -1,0 +1,160 @@
+%!TEX root = main.tex
+%
+% cover.tex
+%
+
+\chapter{Locally Constant Objects}
+
+Fix a topos $\mathscr{E}$.
+
+\begin{definition}[Family version]
+\label{definition: cover family version}
+A collection of objects $\{f_{\alpha} : U_\alpha \to 1\}_{\alpha \in I}$ is called a \emph{cover} if the $f_\alpha$ constitute a jointly epimorphic family. That is to say, $\bigsqcup_{\alpha} f_{\alpha} : \bigsqcup_{\alpha} U_{\alpha} \twoheadrightarrow 1$ is an epimorphism.
+\end{definition}
+
+\begin{definition}[Single version]
+\label{definition: cover single version}
+An object $U \in \mathscr{E}$ is called a \emph{cover} if $U \twoheadrightarrow 1$ is an epimorphism.
+\end{definition}
+
+If $\mathscr{E}$ is cocomplete (has all colimits $D : I \to \mathscr{E}$, where $I$ is a small category), then \cref{definition: cover family version} and \cref{definition: cover single version} coincide.
+
+\begin{definition}
+Let $X,U \in \mathscr{E}$, $U \neq 0$. Then $X$ is said to be \emph{trivialized by $U$} if there exists a set $S \in \mathbf{Sets}$ such that $X \times U \cong \Delta S \times U$ in the slice topos $\mathscr{E}/U$. The set $S$ is called a \emph{local trivialization}, local to the object $U$.
+\end{definition}
+
+\begin{lemma}
+If $X \in \mathscr{E}$ is trivialized by some $U$, say $X \times U \cong \Delta S \times U$ and $V \to U$ is any morphism, then $X \times V \cong \Delta S \times V$.
+\end{lemma}
+\begin{proof}
+$X \times V$ is the pullback of $X \times U \to U \leftarrow V$ and $\Delta S \times V$ is the pullback of $\Delta S \times U \to U \leftarrow V$. But these are isomorphic, hence $X \times V \cong \Delta S \times V$ by uniqueness of the pullback.
+\end{proof}
+
+Note in particular that $V$ can be the initial object $0$, although the lemma does not give us any useful information in that case.
+
+Recall that a well-pointed has a fully faithful global sections functor.
+
+\begin{lemma}
+Assume $\mathscr{E}$ is well-pointed. If $X$ is trivialized by some $U$ with two different local trivializations, say $\Delta T \times U \cong X \times U \cong \Delta S \times U$, then $S \cong T$ as $\mathbf{Sets}$.
+\end{lemma}
+\begin{proof}
+
+\end{proof}
+
+\begin{definition}
+An object $X \in \mathscr{E}$ is \emph{locally constant} if there is a covering family $\{f_{\alpha} :U_{\alpha} \to 1\}_{\alpha \in I}$ such that for each $\alpha \in I$ the object $X$ is trivialized by $U_{\alpha}$.
+\end{definition}
+
+\begin{definition}
+Let $U \in \mathscr{E}$ be a cover. An object $V \in \mathscr{E}$ is called a \emph{refinement} of $U$ if there is an epimorphism $V \twoheadrightarrow U$.
+\end{definition}
+
+\begin{example}
+Let $X$ be a topological space. A cover of $X$ is a collection $\{U_\alpha\}_{\alpha \in I}$ of open subsets $U_{\alpha} \subseteq X$ for each $\alpha \in I$. Equivalently, it is a topological space $\bigsqcup_{\alpha} U_\alpha$ with a surjection to $X$. Hence $\bigsqcup_{\alpha} h_{U_{\alpha}} \twoheadrightarrow h_X = 1$ is an epimorphism, and therefore a cover in $\Sh(X)$. This example requires that $\mathbf{Top}$ be cocomplete.
+\end{example}
+
+\begin{lemma}
+\label{lemma: common refinement of covers exists}
+Let $U,V \in \mathscr{E}$ be covers. Then there exists a common refinement of both $U$ and $V$.
+\end{lemma}
+\begin{proof}
+Take the pullback of $U \twoheadrightarrow 1 \twoheadleftarrow V$. Epimorphisms are stable under pullback by \cite[Theorem VII.7.3]{MacLaneMoerdijk91}
+\end{proof}
+
+\begin{definition}
+An object $X \in \mathscr{E}$ is called \emph{constant} if there exists a set $S \in \mathbf{Sets}$ such that $X \cong \Delta S$.
+\end{definition}
+
+\begin{definition}
+An object $X \in \mathscr{E}$ is called \emph{locally constant} if there exists a cover $U \twoheadrightarrow 1$ and a set $S \in \mathbf{Sets}$ such that $X \times U \cong \Delta S \times U$ in the slice topos $\mathscr{E}/U$.
+\end{definition}
+
+Note that a constant object $X \in \mathscr{E}$ is locally constant by taking $U = 1$.
+
+\begin{lemma}
+\label{lemma: refinement of locally constant object is locally constant}
+If $X \in \mathscr{E}$ is locally constant, say $X \times U \cong \Delta S \times U$ in $\mathscr{E}/U$ and if $V \to U$ is any morphism to $U$, then $X \times V \cong \Delta S \times V$ in $\mathscr{E}/V$.
+\end{lemma}
+\begin{proof}
+In the diagram below
+\[ \begin{tikzcd}
+X \times V \arrow[rrrr, dotted] \arrow[dr] \arrow[dddrr, bend right] &            &   &                   & \Delta S \times V \arrow[dl] \arrow[dddll, bend left] \\
+           & X \times U \arrow[rr, "\sim"] \arrow[dr] &   & \Delta S \times U \arrow[dl] & \\
+           &            & U &                   & \\
+           &            & V \arrow[u] &
+\end{tikzcd} \]
+the bottom left area is a pullback, as is the bottom right area. Since there is a morphism from $X \times U$ to $\Delta S \times U$ we get an induced morphism from the pullback $X \times V \to \Delta S \times V$ as indicated by the dotted arrow. But the newly formed trapezoid is a pullback. Since both monomorphisms and epimorphisms are stable under pullback, the dotted arrow is also both mono and epi. Hence it is an isomorphism since $\mathscr{E}$ is balanced.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: different presentations of locally constant object}
+If $X \in \mathscr{E}$ is locally constant with two different presentations, say $X \times U \cong \Delta S \times U$ and $X \times V \cong \Delta T \times V$ in $\mathscr{E}/U$ and $\mathscr{E}/V$, respectively, then $\Delta S \cong \Delta T$.
+\end{lemma}
+\begin{proof}
+Let $W$ be a common refinement of the covers $U$ and $V$. By \cref{lemma: refinement of locally constant object is locally constant} we know that $X \times W \cong \Delta S \times W$ and $X \times W \cong \Delta T \times W$ in $\mathscr{E}/W$. Hence $\Delta S \times W \cong \Delta T \times W$ in $\mathscr{E}/W$, so $\Delta T \cong \Delta S$ in $\mathscr{E}$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: terminal object is locally const}
+The terminal object $1 \in \mathscr{E}$ is locally constant.
+\end{lemma}
+\begin{proof}
+Take $U = 1$ and $S = *$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: pullback of locally const is locally const}
+Let $X,Y,Z$ be locally constant objects in $\mathscr{E}$. Suppose that there are morphisms $X \to Z \leftarrow Y$. Then the pullback $X \times_Z Y$ is locally constant.
+\end{lemma}
+\begin{proof}
+Suppose that $X \times U_X \cong \Delta S_X \times U_X$, $Y \times U_Y \cong \Delta S_Y \times U_Y$ and $Z \times U_Z \cong \Delta S_Z \times U_Z$ in $\mathscr{E}/U_X$, $\mathscr{E}/U_Y$ and $\mathscr{E}/U_Z$, respectively. Take a common refinement $U$ of $U_X$, $U_Y$ and $U_Z$. Let $S = S_X \times_{S_Z} S_Y$. Then $\Delta S = \Delta S_X \times_{\Delta S_Z} \Delta S_Y$ because $\Delta$ is left exact. Since
+\[ \begin{tikzcd}
+ \left( X \times_Z Y \right) \times U \arrow[r] \arrow[d] & X \times U \cong \Delta S_X \times U \arrow[d] \\
+ Y \times U \cong \Delta S_Y \times U \arrow[r] & Z \times U \cong \Delta S_Z \times U
+\end{tikzcd} \]
+and
+\[ \begin{tikzcd}
+ \Delta S \times U \arrow[r] \arrow[d] & X \times U \cong \Delta S_X \times U \arrow[d] \\
+ Y \times U \cong \Delta S_Y \times U \arrow[r] & Z \times U \cong \Delta S_Z \times U
+\end{tikzcd} \]
+are both pullbacks of the same diagram, by uniqueness of pullbacks we must have an isomorphism $\left( X \times_Z Y \right) \times U \cong \Delta S \times U$.
+\end{proof}
+
+\begin{corollary}
+All finite limits of locally constant objects are locally constant.
+\end{corollary}
+
+\begin{lemma}
+\label{lemma: initial object is locally const}
+The initial object $0 \in \mathscr{E}$ is locally constant.
+\end{lemma}
+\begin{proof}
+Take $U = 1$ and $S = \emptyset$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma: locally constant coproducts}
+If $X,Y$ are locally constant in $\mathscr{E}$, then so is $X + Y$.
+\end{lemma}
+\begin{proof}
+Assume $X \times U_X \cong \Delta S_X \times U_X$ and $Y \times U_Y \cong \Delta S_Y \times U_Y$ in $\mathscr{E}/U_X$ and $\mathscr{E}/U_Y$, respectively. Take a common refinement $U$ of $U_X,U_Y$ and let $S = S_X \sqcup S_Y$. Then $\Delta S = \Delta S_X + \Delta S_Y$ because $\Delta$ preserves all colimits. Therefore
+\begin{align*}
+\Delta S \times U &\cong \left( \Delta S_X + \Delta S_Y \right) \times U \\
+&\cong \left( \Delta S_X \times U \right) + \left( \Delta S_Y \times U \right) \\
+&\cong \left(X \times U \right) + \left(Y \times U \right) \cong \left(X + Y\right) \times U
+\end{align*}
+as required.
+\end{proof}
+
+\begin{definition}
+An object $X \in \mathscr{E}$ is called \emph{locally constant finite} if it is locally constant, say $X \times U \cong \Delta S \times U$ in $\mathscr{E}/U$, and moreover the set $S$ is finite.
+\end{definition}
+
+Let $\mathscr{E}_f$ be the full subcategory of $\mathscr{E}$ whose objects are locally constant finite.
+
+\begin{proposition}
+Let $p : \mathbf{Sets} \to \mathscr{E}$ be a point. Then $\mathscr{E}_f$ together with the inverse image part $p^*$ of $p$ is a Galois category.
+\end{proposition}
+\begin{proof}
+We check the axioms of \cite[Definition 3.1]{lenstra08}. Axiom (G1) is true by \cref{lemma: terminal object is locally const} and \cref{lemma: pullback of locally const is locally const}.
+\end{proof}
